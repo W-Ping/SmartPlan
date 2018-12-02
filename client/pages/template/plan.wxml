@@ -1,0 +1,138 @@
+<!--模板【代办任务、进行中任务、完成任务】-->
+<template name="todo-plan">
+  <view class="todo-plan {{item.isTouchMove ? 'touch-move-active' : ''}}" bindtouchstart="todoTouchstart" bindtouchmove="todoTouchmove" bindtouchend="todoTouchend" data-index="{{index}}">
+    <view class='conent'>
+      <view class="tt-level level-{{item.level}}">
+        <view class="level-type">{{item.level}}级</view>
+      </view>
+      <view class='tt-title title-level-{{item.level}}'>
+        <text>{{item.content}}</text>
+      </view>
+      <view class='tt-auther'>{{item.auther}}</view>
+    </view>
+    <view class='posit'>
+      <view class='p-opt delete' catchtap="deletePlan" data-planNo="{{item.planNo}}" data-index="{{index}}">删 除</view>
+      <view class='p-opt start' catchtap="startPlan" data-planNo="{{item.planNo}}" data-index="{{index}}">启 动</view>
+    </view>
+  </view>
+</template>
+<template name="doing-plan">
+  <view class="doing-plan {{item.isTouchMove ? 'touch-move-active' : ''}}" bindtouchstart="doingTouchstart" bindtouchmove="doingTouchmove" bindtouchend="doingTouchend" data-index="{{index}}">
+    <view class='di-box'>
+      <view class='di-conent'>
+        <view class='di-progress level-{{item.level}}'>
+          <text>{{item.progress}}%</text>
+        </view>
+        <view class='di-title  title-level-{{item.level}}'>
+          <view style='height:150rpx;'>{{item.content}}</view>
+          <view style='height:10rpx; overflow: hidden;'>
+            <progress percent="{{item.progress}}" active-mode="forwards" stroke-width="20px" active='true' activeColor='#09BB07' />
+          </view>
+        </view>
+      </view>
+      <view class='di-add' data-index="{{index}}" bindtap='addprogress'>
+        <image style="width:30px;height:40px;background-color: #eeeeee;" mode="widthFix" src='../../images/add.png'></image>
+      </view>
+    </view>
+    <view class='posit'>
+      <view class='p-opt priority' catchtap="topPlan" data-planNo="{{item.planNo}}" data-index="{{index}}">优 先</view>
+      <view class='p-opt delete' catchtap="deletePlan" data-planNo="{{item.planNo}}" data-index="{{index}}">删 除</view>
+    </view>
+  </view>
+</template>
+<template name="finish-plan">
+  <view class='finish-plan' data-id='{{item.id}}' data-status='{{item.status}}' bindtap='planDetail'>
+    <view class='ft-conent'>
+      <view class="ft-quality">
+        <view class="quality-type">{{item.quality}}</view>
+      </view>
+      <view class='ft-title'>
+        <text>{{item.content}}</text>
+      </view>
+      <view class='ft-finisher'>{{item.finisher}}</view>
+    </view>
+  </view>
+</template>
+<template name="finish-plan-detail">
+  <view class='finish-plan-detail'>
+    <view class='ftd ftd-conent'>{{conent}}</view>
+    <view class='ftd ftd-level'>
+      <view>
+        <label>优先级别</label>
+      </view>
+      <view>{{level}}</view>
+    </view>
+    <view class='ftd ftd-startTime'>
+      <view>
+        <label>预估</label>
+      </view>
+      <view>{{estimateTime+''+estimateType}}</view>
+    </view>
+    <view class='ftd ftd-estimateTime'>
+      <view>
+        <label>预估时间</label>
+      </view>
+      <view class='estimateTime'>
+        <view>
+          <text>{{estimateStartTime}}</text>
+        </view>
+        <view>至</view>
+        <view>
+          <text>{{estimateEndTime}}</text>
+        </view>
+      </view>
+    </view>
+    <view class='ftd ftd-estimateTime'>
+      <view>
+        <label>实际时间</label>
+      </view>
+      <view class='estimateTime'>
+        <view>
+          <text>{{startTime}}</text>
+        </view>
+        <view>至</view>
+        <view>
+          <text>{{finishTime}}</text>
+        </view>
+      </view>
+    </view>
+    <view class='ftd ftd-auther'>
+      <view>
+        <label>报告人</label>
+      </view>
+      <view>{{auther}}</view>
+    </view>
+    <view class='ftd ftd-finisher'>
+      <view>
+        <label>经办人</label>
+      </view>
+      <view>{{finisher}}</view>
+    </view>
+  </view>
+</template>
+<template name="plan-list">
+  <navigator class="plan-list {{item.isTouchMove ? 'touch-move-active' : ''}}" bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="touchend" data-index="{{index}}" url="{{url+'?opt=edit&planNo='+item.planNo}}">
+    <!-- <view class="plan-list list"> -->
+    <view class='conent'>
+      <view class='conent-box'>
+        <view class='tt-no'>
+          <text>{{item.planNo}}</text>
+        </view>
+        <view class='tt-box'>
+          <view class="tt-level e-level level-{{item.level}}">
+            <view class="level-type">{{item.level}}级</view>
+          </view>
+          <view class='tt-title e-title title-level-{{item.level}}'>
+            <text>{{item.content}}</text>
+          </view>
+        </view>
+      </view>
+      <view class='tt-auther e-auther'>{{item.auther}}</view>
+    </view>
+    <view class='posit'>
+      <view class='p-opt priority' catchtap="topPlan" data-planNo="{{item.planNo}}" data-index="{{index}}">优 先</view>
+      <view class='p-opt delete' catchtap="deletePlan" data-planNo="{{item.planNo}}" data-index="{{index}}">删 除</view>
+    </view>
+    <!-- </view> -->
+  </navigator>
+</template>

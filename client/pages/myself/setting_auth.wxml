@@ -1,0 +1,43 @@
+<view class='auth-contianer'>
+  <view class='ac-desc'>
+    <text>授权操作：授权好友分配计划给你权限。\n</text>
+    <text>停止授权操作：停止授权好友分配计划给你权限。</text>
+  </view>
+  <view class='ac-box head'>
+    <view class='auth ac-name'>
+      <text>用户名称</text>
+    </view>
+    <view class='auth ac-uid'>
+      <text>UID</text>
+    </view>
+    <view class='auth ac-label'>
+      <text>标 签</text>
+    </view>
+    <view class='auth'>
+      <view>
+        <text>操 作</text>
+      </view>
+    </view>
+  </view>
+  <block wx:for="{{authUserList}}" wx:for-item="item" wx:for-index="index" wx:key="*this">
+    <view class='ac-box'>
+      <view class='auth ac-name'>
+        <text>{{item.realName}}</text>
+      </view>
+      <view class='auth ac-uid'>
+        <text>{{item.uid}}</text>
+      </view>
+      <view class='auth ac-label'>
+        <text>{{item.userLabel}}</text>
+      </view>
+      <view class='auth ac-options' data-uid='{{item.uid}}' data-distributionauth='{{item.distributionAuth}}' bindtap='authOpt'>
+        <view wx:if="{{item.distributionAuth==1}}">
+          <text class='open'>授权</text>
+        </view>
+        <view wx:else>
+          <text class='stop'>停止授权</text>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

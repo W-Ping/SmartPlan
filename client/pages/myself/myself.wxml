@@ -1,0 +1,78 @@
+<!--client/pages/myself/myself.wxml-->
+<view class='my-container'>
+  <view class='avatar-box'>
+    <image class="my-avatar" src="{{userinfo.avatarUrl?userinfo.avatarUrl:'../../images/default_avatar.png'}}" mode="cover"></image>
+  </view>
+  <view class='info-box'>
+    <view>
+      <text>{{userinfo.nickName?userinfo.nickName:'昵称'}}</text>
+    </view>
+    <view>
+      <text style='font-size:15px;color:#ccc;'>{{userinfo.company_name?userinfo.company_name:'ID:U00001'}}</text>
+    </view>
+  </view>
+  <view class='setting-box' bindtap='toSetting' data-uid='{{userinfo.uid}}'>
+    <text>编辑</text>
+    <text space="nbsp"> ></text>
+  </view>
+</view>
+<view class='menu-continar'>
+  <view class='menu-box'>
+    <view class='menu-item' bindtap='navigatorToFriend'>
+      <view class='menu-image'>
+        <image class='image' src='../../images/friend.png'></image>
+      </view>
+      <view class='menu-text'>
+        <text>好 友</text>
+      </view>
+    </view>
+    <view class='menu-item'>
+      <view class='menu-image'>
+        <image class='image' src='../../images/sign.png'></image>
+      </view>
+      <view class='menu-text'>
+        <text>签 到</text>
+      </view>
+    </view>
+    <view class='menu-item' bindtap='navigatorToOvertime'>
+      <view class='menu-image'>
+        <image class='image' src='../../images/overtime.png'></image>
+      </view>
+      <view class='menu-text'>
+        <text>加 班</text>
+      </view>
+    </view>
+  </view>
+  <view class='menu-box'>
+    <view class='menu-item' bindtap='navigatorToSearch'>
+      <view class='menu-image'>
+        <image class='image' src='../../images/search.png'></image>
+      </view>
+      <view class='menu-text'>
+        <text>查 询</text>
+      </view>
+    </view>
+    <view class='menu-item'>
+      <view class='menu-image'>
+        <image class='image' src='../../images/work.png'></image>
+      </view>
+      <view class='menu-text'>
+        <text>上/下班</text>
+      </view>
+    </view>
+    <view class='menu-item' bindtap='navigatorToNotepad'>
+      <view class='menu-image'>
+        <image class='image' src='../../images/notepad.png'></image>
+      </view>
+      <view class='menu-text'>
+        <text>记事本</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view class='plan-contaner'>
+  <import src="../template/statistics.wxml" />
+  <block wx:for="{{statPlanList}}" wx:for-item="item" wx:for-index="index" wx:key="*this">
+    <template is="statistics-plan" data="{{item,index,url:'plan_edit'}}" />
+  </block>
+</view>

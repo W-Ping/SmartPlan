@@ -1,13 +1,61 @@
 {
-  "pages":[
-    "pages/index/index",
-    "pages/addCgi/addCgi"
+  "pages": [
+    "pages/today/today",
+    "pages/myself/myself",
+    "pages/today/today_detail",
+    "pages/plan/plan",
+    "pages/addCgi/addCgi",
+    "pages/template/plan",
+    "pages/plan/plan_list",
+    "pages/plan/plan_edit",
+    "pages/template/statistics",
+    "pages/myself/setting",
+    "pages/myself/setting_edit",
+    "pages/friend/friend",
+    "pages/myself/setting_auth",
+    "pages/overtime/overtime",
+    "pages/search/search",
+    "pages/notepad/notepad"
   ],
-  "window":{
-    "backgroundColor":"#F6F6F6",
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "Wafer Quick Start",
-    "navigationBarTextStyle":"black"
-  }
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#00abff",
+    "navigationBarTitleText": "废才计划",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#000000",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/today/today",
+        "iconPath": "images/find.png",
+        "selectedIconPath": "images/find_bk.png",
+        "text": "今天"
+      },
+      {
+        "pagePath": "pages/plan/plan",
+        "iconPath": "images/plan.png",
+        "selectedIconPath": "images/plan_bk.png",
+        "text": "计划"
+      },
+      {
+        "pagePath": "pages/myself/myself",
+        "iconPath": "images/my.png",
+        "selectedIconPath": "images/my_bk.png",
+        "text": "我的"
+      }
+    ],
+    "position": "bottom"
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "connectSocket": 60000,
+    "uploadFile": 60000,
+    "downloadFile": 10000
+  },
+  "debug": true
 }

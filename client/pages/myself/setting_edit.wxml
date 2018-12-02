@@ -1,0 +1,9 @@
+<form bindsubmit="updateUserinfo">
+  <view class='save-val'>
+    <input hidden name="uid" value="{{uid}}"></input>
+    <input focus name="{{name}}" type="{{type}}" maxlength="{{maxlength}}" placeholder="{{placeholder}}" value='{{value}}'></input>
+  </view>
+  <view class='save-btn'>
+    <button form-type="submit">保存</button>
+  </view>
+</form>

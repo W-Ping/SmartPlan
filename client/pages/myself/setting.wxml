@@ -1,0 +1,150 @@
+<!--client/pages/myself/setting.wxml-->
+<view class='su-container'>
+  <view class='st-box'>
+    <view class='box st-image'>
+      <image class='image' src='../../images/update_user.png'></image>
+    </view>
+    <view class='stt-box'>
+      <view class='box stt-text'>
+        <text>更新个人昵称和头像</text>
+      </view>
+      <view class='box stt-gt'>
+        <text>></text>
+      </view>
+    </view>
+  </view>
+</view>
+<view class='sc-desc'>
+  <text>编辑个人资料</text>
+</view>
+<view class='st-container'>
+  <view class='st-box'>
+    <view class='box st-image'>
+      <image class='image' src='../../images/real_name.png'></image>
+    </view>
+    <view class='stt-box' bindtap='navigatorToEdit' data-uid='{{userinfo.uid}}' data-opt='rn' data-value='{{userinfo.realName}}'>
+      <view class='box stt-text'>
+        <view class='std-desc'>
+          <text>真实姓名</text>
+        </view>
+        <view class='std-value'>
+          <text>{{userinfo.realName}}</text>
+        </view>
+      </view>
+      <view class='box stt-gt'>
+        <text>></text>
+      </view>
+    </view>
+  </view>
+  <view class='st-box'>
+    <view class='box st-image'>
+      <image class='image' src='../../images/gender.png'></image>
+    </view>
+    <view class='stt-box' bindtap='changeGender'>
+      <view class='box stt-text'>
+        <view class='std-desc'>
+          <text>性别</text>
+        </view>
+        <view class='std-value'>
+          <text>{{userinfo.gender==0?'女':'男'}}</text>
+        </view>
+      </view>
+      <view class='box stt-gt'>
+        <text>></text>
+      </view>
+    </view>
+  </view>
+  <view class='st-box'>
+    <view class='box st-image'>
+      <image class='image' src='../../images/birthday.png'></image>
+    </view>
+    <picker mode="date" style='width:85%;' value="{{userinfo.birthday}}" start="1900-01-01" bindchange="bindDateChange">
+      <view class='stt-box c-picker'>
+        <view class='box stt-text'>
+          <view class='std-desc'>
+            <text>生日</text>
+          </view>
+          <view class='std-value'>
+            <text>{{userinfo.birthday}}</text>
+          </view>
+        </view>
+        <view class='box stt-gt'>
+          <text>></text>
+        </view>
+      </view>
+    </picker>
+  </view>
+  <view class='st-box'>
+    <view class='box st-image'>
+      <image class='image' src='../../images/mobile_phone.png'></image>
+    </view>
+    <view class='stt-box' bindtap='navigatorToEdit' data-uid='{{userinfo.uid}}' data-opt='mp' data-value='{{userinfo.mobilePhone}}'>
+      <view class='box stt-text'>
+        <view class='std-desc'>
+          <text>手机号码</text>
+        </view>
+        <view class='std-value'>
+          <text>{{userinfo.mobilePhone}}</text>
+        </view>
+      </view>
+      <view class='box stt-gt'>
+        <text>></text>
+      </view>
+    </view>
+  </view>
+  <view class='st-box'>
+    <view class='box st-image'>
+      <image class='image' src='../../images/email.png'></image>
+    </view>
+    <view class='stt-box' bindtap='navigatorToEdit' data-uid='{{userinfo.uid}}' data-opt='em' data-value='{{userinfo.email}}'>
+      <view class='box stt-text'>
+        <view class='std-desc'>
+          <text>电子邮箱</text>
+        </view>
+        <view class='std-value'>
+          <text>{{userinfo.email}}</text>
+        </view>
+      </view>
+      <view class='box stt-gt'>
+        <text>></text>
+      </view>
+    </view>
+  </view>
+</view>
+<view class='sc-desc'>
+  <text>计划权限</text>
+</view>
+<view class='sp-container'>
+  <view class='st-box'>
+    <view class='box st-image'>
+      <image class='image' src='../../images/distribution.png'></image>
+    </view>
+    <view class='stt-box' bindtap='navigatorToRight' data-uid='{{userinfo.uid}}'>
+      <view class='box stt-text'>
+        <view class='std-desc'>
+          <text>可分配</text>
+        </view>
+        <view class='std-value'>
+          <text>授权</text>
+        </view>
+      </view>
+      <view class='box stt-gt'>
+        <text>></text>
+      </view>
+    </view>
+
+  </view>
+  <view class='st-box'>
+    <view class='box st-image'>
+      <image class='image' src='../../images/share.png'></image>
+    </view>
+    <view class='box stt-text switch'>
+      <view class='std-desc'>
+        <text>公开</text>
+      </view>
+      <view class='std-value '>
+        <switch color="#00abff" checked="{{userinfo.open==0}}" bindchange="switchOpenChange"></switch>
+      </view>
+    </view>
+  </view>
+</view>

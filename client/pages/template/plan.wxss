@@ -1,0 +1,310 @@
+/* client/pages/template/plan.wxss */
+
+.posit {
+  display: flex;
+  flex-direction: row;
+  width: 180px;
+  -webkit-transform: translateX(180px);
+  transform: translateX(180px);
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.p-opt {
+  width: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 14;
+  font-weight: 800;
+}
+
+.priority {
+  background-color: #888;
+}
+
+.start {
+  background: green;
+}
+
+.delete {
+  background: red;
+}
+
+.todo-plan, .doing-plan {
+  display: flex;
+  width: 98%;
+  margin: 10rpx auto;
+  flex-direction: row;
+  background: #fff;
+  border-radius: 5px;
+  font-size: 14px;
+  border-bottom: 1px solid #ccc;
+  overflow: hidden;
+  min-height: 120rpx;
+}
+
+.di-box, .conent {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background: #fff;
+  margin-right: 0;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  -webkit-transform: translateX(180px);
+  transform: translateX(180px);
+  margin-left: -180px;
+}
+
+.tt-level {
+  width: 15%;
+  background: blue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.level-type {
+  font-size: 12px;
+  color: #fff;
+}
+
+.tt-title {
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.tt-auther, .di-add {
+  width: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ccc;
+  font-size: 12px;
+}
+
+.level-1 {
+  background: #c9171e;
+}
+
+.title-level-1 {
+  background: #e6363ca6;
+  /* background: -webkit-linear-gradient(left, #f8020b , rgb(236, 9, 46)); 
+  background: -o-linear-gradient(right,#f8020b , rgb(236, 9, 46)); 
+  background: -moz-linear-gradient(right, #f8020b , rgb(236, 9, 46)); 
+  background: linear-gradient(to right,#f8020b , rgb(236, 9, 46)); */
+}
+
+.level-2 {
+  background: #ed7300;
+}
+
+.title-level-2 {
+  background: #f8a85d93;
+}
+
+.level-3 {
+  background: #16a951;
+}
+
+.title-level-3 {
+  background: rgb(175, 231, 63);
+}
+
+.touch-move-active .conent, .touch-move-active .di-box,
+.touch-move-active .posit {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+
+/**************doing-plan CSS*****************/
+
+.di-conent {
+  display: flex;
+  flex-direction: row;
+  width: 85%;
+}
+.di-add {
+  width: 15%;
+}
+.di-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18%;
+  color: #fff;
+}
+.di-title {
+  width: 82%;
+}
+
+/**************finish-plan CSS*****************/
+
+.finish-plan {
+  display: flex;
+  width: 98%;
+  margin: 10rpx auto;
+  flex-direction: row;
+  background: #fff;
+  border-radius: 5px;
+  font-size: 14px;
+  border-bottom: 1px solid #ccc;
+  overflow: hidden;
+  min-height: 120rpx;
+}
+
+.ft-conent {
+  display: flex;
+  flex-direction: row;
+}
+
+.ft-quality {
+  display: flex;
+  width: 15%;
+  background: #ccc;
+  align-items: center;
+  justify-content: center;
+}
+
+.ft-title {
+  display: flex;
+  width: 70%;
+}
+
+.ft-finisher {
+  display: flex;
+  width: 15%;
+  background: #ccc;
+  align-items: center;
+  justify-content: center;
+}
+
+/**************finish-plan-detail CSS*****************/
+
+.finish-plan-detail {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font-size: 14px;
+}
+
+.ftd {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #ccc;
+  min-height: 40px;
+}
+
+.ftd>view:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25%;
+  border-right: 1px solid #ccc;
+}
+
+.ftd>view:last-child {
+  width: 75%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ftd-conent {
+  padding: 10px;
+  height: 50%;
+  min-height: 100px;
+}
+
+.ftd-level {
+  height: 10%;
+}
+
+.ftd-estimateTime {
+  height: 10%;
+  min-height: 60px;
+}
+
+.ftd-startTime {
+  height: 10%;
+}
+
+.ftd-finishTime {
+  height: 10%;
+}
+
+.ftd-auther {
+  height: 10%;
+}
+
+.ftd-finisher {
+  height: 10%;
+}
+
+.estimateTime>view {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+
+.estimateTime>view:nth-child(2) {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 60px;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+}
+
+/**************plan-list CSS*****************/
+
+.plan-list {
+  display: flex;
+  width: 98%;
+  margin: 10rpx auto;
+  flex-direction: row;
+  background: #fff;
+  border-radius: 5px;
+  font-size: 14px;
+  border-bottom: 1px solid #ccc;
+  overflow: hidden;
+  min-height: 120rpx;
+}
+
+.conent-box {
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+}
+
+.e-auther {
+  width: 15%;
+}
+
+.e-level {
+  width: 20%;
+}
+
+.e-title {
+  width: 80%;
+}
+
+.tt-box {
+  display: flex;
+  flex-direction: row;
+}
+
+.tt-no {
+  padding-left: 3px;
+  background: #00abff;
+  color: #fff;
+}

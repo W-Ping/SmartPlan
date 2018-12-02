@@ -1,0 +1,12 @@
+<template name="statistics-plan">
+  <view class='stat-plan-box'>
+    <view class='spb-day'>
+      <text>{{item.statDay}}</text>
+    </view>
+    <view class='spb-split'></view>
+    <view class='spb-declare'>
+      <text space="ensp">新增计划 <text class='plan-count addCount'>{{item.addPlanCount}}</text> 个，开启计划 <text  class='plan-count startCount'>{{item.startPlanCount}}</text> 个，完成计划<text  class='plan-count finishCount'> {{item.finishPlanCount}}</text> 个。</text>
+    </view>
+  </view>
+  <!-- <view></view> -->
+</template>

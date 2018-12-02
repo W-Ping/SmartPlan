@@ -1,0 +1,2 @@
+<import src="../template/plan.wxml" />
+<template is="finish-plan-detail"  data="{{...planDetail}}" />

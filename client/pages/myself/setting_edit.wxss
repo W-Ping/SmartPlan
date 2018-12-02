@@ -1,0 +1,32 @@
+/* client/pages/myself/setting_edit.wxss */
+
+page {
+  background: #f6f6f6;
+}
+
+.save-val {
+  position: fixed;
+  top: 15px;
+  right: 0;
+  left: 0;
+}
+
+.save-val input {
+  width: 100%;
+  background: #fff;
+  padding: 10px;
+}
+
+.save-btn {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+.save-btn button {
+  width: 90%;
+  background: #00abff;
+  color: #fff;
+}

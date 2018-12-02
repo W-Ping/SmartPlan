@@ -1,0 +1,5 @@
+<!--client/pages/plan/plan_list.wxml-->
+<import src="../template/plan.wxml" />
+<block wx:for="{{planList}}" wx:for-item="item" wx:for-index="index" wx:key="key">
+  <template is="plan-list" data="{{item,index,url:'plan_edit'}}" />
+</block>

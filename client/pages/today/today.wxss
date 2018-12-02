@@ -1,0 +1,16 @@
+/* client/pages/today/today.wxss */
+
+page {
+  background: #f6f6f6;
+}
+.weui-navbar__item {
+  color: #999;
+}
+
+.task-bar-active {
+  color: #00abff;
+}
+
+.weui-navbar__slider {
+  background-color: #00abff;
+}

@@ -1,0 +1,57 @@
+<!--client/pages/plan/plan_detail.wxml-->
+<form bindsubmit="savTaskSubmit">
+  <view class='create-task'>
+    <view class='ct-view ct-conent'>
+      <textarea placeholder="计划内容" name="content" value="{{taskInfo['content']}}" auto-height auto-focus maxlength='150'></textarea>
+    </view>
+    <view class='ct-view ct-level'>
+      <view>
+        <label>优先级别</label>
+      </view>
+      <view>
+        <picker bindchange="levelChange" name="level" value="{{levelArray[levelIndex]}}" range="{{levelArray}}">
+          <view class="ct-level-picker">{{levelArray[levelIndex]}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class='ct-view ct-estimateTime'>
+      <view>
+        <label>预估时间</label>
+      </view>
+      <view class='estimateTime'>
+        <view>
+          <input type='digit' placeholder='预估时间' name="estimateTime" value="{{taskInfo['estimateTime']}}"></input>
+        </view>
+        <view>
+          <picker bindchange="timeChange" name="estimateTimeType" value="{{timeIndex+1}}" range="{{timeArray}}">
+            <view class="ct-time-picker">{{timeArray[timeIndex]}}
+            </view>
+          </picker>
+        </view>
+      </view>
+    </view>
+    <view class='ct-view ct-finisher'>
+      <view>
+        <label>经办人</label>
+      </view>
+      <view>
+        <text class='handlerText' bindtap='selectHandler'>{{taskInfo['handlerName']?taskInfo['handlerName']:'选择经办人'}}</text>
+        <input hidden name="handlerUid" value="{{taskInfo['handlerUid']}}"></input>
+        <input hidden name="handlerName" value="{{taskInfo['handlerName']}}"></input>
+      </view>
+    </view>
+    <view class='ct-view ct-remark'>
+      <view>
+        <label>备注</label>
+      </view>
+      <view>
+        <textarea class='remark-textarea' name="remark" value="{{taskInfo['remark']}}" placeholder="备注说明" auto-height maxlength='150'></textarea>
+      </view>
+    </view>
+    <view class='save-task-btn'>
+      <button formType="submit" style="background-color:#00abff;color:#fff;border-radius:0;">保 存</button>
+    </view>
+  </view>
+</form>
+<selectable id="selectable" name_key="handlerName" value_key="handlerUid" image_key="avatarUrl  " items="{{items}}"  multiSelect="{{false}}" bind:inputText="inputText" bind:closeSelect="closeSelect" catch:confirmSelect='confirmSelect'></selectable>
