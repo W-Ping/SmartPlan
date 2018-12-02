@@ -25,7 +25,6 @@ router.post('/upload', controllers.upload)
 router.get('/tunnel', controllers.tunnel.get)
 // POST 用来处理信道传递过来的消息
 router.post('/tunnel', controllers.tunnel.post)
-
 // --- 客服消息接口 Demo --- //
 // GET  用来响应小程序后台配置时发送的验证请求
 router.get('/message', controllers.message.get)

@@ -1,11 +1,13 @@
 // client/pages/myself/myself.js
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    statPlanList: []
+    statPlanList: [],
+    userInfo: {}
   },
 
   /**
@@ -23,7 +25,8 @@ Page({
       })
     }
     that.setData({
-      statPlanList: that.data.statPlanList
+      statPlanList: that.data.statPlanList,
+      userInfo: app.globalData.userInfo
     })
   },
 
@@ -85,17 +88,17 @@ Page({
       url: '../friend/friend',
     })
   },
-  navigatorToOvertime: function (e) {
+  navigatorToOvertime: function(e) {
     wx.navigateTo({
       url: '../overtime/overtime',
     })
   },
-  navigatorToSearch: function (e) {
+  navigatorToSearch: function(e) {
     wx.navigateTo({
       url: '../search/search',
     })
   },
-  navigatorToNotepad: function (e) {
+  navigatorToNotepad: function(e) {
     wx.navigateTo({
       url: '../notepad/notepad',
     })

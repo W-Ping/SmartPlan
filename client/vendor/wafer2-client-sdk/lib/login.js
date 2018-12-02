@@ -13,8 +13,10 @@ var Session = require('./session');
 function getWxLoginResult (cb) {
     wx.login({
         success (loginResult) {
+            console.log("登录请求结果",loginResult)
             wx.getUserInfo({
                 success (userResult) {
+                    console.log("获取用户结果",userResult)
                     cb(null, {
                         code: loginResult.code,
                         encryptedData: userResult.encryptedData,
@@ -79,7 +81,7 @@ function login (opts) {
             method: opts.method,
             success (result) {
                 const data = result.data;
-
+                console.log("login 结果",result)
                 if (!data || data.code !== 0 || !data.data || !data.data.skey) {
                     return opts.fail(new Error(`响应错误，${JSON.stringify(data)}`))
                 }
@@ -136,7 +138,7 @@ function loginWithCode (opts) {
                 method: opts.method,
                 success (result) {
                     const data = result.data;
-    
+                    console.log("login 结果",result)
                     if (!data || data.code !== 0 || !data.data || !data.data.skey) {
                         return opts.fail(new Error(`用户未登录过，请先使用 login() 登录`))
                     }

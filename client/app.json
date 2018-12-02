@@ -1,7 +1,9 @@
 {
   "pages": [
-    "pages/today/today",
+    "pages/index/index",
     "pages/myself/myself",
+    "pages/index-demo/index",
+    "pages/today/today",
     "pages/today/today_detail",
     "pages/plan/plan",
     "pages/addCgi/addCgi",
