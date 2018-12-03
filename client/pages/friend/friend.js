@@ -9,6 +9,7 @@ Page({
     userInfo: {},
     portrait_temp: '',
     qrcode_temp: '',
+    qrcode_url: '',
     windowHeight: 300,
   },
   /**
@@ -40,7 +41,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    this.qrcodeget();
   },
 
   /**
@@ -120,7 +121,7 @@ Page({
         })
         //缓存canvas绘制小程序二维码
         wx.downloadFile({
-          url: that.data.qrcode,
+          url: that.data.qrcode_url,
           success: function(res2) {
             console.log('二维码：' + res2.tempFilePath)
             //缓存二维码
@@ -139,35 +140,37 @@ Page({
     })
   },
 
-  // qrcodeget: function() {function
-  //   wx.request({
-  //     // 获取token
-  //     url: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential',
-  //     data: {
-  //       appid: 'wx1465f9a62bfea385',
-  //       secret: '7d68daf0fd22f23d280bfa17d09a9618'
-  //     },
-  //     success(res) {
-  //       wx.createWXAQRCode({
-  //         access_token: res.data.access_token,
-  //         path:pages/today/today,
-  //         width:430
-  //       })
-  //       // wx.request({
-  //       //   // 调用接口C
-  //       //   url: 'https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token=' + res.data.access_token,
-  //       //   method: 'POST',
-  //       //   data: {
-  //       //     "path": "pages/today/today",
-  //       //     "width": 430
-  //       //   },
-  //       //   success(res) {
-
-  //       //   }
-  //       // })
-  //     }
-  //   })
-  // },
+  qrcodeget: function() {
+    wx.request({
+      // 获取token
+      url: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential',
+      data: {
+        appid: 'wx1465f9a62bfea385',
+        secret: '7d68daf0fd22f23d280bfa17d09a9618'
+      },
+      success(res) {
+        console.log("access_token", res);
+        wx.createWXAQRCode({
+          access_token: res.data.access_token,
+          path: 'pages/today/today',
+          width: 430
+        })
+        // console.log("获取小程序二维码", re);
+        // wx.request({
+        //   // 调用接口C
+        //   url: 'https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token=' + res.data.access_token,
+        //   method: 'POST',
+        //   data: {
+        //     "path": "pages/today/today",
+        //     "width": 430
+        //   },
+        //   success(res) {
+        //     console.log("获取小程序二维码", res);
+        //   }
+        // })
+      }
+    })
+  },
   drawImage: function() {
     //绘制canvas图片
     var that = this

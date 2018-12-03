@@ -15,13 +15,15 @@ const CONF = {
      * MySQL 配置，用来存储 session 和用户信息
      * 若使用了腾讯云微信小程序解决方案
      * 开发环境下，MySQL 的初始密码为您的微信小程序 appid
+     * cAuth
+     * lwp30801admin
      */
     mysql: {
         host: 'localhost',
         port: 3306,
         user: 'root',
-        db: 'cAuth',
-        pass: 'wx1465f9a62bfea385',
+        db: 'cauth',
+        pass: 'root',
         char: 'utf8mb4'
     },
 
@@ -30,7 +32,7 @@ const CONF = {
          * 地区简称
          * @查看 https://cloud.tencent.com/document/product/436/6224
          */
-        region: 'ap-guangzhou',
+        region: 'ap-shanghai',
         // Bucket 名称
         fileBucket: 'qcloudtest',
         // 文件夹

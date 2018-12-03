@@ -6,7 +6,7 @@
 var host = 'https://taflgi5t.qcloud.la';
 
 var config = {
-  
+
   default_page: '../today/today',
   // 下面的地址配合云端 Demo 工作
   service: {
@@ -22,7 +22,11 @@ var config = {
     tunnelUrl: `${host}/weapp/tunnel`,
 
     // 上传图片接口
-    uploadUrl: `${host}/weapp/upload`
+    uploadUrl: `${host}/weapp/upload`,
+    //获取小程序二维码
+    getWXAQRCode: `${host}/weapp/getWXAQRCode`,
+    //获取小程序码 （菊花码）
+    getWXACode: `${host}/weapp/getWXACode`
   }
 };
 
