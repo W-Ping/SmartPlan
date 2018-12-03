@@ -28,7 +28,7 @@
         <text>好 友</text>
       </view>
     </view>
-    <view class='menu-item'>
+    <view class='menu-item' bindtap='getWXAQRCODE'>
       <view class='menu-image'>
         <image class='image' src='../../images/sign.png'></image>
       </view>

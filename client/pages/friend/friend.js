@@ -1,5 +1,6 @@
 // client/pages/friend/friend.js
 const app = getApp();
+
 Page({
   /**
    * 页面的初始数据
@@ -150,11 +151,6 @@ Page({
       },
       success(res) {
         console.log("access_token", res);
-        wx.createWXAQRCode({
-          access_token: res.data.access_token,
-          path: 'pages/today/today',
-          width: 430
-        })
         // console.log("获取小程序二维码", re);
         // wx.request({
         //   // 调用接口C
