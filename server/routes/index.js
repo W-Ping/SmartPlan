@@ -31,7 +31,9 @@ router.get('/message', controllers.message.get)
 // POST 用来处理微信转发过来的客服消息
 router.post('/message', controllers.message.post)
 //获取小程序二维码
-router.get('/getWXAQRCode', controllers.wxcode.getWXAQRCode)
+router.get('/createwxaqrcode', controllers.wxcode.createwxaqrcode)
 //获取小程序码
-router.post('/getWXACode', controllers.wxcode.getWXACode)
+router.get('/getwxacode', controllers.wxcode.getwxacode)
+//获取小程序码
+router.get('/getwxacodeunlimit', controllers.wxcode.getwxacodeunlimit)
 module.exports = router

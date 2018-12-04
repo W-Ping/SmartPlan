@@ -4,8 +4,8 @@
 
 // 此处主机域名修改成腾讯云解决方案分配的域名
 
-var host = 'https://taflgi5t.qcloud.la';
-// var host = 'http://127.0.0.1:5757';
+// var host = 'https://taflgi5t.qcloud.la';
+var host = 'http://127.0.0.1:5757';
 var config = {
 
   default_page: '../today/today',
@@ -25,9 +25,11 @@ var config = {
     // 上传图片接口
     uploadUrl: `${host}/weapp/upload`,
     //获取小程序二维码
-    getWXAQRCode: `${host}/weapp/getWXAQRCode`,
+    createwxaqrcode: `${host}/weapp/createwxaqrcode`,
+    ///获取小程序码
+    getwxacodeunlimit: `${host}/weapp/getwxacodeunlimit`,
     //获取小程序码 （菊花码）
-    getWXACode: `${host}/weapp/getWXACode`
+    getwxacode: `${host}/weapp/getwxacode`
   }
 };
 
