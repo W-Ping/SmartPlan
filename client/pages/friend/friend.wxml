@@ -5,7 +5,7 @@
 </view>
 <scroll-view class='fd-container' scroll-y>
   <block wx:for="{{friendList}}" wx:for-item="item" wx:for-index="index" wx:key="*this">
-    <view class='fd-box'>
+    <view class='fd-box' data-uid='{{item.uid}}' bindtap='navigatorDetail'>
       <view class='fd image'>
         <image src='{{item.avatarUrl}}'></image>
       </view>

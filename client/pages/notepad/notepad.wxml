@@ -1,2 +1,2 @@
 <!--client/pages/notepad/notepad.wxml-->
-<text>client/pages/notepad/notepad.wxml</text>
+<image src="{{qrCodeUrl}}"></image>

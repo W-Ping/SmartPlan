@@ -30,7 +30,7 @@ async function createwxaqrcode(ctx, next) {
  */
 async function getwxacodeunlimit(ctx, next) {
     let {p, w, uid} = ctx.query;
-    assert.ok(uid, "uid参数不能为空");
+    assert.ok(uid, "uid is empty");
     await getAccessToken(async function (res) {
         assert.ok(res, "获取access_token失败");
         const post_data = JSON.stringify({

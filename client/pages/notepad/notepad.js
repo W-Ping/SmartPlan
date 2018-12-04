@@ -1,11 +1,12 @@
 // client/pages/notepad/notepad.js
+var config = require('../../config');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    qrCodeUrl: config.service.getwxacode
   },
 
   /**

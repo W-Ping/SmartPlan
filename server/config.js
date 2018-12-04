@@ -22,8 +22,8 @@ const CONF = {
         host: 'localhost',
         port: 3306,
         user: 'root',
-        db: 'cauth',
-        pass: 'root',
+        db: 'cAuth',
+        pass: 'lwp30801admin',
         char: 'utf8mb4'
     },
 

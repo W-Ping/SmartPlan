@@ -1,0 +1,114 @@
+/* client/pages/friend/friend_detail.wxss */
+
+page {
+  font-size: 14px;
+}
+
+.fi-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  background: #fff;
+  margin: 10px auto;
+  min-height: 80px;
+  padding: 10px;
+}
+
+.fi-image {
+  margin: 0 auto;
+  width: 25%;
+}
+
+.fi-image image {
+  width: 75px;
+  height: 75px;
+}
+
+.fi-info {
+  display: flex;
+  flex-direction: column;
+  width: 55%;
+}
+
+.fii-uid {
+  font-size: 12px;
+  color: #888;
+}
+
+.fi-label {
+  width: 20%;
+}
+
+.fi-setting {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  margin: 10px auto;
+  min-height: 30px;
+  padding: 4px;
+}
+
+.fi-mp {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: #fff;
+  margin: 10px auto;
+  min-height: 30px;
+  padding: 4px;
+}
+
+.fim-desc {
+  width: 20%;
+}
+
+.fim-phone {
+  width: 80%;
+}
+
+.fi-plan {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  margin-top: 10px;
+  min-height: 30px;
+  padding: 4px;
+}
+
+.fi-plan-more {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.line {
+  border: 1px #f6f6f6 solid;
+  width: 100%;
+}
+
+.p-line {
+  margin: 0 auto;
+  border: 1px #f6f6f6 solid;
+  width: 90%;
+}
+
+.fi-plan-detail {
+  margin: 5px auto;
+  width: 80%;
+}
+
+.fi-call {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.fi-call button {
+  width: 80%;
+}
