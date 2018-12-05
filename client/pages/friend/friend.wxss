@@ -2,10 +2,12 @@
 
 .fd-container {
   position: fixed;
-  top: 0px;
+  top: 50px;
   bottom: 45px;
 }
-
+.fd-search {
+  height: 50px;
+}
 .fd-box {
   display: flex;
   flex-direction: row;
@@ -14,6 +16,8 @@
   background: #ffff;
   margin: 10px auto;
 }
+
+
 
 .fd {
   display: flex;
@@ -77,7 +81,8 @@
 
 .sb-box {
 } */
-.canvas-box{
+
+.canvas-box {
   width: 100%;
   position: fixed;
   left: 0;

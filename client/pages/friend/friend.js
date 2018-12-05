@@ -1,6 +1,6 @@
 // client/pages/friend/friend.js
 const request = require("../../utils/request.js")
-// const request = require("../../utils/request.js")
+var config = require('../../config')
 const app = getApp();
 Page({
   /**
@@ -13,6 +13,7 @@ Page({
     qrcode_temp: '',
     qrcode_url: '',
     windowHeight: 300,
+    searchResult: []
   },
   /**
    * 生命周期函数--监听页面加载
@@ -44,7 +45,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    this.qrcodeget();
+    this.searchbar = this.selectComponent("#search");
   },
 
   /**
@@ -127,7 +128,7 @@ Page({
         })
         //缓存canvas绘制小程序二维码
         wx.downloadFile({
-          url: "http://127.0.0.1:5757/weapp/getwxacodeunlimit?uid=9",
+          url: config.service.createwxaqrcode,
           success: function(res2) {
             console.log('二维码：' + res2.tempFilePath)
             //缓存二维码
@@ -142,33 +143,6 @@ Page({
             }, 200)
           }
         })
-      }
-    })
-  },
-
-  qrcodeget: function() {
-    wx.request({
-      // 获取token
-      url: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential',
-      data: {
-        appid: 'wx1465f9a62bfea385',
-        secret: '7d68daf0fd22f23d280bfa17d09a9618'
-      },
-      success(res) {
-        console.log("access_token", res);
-        // console.log("获取小程序二维码", re);
-        // wx.request({
-        //   // 调用接口C
-        //   url: 'https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token=' + res.data.access_token,
-        //   method: 'POST',
-        //   data: {
-        //     "path": "pages/today/today",
-        //     "width": 430
-        //   },
-        //   success(res) {
-        //     console.log("获取小程序二维码", res);
-        //   }
-        // })
       }
     })
   },
@@ -240,6 +214,36 @@ Page({
     var uid = e.currentTarget.dataset.uid;
     wx.navigateTo({
       url: 'friend_detail?uid=' + uid,
+    })
+  },
+  inputConfirm: function(e) {
+    console.log("search inputConfirm ", this.searchbar)
+    var keyword = this.searchbar.data.keyword;
+    console.log("搜索关键字", keyword)
+    var searchResult = [];
+    for (var i = 0; i < 3; i++) {
+      searchResult.push({
+        url: "friend_detail?uid=UID00" + i,
+        text: "小布" + i
+      })
+    }
+    console.log("搜索关结果", searchResult);
+    this.searchbar.setData({
+      searchResult: searchResult
+    })
+  },
+  inputChange: function(e) {
+    console.log("search inputChange ", this.searchbar)
+    var keyword = this.searchbar.data.keyword;
+    var searchResult = [];
+    for (var i = 0; i < 3; i++) {
+      searchResult.push({
+        url: "friend_detail?uid=UID00" + i,
+        text: "小布" + i
+      })
+    }
+    this.searchbar.setData({
+      searchResult: searchResult
     })
   }
 })

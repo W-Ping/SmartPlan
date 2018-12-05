@@ -1,0 +1,6 @@
+/* components/searchbar/search.wxss */
+@import '../../weui.wxss';
+
+.search-box {
+  z-index: 9999;
+}

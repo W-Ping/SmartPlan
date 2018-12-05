@@ -3,6 +3,7 @@
 <view class="canvas-box">
   <canvas canvas-id="myCanvas" style="width:100%;height:{{windowHeight}}px;"></canvas>
 </view>
+<search id="search" searchResult="{{searchResult}}" bindinputChange="inputChange" bindinputConfirm='inputConfirm'></search>
 <scroll-view class='fd-container' scroll-y>
   <block wx:for="{{friendList}}" wx:for-item="item" wx:for-index="index" wx:key="*this">
     <view class='fd-box' data-uid='{{item.uid}}' bindtap='navigatorDetail'>

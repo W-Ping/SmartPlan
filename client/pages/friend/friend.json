@@ -1,3 +1,6 @@
 {
-      "navigationBarTitleText": "好友"
+  "usingComponents": {
+    "search": "/components/searchbar/search"
+  },
+  "navigationBarTitleText": "好友"
 }
