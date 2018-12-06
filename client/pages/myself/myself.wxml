@@ -1,7 +1,7 @@
 <!--client/pages/myself/myself.wxml-->
 <view class='my-container'>
   <view class='avatar-box'>
-    <image class="my-avatar" src="{{userInfo.avatarUrl?userInfo.avatarUrl:'../../images/default_avatar.png'}}" mode="cover"></image>
+    <image bindtap='previewImage' class="my-avatar" src="{{userInfo.avatarUrl?userInfo.avatarUrl:'../../images/default_avatar.png'}}" mode="cover"></image>
   </view>
   <view class='info-box'>
     <navigator url="../index/index">

@@ -1,6 +1,6 @@
 // client/pages/friend/friend_detail.js
 
-var app=new getApp();
+var app = new getApp();
 Page({
 
   /**
@@ -68,32 +68,17 @@ Page({
   onUnload: function() {
 
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
 
   },
-  previewImage:function(e){
+  previewImage: function(e) {
     var url = app.globalData.userInfo.avatarUrl;
-     wx.previewImage({
-       urls: [url],
-     })
+    wx.previewImage({
+      urls: [url],
+    })
   },
   focusPhone: function(e) {
     this.setData({
@@ -128,16 +113,23 @@ Page({
     })
   },
   callingMobilePhone: function(e) {
-    var mobilePhone = e.currentTarget.dataset.mobilephone;
+    var mobilePhone = this.data.mobilePhone
     console.log("拨打电话：", mobilePhone);
-    wx.makePhoneCall({
-      phoneNumber: mobilePhone,
-      success: function() {
-        console.log("拨打电话成功！", mobilePhone);
-      },
-      fail: function() {
-        console.log("拨打电话失败！", mobilePhone);
-      }
-    })
+    if (!mobilePhone) {
+      wx.showToast({
+        icon: 'none',
+        title: '请添加电话号码',
+      })
+    } else {
+      wx.makePhoneCall({
+        phoneNumber: mobilePhone,
+        success: function() {
+          console.log("拨打电话成功！", mobilePhone);
+        },
+        fail: function() {
+          console.log("拨打电话失败！", mobilePhone);
+        }
+      })
+    }
   }
 })

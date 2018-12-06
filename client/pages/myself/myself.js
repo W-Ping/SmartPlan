@@ -79,6 +79,12 @@ Page({
   onShareAppMessage: function() {
 
   },
+  previewImage: function (e) {
+    var url = app.globalData.userInfo.avatarUrl;
+    wx.previewImage({
+      urls: [url],
+    })
+  },
   getWXAQRCODE: function() {
     var url = config.service.getwxacodeunlimit;
     console.log("请求路径:", url)

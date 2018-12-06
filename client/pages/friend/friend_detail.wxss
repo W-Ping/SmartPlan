@@ -75,17 +75,6 @@ page {
   border-radius: 50%;
 }
 
-.fim-phone-btn {
-  margin-left: 2px;
-  width: 45px;
-  height: 30px;
-  color: #fff;
-  font-size: 13px;
-  text-align: center;
-  line-height: 30px;
-  border-radius: 5px;
-  background: #00abff;
-}
 
 .fi-plan {
   display: flex;
@@ -100,6 +89,7 @@ page {
 
 .fi-plan-desc, .fi-plan-more {
   height: 30px;
+  line-height: 30px;
   width: 100%;
 }
 
@@ -137,4 +127,15 @@ page {
 
 .fi-call button {
   width: 80%;
+}
+.fim-phone-btn {
+  margin-left: 2px;
+  width: 50px;
+  height: 30px;
+  color: #fff;
+  font-size: 13px;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 5px;
+  background: #00abff;
 }

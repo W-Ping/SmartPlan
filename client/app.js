@@ -4,6 +4,7 @@ var config = require('./config')
 var util = require('./utils/util.js');
 App({
     onLaunch: function (options) {
+      console.log("onLaunch...",options);
         var scene = decodeURIComponent(options.scene)
         if (scene == 1044) {
             console.log(options.shareTicket)

@@ -12,6 +12,7 @@ Page({
     portrait_temp: '',
     qrcode_temp: '',
     qrcode_url: '',
+    imageUrl: '',
     windowHeight: 300,
     searchResult: []
   },
@@ -45,6 +46,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
+    this.downloadFile();
     this.searchbar = this.selectComponent("#search");
   },
 
@@ -92,17 +94,16 @@ Page({
       // 来自页面内转发按钮
       console.log(res.target)
     }
-    // request.get("createwxaqrcode", null, (res) => {
-    //         console.log(res);
-    // })
-    this.downloadFile();
     return {
-      title: '我的小程序',
+      title: (app.globalData.userInfo.nickName || '我') + '的火星计划',
       path: 'pages/today/today',
-      imageUrl: '',
+      imageUrl: this.data.imageUrl,
       success: function(res) {
         // 转发成功
         console.log("转发成功", res);
+        wx.showToast({
+          title: '分享成功',
+        })
         wx.showShareMenu({
           // 要求小程序返回分享目标信息
           withShareTicket: true
@@ -128,7 +129,7 @@ Page({
         })
         //缓存canvas绘制小程序二维码
         wx.downloadFile({
-          url: config.service.createwxaqrcode,
+          url: config.service.getwxacodeunlimit + "?uid=999",
           success: function(res2) {
             console.log('二维码：' + res2.tempFilePath)
             //缓存二维码
@@ -151,11 +152,12 @@ Page({
     var that = this
     const ctx = wx.createCanvasContext('myCanvas')
     var bgPath = '../../images/背景.png';
-    var portraitPath = that.data.portrait_temp
-    var hostNickname = app.globalData.userInfo.nickName
+    // var bgPath = '../../images/背景.png';
+    var portraitPath = that.data.portrait_temp; //头像
+    var hostNickname = app.globalData.userInfo.nickName //昵称
 
-    var qrPath = that.data.qrcode_temp
-    var windowWidth = app.globalData.phoneInfo.windowWidth
+    var qrPath = that.data.qrcode_temp; //二维码
+    var windowWidth = app.globalData.phoneInfo.windowWidth; //手机屏幕宽度
     that.setData({
       scale: 1.6
     })
@@ -164,7 +166,7 @@ Page({
     //绘制头像
     ctx.save()
     ctx.beginPath()
-    ctx.arc(windowWidth / 2, 0.32 * windowWidth, 0.15 * windowWidth, 0, 2 * Math.PI)
+    ctx.arc(windowWidth / 2, 0.32 * windowWidth, 0.15 * windowWidth, 0, 2 * Math.PI);
     ctx.clip()
     ctx.drawImage(portraitPath, 0.7 * windowWidth / 2, 0.17 * windowWidth, 0.3 * windowWidth, 0.3 * windowWidth)
     ctx.restore()
@@ -172,19 +174,19 @@ Page({
     ctx.setFillStyle('#ffffff')
     ctx.setFontSize(0.037 * windowWidth)
     ctx.setTextAlign('center')
-    ctx.fillText(hostNickname + ' 正在参加疯狂红包活动', windowWidth / 2, 0.52 * windowWidth)
+    ctx.fillText(hostNickname, windowWidth / 2, 0.52 * windowWidth)
     //绘制第二段文本
     ctx.setFillStyle('#ffffff')
     ctx.setFontSize(0.037 * windowWidth)
     ctx.setTextAlign('center')
-    ctx.fillText('邀请你一起来领券抢红包啦~', windowWidth / 2, 0.57 * windowWidth)
+    ctx.fillText('邀您一起加入火星计划', windowWidth / 2, 0.57 * windowWidth)
     //绘制二维码
-    ctx.drawImage(qrPath, 0.64 * windowWidth / 2, 0.75 * windowWidth, 0.36 * windowWidth, 0.36 * windowWidth)
+    ctx.drawImage(qrPath, 0.64 * windowWidth / 2, 0.65 * windowWidth, 0.36 * windowWidth, 0.36 * windowWidth)
     //绘制第三段文本
     ctx.setFillStyle('#ffffff')
     ctx.setFontSize(0.037 * windowWidth)
     ctx.setTextAlign('center')
-    ctx.fillText('长按二维码领红包', windowWidth / 2, 1.36 * windowWidth)
+    ctx.fillText('长按识别小程序码', windowWidth / 2, 1.10 * windowWidth)
     ctx.draw();
   },
   canvasToImage: function() {
@@ -199,9 +201,12 @@ Page({
       canvasId: 'myCanvas',
       success: function(res) {
         console.log('朋友圈分享图生成成功:' + res.tempFilePath)
-        wx.previewImage({
-          current: res.tempFilePath, // 当前显示图片的http链接
-          urls: [res.tempFilePath] // 需要预览的图片http链接列表
+        // wx.previewImage({
+        //   current: res.tempFilePath, // 当前显示图片的http链接
+        //   urls: [res.tempFilePath] // 需要预览的图片http链接列表
+        // })
+        that.setData({
+          imageUrl: res.tempFilePath
         })
       },
       fail: function(err) {
