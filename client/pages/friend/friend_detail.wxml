@@ -1,59 +1,62 @@
 <!--client/pages/friend/friend_detail.wxml-->
-<!-- <view class='fi-container'> -->
-<view class='fi-box'>
-  <view class='fi-image'>
-    <image src='{{friendInfo.avatarUrl}}'></image>
-  </view>
-  <view class='fi-info'>
-    <view class='fii-nickName'>
-      <text>{{friendInfo.nickName}}</text>
+<view class='fi-container'>
+  <view class=' fi fi-box'>
+    <view class='fi-image' bindtap='previewImage'>
+      <image src='{{friendInfo.avatarUrl}}'></image>
     </view>
-    <view class='fii-uid'>
-      <text>UID:{{friendInfo.uid}}</text>
+    <view class='fi-info'>
+      <view class='fii-nickName'>
+        <text>{{friendInfo.nickName}}</text>
+      </view>
+      <view class='fii-uid'>
+        <text>UID:{{friendInfo.uid}}</text>
+      </view>
+    </view>
+    <view class='fi-label'>
+      <text>{{friendInfo.userLabel}}</text>
     </view>
   </view>
-  <view class='fi-label'>
-    <text>{{friendInfo.userLabel}}</text>
-  </view>
-</view>
-<view class='fi-setting'>
-  <view>
-    <text>设置备注和标签</text>
-  </view>
-  <view>
-    <text>></text>
-  </view>
-</view>
-<view class='fi-mp'>
-  <view class='fim-desc'>
-    <text>电话</text>
-  </view>
-  <view class='fim-phone'>
-    <text> {{friendInfo.mobilePhone}}</text>
-  </view>
-</view>
-<view class='fi-plan'>
-  <view>
-    <text>最近的任务</text>
-  </view>
-  <view class='line'></view>
-  <block wx:for="{{friendInfo.planInfoList}}" wx:for-item="item" wx:for-index="index" wx:key="*this">
-    <view class='fi-plan-detail'>
-      <text>{{item.content}}</text>
-    </view>
-    <view class='p-line' wx:if="{{friendInfo.planInfoList.length-1!=index}}"></view>
-  </block>
-  <view class='line'></view>
-  <view class='fi-plan-more'>
+  <view class='fi fi-setting'>
     <view>
-      <text>更多</text>
+      <text>设置备注和标签</text>
     </view>
-    <view>
+    <view class='gt'>
       <text>></text>
     </view>
   </view>
+  <view class='fi fi-mp'>
+    <view class='fim-desc'>
+      <text>电话</text>
+    </view>
+    <view class='fim-phone'>
+      <view class='fim-phone-input'>
+        <input type='number' maxlength='11' value='{{friendInfo.mobilePhone}}' bindblur='blurPhone' bindfocus='focusPhone' bindinput='inputPhone' placeholder='添加电话号码'></input>
+      </view>
+      <view hidden="{{hidden}}" class='fim-phone-btn' bindtap='addFriendMobilePhone'>确定</view>
+    </view>
+  </view>
+  <view class='fi-plan'>
+    <view class='fi-plan-desc'>
+      <text>最近的任务</text>
+    </view>
+    <view class='line'></view>
+    <block wx:for="{{friendInfo.planInfoList}}" wx:for-item="item" wx:for-index="index" wx:key="*this">
+      <view class='fi-plan-detail'>
+        <text>{{item.content}}</text>
+      </view>
+      <view class='p-line' wx:if="{{friendInfo.planInfoList.length-1!=index}}"></view>
+    </block>
+    <view class='line'></view>
+    <view class='fi-plan-more'>
+      <view>
+        <text>更多</text>
+      </view>
+      <view class='gt'>
+        <text>></text>
+      </view>
+    </view>
+  </view>
+  <view class='fi-call'>
+    <button type='primary' data-mobilephone='{{friendInfo.mobilePhone}}' bindtap='callingMobilePhone'>拨打电话</button>
+  </view>
 </view>
-<view class='fi-call'>
-  <button type='primary' data-mobilephone='{{friendInfo.mobilePhone}}' bindtap='callingMobilePhone'>拨打电话</button>
-</view>
-<!-- </view> -->

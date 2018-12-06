@@ -1,11 +1,15 @@
 // client/pages/friend/friend_detail.js
+
+var app=new getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    friendInfo: {}
+    friendInfo: {},
+    hidden: true,
+    mobilePhone: ''
   },
 
   /**
@@ -29,7 +33,7 @@ Page({
         uid: "UID0002",
         nickName: "小布",
         userLabel: "同事",
-        mobilePhone: '13012881632',
+        mobilePhone: '',
         avatarUrl: '../../images/default_avatar.png',
         planInfoList: planInfoList
       },
@@ -85,15 +89,53 @@ Page({
   onShareAppMessage: function() {
 
   },
-  callingMobilePhone:function(e){
+  previewImage:function(e){
+    var url = app.globalData.userInfo.avatarUrl;
+     wx.previewImage({
+       urls: [url],
+     })
+  },
+  focusPhone: function(e) {
+    this.setData({
+      hidden: false,
+    })
+  },
+  blurPhone: function(e) {
+    this.setData({
+      hidden: true,
+    })
+  },
+  inputPhone: function(e) {
+    this.setData({
+      mobilePhone: e.detail.value
+    })
+  },
+  addFriendMobilePhone: function(e) {
+    var mobilePhone = this.data.mobilePhone;
+    var friendInfo = this.data.friendInfo;
+    console.log("添加好友手机号码", mobilePhone, friendInfo.uid);
+    friendInfo.mobilePhone = mobilePhone;
+    //TODO 
+    this.setData({
+      friendInfo: friendInfo,
+      hidden: true
+    });
+  },
+  clickAddPhone: function(e) {
+    console.log("点击添加好友手机号码");
+    this.setData({
+      hidden: !this.data.hidden
+    })
+  },
+  callingMobilePhone: function(e) {
     var mobilePhone = e.currentTarget.dataset.mobilephone;
     console.log("拨打电话：", mobilePhone);
     wx.makePhoneCall({
       phoneNumber: mobilePhone,
-      success:function(){
+      success: function() {
         console.log("拨打电话成功！", mobilePhone);
       },
-      fail:function(){
+      fail: function() {
         console.log("拨打电话失败！", mobilePhone);
       }
     })

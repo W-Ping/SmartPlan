@@ -4,7 +4,7 @@
     <view class="weui-search-bar__form">
       <view class="weui-search-bar__box">
         <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
-        <input type="text" confirm-type="search" class="weui-search-bar__input" placeholder="搜索" value="{{keyword}}" bindblur="inputblur" focus="{{inputShowed}}" bindconfirm='inputConfirm'  bindinput="inputChange" />
+        <input type="text" confirm-type="search" class="weui-search-bar__input" placeholder="搜索" value="{{keyword}}" bindblur="inputblur" focus="{{inputShowed}}" bindconfirm='inputConfirm' bindinput="inputChange" />
         <view class="weui-icon-clear" wx:if="{{keyword.length > 0}}" bindtap="clearInput">
           <icon type="clear" size="14"></icon>
         </view>
@@ -24,20 +24,5 @@
         </view>
       </navigator>
     </block>
-    <!-- <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">
-        <view>实时搜索文本</view>
-      </view>
-    </navigator>
-    <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">
-        <view>实时搜索文本</view>
-      </view>
-    </navigator>
-    <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">
-        <view>实时搜索文本</view>
-      </view>
-    </navigator> -->
   </view>
 </view>

@@ -4,12 +4,14 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    size: Number
   },
 
   /**
    * 组件的初始数据
    */
   data: {
+    size: 14,
     searchResult: [],
     inputShowed: false,
     keyword: ""
@@ -35,7 +37,7 @@ Component({
         keyword: ""
       });
     },
-    inputblur:function(e){
+    inputblur: function(e) {
       this.triggerEvent("inputblur", {
         composed: true
       });
@@ -48,7 +50,7 @@ Component({
         composed: true
       });
     },
-    inputConfirm:function(e){
+    inputConfirm: function(e) {
       this.setData({
         keyword: e.detail.value
       });
