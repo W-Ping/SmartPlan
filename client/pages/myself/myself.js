@@ -79,7 +79,7 @@ Page({
   onShareAppMessage: function() {
 
   },
-  previewImage: function (e) {
+  previewImage: function(e) {
     var url = app.globalData.userInfo.avatarUrl;
     wx.previewImage({
       urls: [url],
@@ -121,4 +121,9 @@ Page({
       url: '../notepad/notepad',
     })
   },
+  navigatorToWork: function(e) {
+    wx.navigateTo({
+      url: '../work/work',
+    })
+  }
 })
