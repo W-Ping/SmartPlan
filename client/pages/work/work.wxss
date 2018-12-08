@@ -1,1 +1,145 @@
 /* client/pages/work/work.wxss */
+
+.wx-r {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px;
+  width: 100%;
+  height: 40px;
+  background: #fff;
+}
+
+.wx-user-box {
+  margin: 10px auto;
+}
+
+.user-box {
+  width: 20%;
+}
+
+.user-box image {
+  width: 30px;
+  height: 30px;
+}
+
+.wx-c {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px;
+  width: 100%;
+  background: #fff;
+  margin: 10px auto;
+}
+
+.wx-clock-box {
+  margin: 10px auto;
+  min-height: 120px;
+}
+
+.wxc-title {
+  border-bottom: 1px #f6f6f6 solid;
+}
+
+.circle-box {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #00abff;
+}
+
+.wxc-desc {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 25%;
+}
+
+.wxc-btn-box {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.wx-clock-btn {
+  background: #00abff;
+  height: 45px;
+  width: 60%;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 45px;
+  color: #fff;
+  font-size: 18px;
+}
+
+.btn-overtime {
+  background: rgb(241, 156, 44);
+}
+
+.wxc-info-c {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:center;
+  width: 100%;
+  background: #f6f6f6;
+  margin: 5px auto;
+}
+
+.wxc-circle {
+  width: 14px;
+  height: 14px;
+  border-radius: 14px;
+  background: #2aadeede;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.c-inside {
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.wxc-line {
+  height: 5px;
+  width: 50%;
+  background: #2aadeede;
+}
+
+.wxc-box {
+  min-width: 16%;
+}
+
+.wxc-desc-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rebeccapurple;
+}
+
+.wxc-desc-box .wxc-text {
+  border: 1px #00abff solid;
+}
+
+.wxc-time-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background: red;
+}
+
+.wxc-middle-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
