@@ -85,18 +85,7 @@ Page({
       urls: [url],
     })
   },
-  getWXAQRCODE: function() {
-    var url = config.service.getwxacodeunlimit;
-    console.log("请求路径:", url)
-    wx.request({
-      url: url,
-      method: 'GET',
-      success(res) {
-        console.log("getWXAQRCODE 请求结果：", res);
-      }
-    })
-  },
-  toSetting: function(e) {
+   navigatorToSetting: function(e) {
     wx.navigateTo({
       url: 'setting',
     })
@@ -106,9 +95,9 @@ Page({
       url: '../friend/friend',
     })
   },
-  navigatorToOvertime: function(e) {
+  navigatorToTimeMange: function(e) {
     wx.navigateTo({
-      url: '../overtime/overtime',
+      url: '../timemange/timemange',
     })
   },
   navigatorToSearch: function(e) {
@@ -121,9 +110,14 @@ Page({
       url: '../notepad/notepad',
     })
   },
-  navigatorToWork: function(e) {
+  navigatorToSign: function(e) {
     wx.navigateTo({
-      url: '../work/work',
+      url: '../sign/sign',
     })
-  }
+  },
+  navigatorToStatistics: function(e) {
+    wx.navigateTo({
+      url: '../statistics/statistics',
+    })
+  },
 })

@@ -13,7 +13,7 @@
       <text style='font-size:15px;color:#ccc;'>{{userinfo.company_name?userinfo.company_name:'ID:U00001'}}</text>
     </view>
   </view>
-  <view class='setting-box' bindtap='toSetting' data-uid='{{userinfo.uid}}'>
+  <view class='setting-box' bindtap='navigatorToSetting' data-uid='{{userinfo.uid}}'>
     <text>编辑</text>
     <text space="nbsp"> ></text>
   </view>
@@ -28,20 +28,20 @@
         <text>好 友</text>
       </view>
     </view>
-    <view class='menu-item' bindtap='getWXAQRCODE'>
+    <view class='menu-item' bindtap='navigatorToSign'>
       <view class='menu-image'>
         <image class='image' src='../../images/sign.png'></image>
       </view>
       <view class='menu-text'>
-        <text>签 到</text>
+        <text>打 卡</text>
       </view>
     </view>
-    <view class='menu-item' bindtap='navigatorToOvertime'>
+    <view class='menu-item' bindtap='navigatorToTimeMange'>
       <view class='menu-image'>
         <image class='image' src='../../images/overtime.png'></image>
       </view>
       <view class='menu-text'>
-        <text>加 班</text>
+        <text>时间管理</text>
       </view>
     </view>
   </view>
@@ -54,20 +54,20 @@
         <text>查 询</text>
       </view>
     </view>
-    <view class='menu-item' bindtap='navigatorToWork'>
-      <view class='menu-image'>
-        <image class='image' src='../../images/work.png'></image>
-      </view>
-      <view class='menu-text'>
-        <text>工 作</text>
-      </view>
-    </view>
     <view class='menu-item' bindtap='navigatorToNotepad'>
       <view class='menu-image'>
         <image class='image' src='../../images/notepad.png'></image>
       </view>
       <view class='menu-text'>
         <text>记事本</text>
+      </view>
+    </view>
+    <view class='menu-item' bindtap='navigatorToStatistics'>
+      <view class='menu-image'>
+        <image class='image' src='../../images/statistics.png'></image>
+      </view>
+      <view class='menu-text'>
+        <text>统 计</text>
       </view>
     </view>
   </view>

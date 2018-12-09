@@ -1,19 +1,35 @@
 // client/pages/work/work.js
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    otHidden: true, //加班打卡显示
     wkHidden: false, //工作打卡显示
+    otHidden: false, //加班打卡显示
+    normalOnWkTimeFlag: true,
+    normalOffWkTimeFlag: true,
+    normalOnOvTimeFlag: true,
+    normalOffOvTimeFlag: true,
+    onWkTime: "9:30",
+    offWkTime: "18:30",
+    onWkOverTime: "9:30",
+    offWkOverTime: "18:30",
+    onWkActualTime: "09:25",
+    offWkActualTime: "19:30",
+    onActualWkOverTime: "10:30",
+    offWkActualOverTime: "20:30",
+    today:"2018年12月09日（星期日）"
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    this.setData({
+      userInfo: app.globalData.userInfo
+    })
   },
 
   /**
@@ -64,4 +80,10 @@ Page({
   onShareAppMessage: function() {
 
   },
+  workClock: function(e) {
+    console.log("工作打卡")
+  },
+  overtimeClock: function(e) {
+    console.log("加班打卡")
+  }
 })

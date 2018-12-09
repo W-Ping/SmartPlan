@@ -1,2 +1,2 @@
 <!--client/pages/search/search.wxml-->
-<text>client/pages/search/search.wxml</text>
+<search id="search"  searchResult="{{searchResult}}" bindinputChange="inputChange" bindinputConfirm='inputConfirm'></search>

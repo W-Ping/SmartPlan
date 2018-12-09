@@ -1,200 +1,369 @@
-<view class='wx-r wx-user-box'>
-  <view class='user-box'>
-    <image src="{{userInfo.avatarUrl?userInfo.avatarUrl:'../../images/default_avatar.png'}}"></image>
-  </view>
-  <view>
-    <text>{{userInfo.nickName}}</text>
-  </view>
+<view class='wx-day-box'>
+  <text>{{today}}</text>
 </view>
 <view class='wx-clock-box'>
   <view class='wx-r wxc-title'>
     <view>我的打卡</view>
     <view class='wxc-desc'>
-      <view class='circle-box'>
+      <view hidden='{{wkHidden}}' class='circle-box wxc-work-bg'>
       </view>
-      <text space="ensp"> 打卡</text>
+      <view hidden='{{otHidden}}' class='circle-box wxc-overtime-bg'>
+      </view>
+      <text> 打卡</text>
     </view>
   </view>
-  <view hidden='{{wkHidden}}' class='wxc-d'>
-    <view class='wxc-info-c'>
-      <view class='wxc-box'>
-        <view class='wxc-desc-box'>
-          <view class='wxc-text'>
-            <text>下 班</text>
+  <view hidden='{{wkHidden}}' style='width:100%;background: #fff'>
+    <view class='wxc'>
+      <view class='wxc-info-box'>
+        <view class='wxc-box'>
+          <view class='wxc-desc-box'>
+            <block wx:if="{{normalOnWkTimeFlag}}">
+              <view class='wxc-text wxc-work-border'>
+                <text>上班\n打卡</text>
+              </view>
+              <view class='wxc-sub wxc-work-color'>
+                <text>V</text>
+              </view>
+            </block>
           </view>
-          <view class='wxc-sub'>
-            <text>V</text>
+          <view class='wxc-middle-box'>
+            <view class='wxc-line wxc-work-bg'></view>
+            <block wx:if="{{normalOnWkTimeFlag}}">
+              <view class='wxc-circle wxc-work-bg'>
+                <view class=' c-inside fill-circle'></view>
+              </view>
+            </block>
+            <block wx:else>
+              <view class='wxc-line wxc-work-bg'></view>
+            </block>
+            <view class='wxc-line wxc-work-bg'></view>
+          </view>
+          <view class='wxc-time-box'>
+            <block wx:if="{{normalOnWkTimeFlag}}">
+              <view>
+                <text>{{onWkActualTime}}</text>
+              </view>
+            </block>
           </view>
         </view>
-        <view class='wxc-middle-box'>
-          <view class='wxc-line'></view>
-          <view class='wxc-circle'>
-            <view class='wxc-circle c-inside'></view>
+        <view class='wxc-box'>
+          <view class='wxc-desc-box'>
+            <view class='wxc-text wk-time-text wxc-work-bg'>
+              <text>上班</text>
+            </view>
+            <view class='wxc-sub wk-time-sub wxc-work-bg'>
+              <text></text>
+            </view>
           </view>
-          <view class='wxc-line'></view>
+          <view class='wxc-middle-box'>
+            <view class='wxc-line wxc-work-bg'></view>
+            <view class='wxc-circle wxc-work-bg'>
+              <view class='c-inside'></view>
+            </view>
+            <view class='wxc-line wxc-work-bg'></view>
+          </view>
+          <view class='wxc-time-box'>
+            <view>
+              <text>{{onWkTime}}</text>
+            </view>
+          </view>
         </view>
-        <view class='wxc-time-box'>
-          <view>
-            <text>9:00</text>
+        <view class='wxc-box'>
+          <view class='wxc-desc-box'>
+            <block wx:if="{{!normalOnWkTimeFlag}}">
+              <view class='wxc-text wxc-work-border'>
+                <text>上班\n打卡</text>
+              </view>
+              <view class='wxc-sub wxc-work-color'>
+                <text>V</text>
+              </view>
+            </block>
+          </view>
+          <view class='wxc-middle-box'>
+            <view class='wxc-line wxc-work-bg'></view>
+            <block wx:if="{{!normalOnWkTimeFlag}}">
+              <view class='wxc-circle wxc-work-bg'>
+                <view class=' c-inside fill-circle'></view>
+              </view>
+            </block>
+            <block wx:else>
+              <view class='wxc-line wxc-work-bg'></view>
+            </block>
+            <view class='wxc-line wxc-work-bg'></view>
+          </view>
+          <view class='wxc-time-box'>
+            <block wx:if="{{!normalOnWkTimeFlag}}">
+              <view>
+                <text>{{onWkActualTime}}</text>
+              </view>
+            </block>
+          </view>
+        </view>
+        <view class='wxc-box'>
+          <view class='wxc-desc-box'>
+            <block wx:if="{{!normalOffWkTimeFlag}}">
+              <view class='wxc-text wxc-work-border'>
+                <text>下班\n打卡</text>
+              </view>
+              <view class='wxc-sub wxc-work-color'>
+                <text>V</text>
+              </view>
+            </block>
+          </view>
+          <view class='wxc-middle-box'>
+            <view class='wxc-line wxc-work-bg'></view>
+            <block wx:if="{{!normalOffWkTimeFlag}}">
+              <view class='wxc-circle wxc-work-bg'>
+                <view class=' c-inside fill-circle'></view>
+              </view>
+            </block>
+            <block wx:else>
+              <view class='wxc-line wxc-work-bg'></view>
+            </block>
+            <view class='wxc-line wxc-work-bg'></view>
+          </view>
+          <view class='wxc-time-box'>
+            <block wx:if="{{!normalOffWkTimeFlag}}">
+              <view>
+                <text>{{offWkActualTime}}</text>
+              </view>
+            </block>
+          </view>
+        </view>
+        <view class='wxc-box'>
+          <view class='wxc-desc-box'>
+            <view class='wxc-text wk-time-text wxc-work-bg'>
+              <text>下 班</text>
+            </view>
+            <view class='wxc-sub wk-time-sub wxc-work-bg'>
+              <text></text>
+            </view>
+          </view>
+          <view class='wxc-middle-box'>
+            <view class='wxc-line wxc-work-bg'></view>
+            <view class='wxc-circle wxc-work-bg'>
+              <view class='c-inside '></view>
+            </view>
+            <view class='wxc-line wxc-work-bg'></view>
+          </view>
+          <view class='wxc-time-box'>
+            <view>
+              <text>{{offWkTime}}</text>
+            </view>
+          </view>
+        </view>
+        <view class='wxc-box'>
+          <view class='wxc-desc-box'>
+            <block wx:if="{{normalOnWkTimeFlag}}">
+              <view class='wxc-text wxc-work-border'>
+                <text>下班\n打卡</text>
+              </view>
+              <view class='wxc-sub wxc-work-color'>
+                <text>V</text>
+              </view>
+            </block>
+          </view>
+          <view class='wxc-middle-box'>
+            <view class='wxc-line wxc-work-bg'></view>
+            <block wx:if="{{normalOffWkTimeFlag}}">
+              <view class='wxc-circle wxc-work-bg'>
+                <view class=' c-inside fill-circle'></view>
+              </view>
+            </block>
+            <block wx:else>
+              <view class='wxc-line wxc-work-bg'></view>
+            </block>
+            <view class='wxc-line wxc-work-bg'></view>
+          </view>
+          <view class='wxc-time-box'>
+            <block wx:if="{{normalOffWkTimeFlag}}">
+              <view>
+                <text>{{offWkActualTime}}</text>
+              </view>
+            </block>
           </view>
         </view>
       </view>
-      <view class='wxc-box'>
-        <view class='wxc-desc-box'>
-          <view class='wxc-text'>
-            <text>下 班</text>
-          </view>
-          <view class='wxc-sub'>
-            <text>V</text>
-          </view>
-        </view>
-        <view class='wxc-middle-box'>
-          <view class='wxc-line'></view>
-          <view class='wxc-circle'>
-            <view class='wxc-circle c-inside'></view>
-          </view>
-          <view class='wxc-line'></view>
-        </view>
-        <view class='wxc-time-box'>
-          <view>
-            <text>9:00</text>
-          </view>
-        </view>
+      <view class='wxc-btn-box'>
+        <view class='wx-clock-btn' bindtap='workClock'>工作打卡</view>
       </view>
-      <view class='wxc-box'>
-        <view class='wxc-desc-box'>
-          <view class='wxc-text'>
-            <text>下 班</text>
-          </view>
-          <view class='wxc-sub'>
-            <text>V</text>
-          </view>
-        </view>
-        <view class='wxc-middle-box'>
-          <view class='wxc-line'></view>
-          <view class='wxc-circle'>
-            <view class='wxc-circle c-inside'></view>
-          </view>
-          <view class='wxc-line'></view>
-        </view>
-        <view class='wxc-time-box'>
-          <view>
-            <text>9:00</text>
-          </view>
-        </view>
-      </view>
-      <view class='wxc-box'>
-        <view class='wxc-desc-box'>
-          <view class='wxc-text'>
-            <text>下 班</text>
-          </view>
-          <view class='wxc-sub'>
-            <text>V</text>
-          </view>
-        </view>
-        <view class='wxc-middle-box'>
-          <view class='wxc-line'></view>
-          <view class='wxc-circle'>
-            <view class='wxc-circle c-inside'></view>
-          </view>
-          <view class='wxc-line'></view>
-        </view>
-        <view class='wxc-time-box'>
-          <view>
-            <text>9:00</text>
-          </view>
-        </view>
-      </view>
-      <view class='wxc-box'>
-        <view class='wxc-desc-box'>
-          <view class='wxc-text'>
-            <text>下 班</text>
-          </view>
-          <view class='wxc-sub'>
-            <text>V</text>
-          </view>
-        </view>
-        <view class='wxc-middle-box'>
-          <view class='wxc-line'></view>
-          <view class='wxc-circle'>
-            <view class='wxc-circle c-inside'></view>
-          </view>
-          <view class='wxc-line'></view>
-        </view>
-        <view class='wxc-time-box'>
-          <view>
-            <text>9:00</text>
-          </view>
-        </view>
-      </view>
-      <view class='wxc-box'>
-        <view class='wxc-desc-box'>
-          <view class='wxc-text'>
-            <text>下 班</text>
-          </view>
-          <view class='wxc-sub'>
-            <text>V</text>
-          </view>
-        </view>
-        <view class='wxc-middle-box'>
-          <view class='wxc-line'></view>
-          <view class='wxc-circle'>
-            <view class='wxc-circle c-inside'></view>
-          </view>
-          <view class='wxc-line'></view>
-        </view>
-        <view class='wxc-time-box'>
-          <view>
-            <text>9:00</text>
-          </view>
-        </view>
-      </view>
-    </view>
-    <view class='wxc-btn-box'>
-      <view class='wx-clock-btn'>工作打卡</view>
     </view>
   </view>
-  <view hidden="{{otHidden}}" class='wxc-d'>
-    <view class='wxc-info-c'>
-      <view class='wxc-detail-box'>
-        <view class='wxc-text'>
-          <text>上 班</text>
-        </view>
-        <view class='wxc-sub'>
-          <text>V</text>
-        </view>
-        <view class='wxc-detail-middle'>
-          <view class='wxc-line'></view>
-          <view class='wxc-circle'>
-            <view class='wxc-circle c-inside'></view>
+  <view hidden='{{otHidden}}' style='width:100%;background: #fff'>
+    <view class='wxc'>
+      <view class='wxc-info-box'>
+        <view class='wxc-box'>
+          <view class='wxc-desc-box'>
+            <block wx:if="{{normalOffOvTimeFlag}}">
+              <view class='wxc-text wxc-overtime-border'>
+                <text>上班\n打卡</text>
+              </view>
+              <view class='wxc-sub wxc-overtime-color'>
+                <text>V</text>
+              </view>
+            </block>
           </view>
-          <view class='wxc-line'></view>
+          <view class='wxc-middle-box'>
+            <view class='wxc-line wxc-overtime-bg'></view>
+            <block wx:if="{{normalOffOvTimeFlag}}">
+              <view class='wxc-circle wxc-overtime-bg'>
+                <view class='c-inside  fill-circle'></view>
+              </view>
+            </block>
+            <block wx:else>
+              <view class='wxc-line wxc-overtime-bg'></view>
+            </block>
+            <view class='wxc-line wxc-overtime-bg'></view>
+          </view>
+          <view class='wxc-time-box'>
+            <block wx:if="{{normalOffOvTimeFlag}}">
+              <view>
+                <text>{{onActualWkOverTime}}</text>
+              </view>
+            </block>
+          </view>
         </view>
-        <view class='wxc-time'>
-          <text>9:00</text>
+        <view class='wxc-box'>
+          <view class='wxc-desc-box'>
+            <view class='wxc-text wk-time-text wxc-overtime-bg'>
+              <text>上班</text>
+            </view>
+            <view class='wxc-sub wk-time-sub wxc-overtime-bg'>
+              <text></text>
+            </view>
+          </view>
+          <view class='wxc-middle-box'>
+            <view class='wxc-line wxc-overtime-bg'></view>
+            <view class='wxc-circle wxc-overtime-bg'>
+              <view class='c-inside'></view>
+            </view>
+            <view class='wxc-line wxc-overtime-bg'></view>
+          </view>
+          <view class='wxc-time-box'>
+            <view>
+              <text>{{onWkOverTime}}</text>
+            </view>
+          </view>
+        </view>
+        <view class='wxc-box'>
+          <view class='wxc-desc-box'>
+            <block wx:if="{{!normalOnOvTimeFlag}}">
+              <view class='wxc-text wxc-overtime-border'>
+                <text>上班\n打卡</text>
+              </view>
+              <view class='wxc-sub wxc-overtime-color'>
+                <text>V</text>
+              </view>
+            </block>
+          </view>
+          <view class='wxc-middle-box'>
+            <view class='wxc-line wxc-overtime-bg'></view>
+            <block wx:if="{{!normalOnOvTimeFlag}}">
+              <view class='wxc-circle wxc-overtime-bg'>
+                <view class=' c-inside fill-circle '></view>
+              </view>
+            </block>
+            <block wx:else>
+              <view class='wxc-line wxc-overtime-bg'></view>
+            </block>
+            <view class='wxc-line wxc-overtime-bg'></view>
+          </view>
+          <view class='wxc-time-box'>
+            <block wx:if="{{!normalOnOvTimeFlag}}">
+              <view>
+                <text>{{onActualWkOverTime}}</text>
+              </view>
+            </block>
+          </view>
+        </view>
+        <view class='wxc-box'>
+          <view class='wxc-desc-box'>
+            <block wx:if="{{!normalOffOvTimeFlag}}">
+              <view class='wxc-text wxc-overtime-border'>
+                <text>下班\n打卡</text>
+              </view>
+              <view class='wxc-sub wxc-overtime-color'>
+                <text>V</text>
+              </view>
+            </block>
+          </view>
+          <view class='wxc-middle-box'>
+            <view class='wxc-line wxc-overtime-bg'></view>
+            <block wx:if="{{!normalOffOvTimeFlag}}">
+              <view class='wxc-circle wxc-overtime-bg'>
+                <view class=' c-inside fill-circle'></view>
+              </view>
+            </block>
+            <block wx:else>
+              <view class='wxc-line wxc-overtime-bg'></view>
+            </block>
+            <view class='wxc-line wxc-overtime-bg'></view>
+          </view>
+          <view class='wxc-time-box'>
+            <block wx:if="{{!normalOffOvTimeFlag}}">
+              <view>
+                <text>{{offWkActualOverTime}}</text>
+              </view>
+            </block>
+          </view>
+        </view>
+        <view class='wxc-box'>
+          <view class='wxc-desc-box'>
+            <view class='wxc-text wk-time-text wxc-overtime-bg'>
+              <text>下 班</text>
+            </view>
+            <view class='wxc-sub wk-time-sub wxc-overtime-bg'>
+              <text></text>
+            </view>
+          </view>
+          <view class='wxc-middle-box'>
+            <view class='wxc-line wxc-overtime-bg'></view>
+            <view class='wxc-circle wxc-overtime-bg'>
+              <view class='c-inside'></view>
+            </view>
+            <view class='wxc-line wxc-overtime-bg'></view>
+          </view>
+          <view class='wxc-time-box '>
+            <view>
+              <text>{{offWkOverTime}}</text>
+            </view>
+          </view>
+        </view>
+        <view class='wxc-box'>
+          <view class='wxc-desc-box'>
+            <block wx:if="{{normalOffOvTimeFlag}}">
+              <view class='wxc-text wxc-overtime-border'>
+                <text>下班\n打卡</text>
+              </view>
+              <view class='wxc-sub wxc-overtime-color'>
+                <text>V</text>
+              </view>
+            </block>
+          </view>
+          <view class='wxc-middle-box'>
+            <view class='wxc-line wxc-overtime-bg'></view>
+            <block wx:if="{{normalOffOvTimeFlag}}">
+              <view class='wxc-circle wxc-overtime-bg'>
+                <view class=' c-inside fill-circle'></view>
+              </view>
+            </block>
+            <block wx:else>
+              <view class='wxc-line wxc-overtime-bg'></view>
+            </block>
+            <view class='wxc-line wxc-overtime-bg'></view>
+          </view>
+          <view class='wxc-time-box'>
+            <block wx:if="{{normalOffOvTimeFlag}}">
+              <view>
+                <text>{{offWkActualOverTime}}</text>
+              </view>
+            </block>
+          </view>
         </view>
       </view>
-      <view class='wxc-detail-box'>
-        <view class='wxc-text'>
-          <text>下 班</text>
-        </view>
-        <view class='wxc-sub'>
-          <text>V</text>
-        </view>
-        <view class='wxc-detail-middle'>
-          <view class='wxc-line'></view>
-          <view class='wxc-circle'>
-            <view class='wxc-circle c-inside'></view>
-          </view>
-          <view class='wxc-line'></view>
-        </view>
-        <view class='wxc-time'>
-          <text>9:00</text>
-        </view>
+      <view class='wxc-btn-box'>
+        <view class='wx-clock-btn btn-overtime' bindtap='overtimeClock'>加班打卡</view>
       </view>
-    </view>
-    <view class='wxc-btn-box'>
-      <view class='wx-clock-btn btn-overtime'>加班打卡</view>
     </view>
   </view>
 </view>
