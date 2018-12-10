@@ -1,0 +1,113 @@
+<!--client/pages/timemange/timemange.wxml-->
+<view class='time-item'>
+  <view class='tc-option'>
+    <view class='pd-5'>
+      <text>自定义计划</text>
+    </view>
+    <view class='pd-5'>
+      <switch checked color='#00abff' bindchange='diyToChange'></switch>
+    </view>
+  </view>
+  <view hidden='{{diyHidden}}'>
+    <view class='tc-box'>
+      <view hidden='{{diyMustTodo}}' class='tcb-text desc'>
+       <text space='emsp'>【+】点击添加 一定完成计划~~</text>
+      </view>
+      <view class='tcb-text'>
+          <text>{{diyMustTodo}}</text>
+      </view>
+    </view>
+    <view class='tc-box'>
+      <view hidden='{{diyEffortodo}}' class='tcb-text desc'>
+        <text space='emsp'>【+】点击添加 加油完成计划~~</text>
+      </view>
+      <view class='tcb-text'>
+        <text>{{diyEffortodo}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view class='time-item'>
+  <view class='tc-option'>
+    <view class='pd-5'>
+      <text>每天计划</text>
+    </view>
+    <view class='pd-5'>
+      <switch checked color='#00abff' bindchange='tdToChange'></switch>
+    </view>
+  </view>
+  <view hidden='{{tdHidden}}'>
+    <view class='tc-box'>
+      <view hidden='{{tdMustTodo}}' class='tcb-text desc'>
+            <text space='emsp'>【+】点击添加 一定完成计划~~</text>
+      </view>
+      <view class='tcb-text'>
+        <text>{{tdMustTodo}}</text>
+      </view>
+    </view>
+    <view class='tc-box'>
+      <view hidden='{{tdEffortodo}}' class='tcb-text desc'>
+         <text space='emsp'>【+】点击添加 加油完成计划~~</text>
+      </view>
+      <view class='tcb-text'>
+        <text>{{tdEffortodo}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view class='time-item'>
+  <view class='tc-option'>
+    <view class='pd-5'>
+      <text>每周计划</text>
+    </view>
+    <view class='pd-5'>
+      <switch checked color='#00abff' bindchange='weekToChange'></switch>
+    </view>
+  </view>
+  <view hidden='{{weekHidden}}'>
+    <view class='tc-box'>
+      <view hidden='{{weekMustTodo}}' class='tcb-text desc'>
+            <text space='emsp'>【+】点击添加 一定完成计划~~</text>
+      </view>
+      <view class='tcb-text'>
+        <text>{{weekMustTodo}}</text>
+      </view>
+    </view>
+    <view class='tc-box'>
+      <view hidden='{{weekEffortodo}}' class='tcb-text desc'>
+         <text space='emsp'>【+】点击添加 加油完成计划~~</text>
+      </view>
+      <view class='tcb-text'>
+        <text>{{weekEffortodo}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view class='time-item'>
+  <view class='tc-option'>
+    <view class='pd-5'>
+      <text>每月计划</text>
+    </view>
+    <view class='pd-5'>
+      <switch checked color='#00abff' bindchange='monthToChange'></switch>
+    </view>
+  </view>
+  <view hidden='{{monthHidden}}'>
+    <view class='tc-box'>
+      <view hidden='{{monthMustTodo}}' class='tcb-text desc'>
+            <text space='emsp'>【+】点击添加 一定完成计划~~</text>
+      </view>
+      <view class='tcb-text'>
+        <text>{{monthMustTodo}}</text>
+      </view>
+    </view>
+    <view class='tc-box'>
+      <view hidden='{{monthEffortodo}}' class='tcb-text desc'>
+         <text space='emsp'>【+】点击添加 加油完成计划~~</text>
+      </view>
+      <view class='tcb-text'>
+        <text>{{monthEffortodo}}</text>
+      </view>
+    </view>
+  </view>
+</view>

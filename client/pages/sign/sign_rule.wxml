@@ -1,0 +1,101 @@
+<form bindsubmit="submitClock">
+  <view class='sign-cbox'>
+    <view class='sign-box'>
+      <view class='sb-desc'>工作打卡</view>
+      <view class='sb-opt'>
+        <switch color="#00abff" name="wkActive" checked bindchange="switchWkChange"></switch>
+      </view>
+    </view>
+    <view hidden='{{wkClockHidden}}' class='sign-d-box'>
+      <picker mode="time" name="onWkTime" value="{{onWkTime}}" start="06:00" bindchange='changeOnWkTime'>
+        <view class='sdb'>
+          <view class='sdb-desc'>上班时间</view>
+          <view class='sdb-text'>
+            <text>{{onWkTime}}</text>
+          </view>
+          <view class='gt'>
+            <text>></text>
+          </view>
+        </view>
+      </picker>
+      <picker mode="time" name="offWkTime" value="{{offWkTime}}" start="06:00" bindchange='changeOffWkTime'>
+        <view class='sdb'>
+          <view class='sdb-desc'>下班时间</view>
+          <view class='sdb-text'>
+            <text>{{offWkTime}}</text>
+          </view>
+          <view class='gt'>
+            <text>></text>
+          </view>
+        </view>
+      </picker>
+      <view class='sdb' style='border-bottom: 0px #f6f6f6 solid;'>
+        <view class='sdb-desc'>打卡日期</view>
+      </view>
+      <view style='width:100%;height:60px;background:#fff;'>
+      <checkbox-group name="wkWeekdays" class="group" bindchange="wkCheckboxChange">
+          <block wx:for="{{wkCheckboxItems}}" wx:key="*this">
+            <label class='label-1' style="">
+              <checkbox hidden value="{{item.name}}" checked="{{item.checked}}"></checkbox>
+              <view class="label-1__icon">
+                <!-- <view class="label-1__icon-checked" style="opacity:{{item.checked ? 1: 0}}"></view> -->
+                <view class="label-1__icon-unchecked {{item.checked ? 'checked': ''}}"></view>
+              </view>
+              <text class="label-1__text">{{item.value}}</text>
+            </label>
+          </block>
+      </checkbox-group>
+      </view>
+    </view>
+    <view class='sign-box'>
+      <view class='sb-desc'>加班打卡</view>
+      <view class='sb-opt'>
+        <switch color="#00abff" name="ovActive" checked bindchange="switchOvChange"></switch>
+      </view>
+    </view>
+    <view hidden='{{ovClockHidden}}' class='sign-d-box'>
+      <picker mode="time" name="offOvTime" value="{{onOvTime}}" start="06:00" bindchange='changeOnOvTime'>
+        <view class='sdb'>
+          <view class='sdb-desc'>上班时间</view>
+          <view class='sdb-text'>
+            <text>{{onOvTime}}</text>
+          </view>
+          <view class='gt'>
+            <text>></text>
+          </view>
+        </view>
+      </picker>
+      <picker mode="time" name="offOvTime" value="{{offOvTime}}" start="06:00" bindchange='changeOffOvTime'>
+        <view class='sdb'>
+          <view class='sdb-desc'>下班时间</view>
+          <view class='sdb-text'>
+            <text>{{offOvTime}}</text>
+          </view>
+          <view class='gt'>
+            <text>></text>
+          </view>
+        </view>
+      </picker>
+      <view class='sdb' style='border-bottom: 0px #f6f6f6 solid;'>
+        <view class='sdb-desc'>打卡日期</view>
+      </view>
+      <view style='width:100%;height:60px;background:#fff;'>
+      <checkbox-group name="ovWeekdays" class="group" bindchange="ovCheckboxChange">
+          <block wx:for="{{ovCheckboxItems}}" wx:key="*this">
+            <label class='label-1' style="">
+              <checkbox hidden value="{{item.name}}" checked="{{item.checked}}"></checkbox>
+              <view class="label-1__icon">
+                <!-- <view class="label-1__icon-checked" style="opacity:{{item.checked ? 1: 0}}"></view> -->
+                <view class="label-1__icon-unchecked {{item.checked ? 'checked': ''}}"></view>
+              </view>
+              <text class="label-1__text">{{item.value}}</text>
+            </label>
+          </block>
+      </checkbox-group>
+      </view>
+    </view>
+  </view>
+  <button form-type='submit'>
+    <view class='sign-cbtn'>保存</view>
+  </button>
+</form>

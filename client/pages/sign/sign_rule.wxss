@@ -1,0 +1,115 @@
+/* client/pages/sign/sign_rule.wxss */
+
+.sign-cbox {
+  font-size: 14px;
+}
+
+.sign-cbtn {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 45px;
+  z-index: 999;
+  text-align: center;
+  line-height: 45px;
+  background: #00abff;
+  width: 100%;
+  color: #fff;
+  overflow: hidden;
+}
+
+.sign-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 4px;
+  margin-top: 10px;
+  background: #fff;
+  border-bottom: 1px #f6f6f6 solid;
+}
+
+.sb-opt {
+  padding-right: 4px;
+}
+
+.sdb {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  padding: 8px;
+  background: #fff;
+  border-bottom: 1px #f6f6f6 solid;
+  overflow: hidden;
+}
+.sdb-picker{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.sdb-desc {
+  width: 20%;
+  color: #888;
+}
+
+.sdb-text {
+  width: 70%;
+  text-align: right;
+}
+
+
+
+
+.label-1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  float: left;
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-bottom: 3px;
+  font-size: 14px;
+}
+
+.label-1__text {
+  font-size: 13px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.label-1__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 2px;
+  line-height: 18px;
+  width: 18px;
+  height: 18px;
+  border-radius: 18px;
+  background: rgb(190, 182, 182);
+  opacity: 0.8;
+}
+
+.label-1__icon-unchecked {
+  width: 17px;
+  height: 17px;
+  border-radius: 17px;
+  background: #f8f8f8;
+}
+
+.checked {
+  width: 17px;
+  height: 17px;
+  border-radius: 17px;
+  background: #00abff;
+}
+
+.checkbox-row {
+  padding: 8px;
+  /* background: #fff; */
+}

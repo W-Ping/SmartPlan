@@ -1,0 +1,45 @@
+/* client/pages/timemange/timemange.wxss */
+
+page {
+  font-size: 14px;
+}
+
+.pd-5 {
+  padding: 5px;
+  text-align: center;
+}
+
+.time-item {
+  background: #fff;
+  width: 100%;
+  margin: 10px auto;
+}
+
+.tc-option {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tc-option text {
+  font-weight: 700;
+}
+
+.tc-box {
+  border-top: 1px #f6f6f6 solid;
+  min-height: 45px;
+  width: 100%;
+}
+
+.tcb-text {
+  width: 98%;
+  margin: 5px auto;
+  font-size: 13px;
+}
+
+.desc {
+  text-align: center;
+  line-height: 45px;
+  color: #888;
+}
