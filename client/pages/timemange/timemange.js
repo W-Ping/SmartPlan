@@ -7,21 +7,40 @@ Page({
   data: {
     diyHidden: false,
     tdHidden: false,
-    weeHidden: true,
+    weekHidden: true,
     monthHidden: true,
-    tdMustTodo: "每天体土地方法集体土地方法对付集体土地方法对付集体土地方法对付集体土地方法对付集体土地方法对付对付",
-    tdEffortodo: "每天体土地方法集体土地方法对付集体土地方法对付集体土地方法对付集体土地方法对付集体土地方法对付对付",
-    weekMustTodo: "每周体土地方法集体土地方法对付集体土地方法对付集体土地方法对付集体土地方法对付集体土地方法对付对付",
-    weekEffortodo: "每周体土地方法集体土地方法对付集体土地方法对付集体土地方法对付集体土地方法对付集体土地方法对付对付",
-    monthMustTodo: "每月体土地方法集体土地方法对付集体土地方法对付集体土地方法对付集体土地方法对付集体土地方法对付对付",
-    monthEffortodo: "每月体土地方法集体土地方法对付集体土地方法对付集体土地方法对付集体土地方法对付集体土地方法对付对付",
+    diyPlanList: [],
+    dayPlanList: [],
+    weekPlanList: [],
+    monthPlanList: [],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    for (var i = 0; i < 2; i++) {
+      this.data.dayPlanList.push({
+        content: "每天要做的事情" + i
+      })
+      this.data.diyPlanList.push({
+        content: "自己定义要做的事情" + i,
+        startDate: "2018." + (10 + i) + ".12",
+        endDate: "2019.0" + (i + 1) + ".13",
+      })
+      this.data.weekPlanList.push({
+        content: "每周要做的事情每周要做的事情每周要做的事情每周要做的事情每周要做的事情每周要做的事情" + i
+      })
+      this.data.monthPlanList.push({
+        content: "每月要做的事情" + i
+      })
+    }
+    this.setData({
+      diyPlanList: this.data.diyPlanList,
+      dayPlanList: this.data.dayPlanList,
+      weekPlanList: this.data.weekPlanList,
+      monthPlanList: this.data.monthPlanList,
+    })
   },
 
   /**
@@ -90,6 +109,12 @@ Page({
   diyToChange: function(e) {
     this.setData({
       diyHidden: !this.data.diyHidden
+    })
+  },
+  navigatorToEdit: function(e) {
+    var type = e.currentTarget.dataset.type;
+    wx.navigateTo({
+      url: 'timemange_edit?type=' + type,
     })
   },
 })

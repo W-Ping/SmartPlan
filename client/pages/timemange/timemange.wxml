@@ -10,19 +10,18 @@
   </view>
   <view hidden='{{diyHidden}}'>
     <view class='tc-box'>
-      <view hidden='{{diyMustTodo}}' class='tcb-text desc'>
-       <text space='emsp'>【+】点击添加 一定完成计划~~</text>
-      </view>
-      <view class='tcb-text'>
-          <text>{{diyMustTodo}}</text>
-      </view>
-    </view>
-    <view class='tc-box'>
-      <view hidden='{{diyEffortodo}}' class='tcb-text desc'>
-        <text space='emsp'>【+】点击添加 加油完成计划~~</text>
-      </view>
-      <view class='tcb-text'>
-        <text>{{diyEffortodo}}</text>
+      <block wx:for="{{diyPlanList}}" wx:key="*this">
+        <view class='tc-text-box'>
+          <view class='tcb-time'>
+            <text>{{item.startDate}}~{{item.endDate}}</text>
+          </view>
+          <view class='tcb-text'>
+            <text>{{item.content}}</text>
+          </view>
+        </view>
+      </block>
+      <view class='tcb-option' data-type='diy' bindtap='navigatorToEdit'>
+        <text space='emsp'>【+】点击添加</text>
       </view>
     </view>
   </view>
@@ -38,19 +37,15 @@
   </view>
   <view hidden='{{tdHidden}}'>
     <view class='tc-box'>
-      <view hidden='{{tdMustTodo}}' class='tcb-text desc'>
-            <text space='emsp'>【+】点击添加 一定完成计划~~</text>
-      </view>
-      <view class='tcb-text'>
-        <text>{{tdMustTodo}}</text>
-      </view>
-    </view>
-    <view class='tc-box'>
-      <view hidden='{{tdEffortodo}}' class='tcb-text desc'>
-         <text space='emsp'>【+】点击添加 加油完成计划~~</text>
-      </view>
-      <view class='tcb-text'>
-        <text>{{tdEffortodo}}</text>
+      <block wx:for="{{dayPlanList}}" wx:key="*this">
+        <view class='tc-text-box'>
+          <view class='tcb-text'>
+            <text>{{item.content}}</text>
+          </view>
+        </view>
+      </block>
+      <view class='tcb-option' data-type='day' bindtap='navigatorToEdit'>
+        <text>【+】点击添加</text>
       </view>
     </view>
   </view>
@@ -61,24 +56,20 @@
       <text>每周计划</text>
     </view>
     <view class='pd-5'>
-      <switch checked color='#00abff' bindchange='weekToChange'></switch>
+      <switch color='#00abff' bindchange='weekToChange'></switch>
     </view>
   </view>
   <view hidden='{{weekHidden}}'>
     <view class='tc-box'>
-      <view hidden='{{weekMustTodo}}' class='tcb-text desc'>
-            <text space='emsp'>【+】点击添加 一定完成计划~~</text>
-      </view>
-      <view class='tcb-text'>
-        <text>{{weekMustTodo}}</text>
-      </view>
-    </view>
-    <view class='tc-box'>
-      <view hidden='{{weekEffortodo}}' class='tcb-text desc'>
-         <text space='emsp'>【+】点击添加 加油完成计划~~</text>
-      </view>
-      <view class='tcb-text'>
-        <text>{{weekEffortodo}}</text>
+      <block wx:for="{{weekPlanList}}" wx:key="*this">
+        <view class="tc-text-box">
+          <view class='tcb-text'>
+            <text>{{item.content}}</text>
+          </view>
+        </view>
+      </block>
+      <view class='tcb-option' data-type='week' bindtap='navigatorToEdit'>
+        <text>【+】点击添加</text>
       </view>
     </view>
   </view>
@@ -89,24 +80,20 @@
       <text>每月计划</text>
     </view>
     <view class='pd-5'>
-      <switch checked color='#00abff' bindchange='monthToChange'></switch>
+      <switch color='#00abff' bindchange='monthToChange'></switch>
     </view>
   </view>
   <view hidden='{{monthHidden}}'>
     <view class='tc-box'>
-      <view hidden='{{monthMustTodo}}' class='tcb-text desc'>
-            <text space='emsp'>【+】点击添加 一定完成计划~~</text>
-      </view>
-      <view class='tcb-text'>
-        <text>{{monthMustTodo}}</text>
-      </view>
-    </view>
-    <view class='tc-box'>
-      <view hidden='{{monthEffortodo}}' class='tcb-text desc'>
-         <text space='emsp'>【+】点击添加 加油完成计划~~</text>
-      </view>
-      <view class='tcb-text'>
-        <text>{{monthEffortodo}}</text>
+      <block wx:for="{{monthPlanList}}" wx:key="*this">
+        <view class='tc-text-box'>
+          <view class='tcb-text'>
+            <text>{{item.content}}</text>
+          </view>
+        </view>
+      </block>
+      <view class='tcb-option' data-type='month' bindtap='navigatorToEdit'>
+        <text>【+】点击添加</text>
       </view>
     </view>
   </view>

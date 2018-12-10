@@ -1,0 +1,9 @@
+<!--client/pages/timemange/timemange_edit.wxml-->
+<view>
+  <view>
+    <textarea placeholder='输入计划内容'></textarea>
+  </view>
+  <view>
+    <button>保存</button>
+  </view>
+</view>
