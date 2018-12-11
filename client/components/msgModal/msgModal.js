@@ -39,6 +39,9 @@ Component({
       this.setData({
         isHidden: true
       })
+      this.triggerEvent("closeModal", {
+        composed: true
+      });
     },
     _bindDelete: function(e) {
       this.setData({
@@ -46,6 +49,9 @@ Component({
       })
     },
     confirmDelete: function(e) {
+      this.setData({
+        isHidden: true
+      })
       this.triggerEvent("confirmDelete", {
         composed: true
       });
