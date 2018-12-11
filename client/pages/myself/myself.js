@@ -100,11 +100,11 @@ Page({
       url: '../timemange/timemange',
     })
   },
-  navigatorToSearch: function(e) {
-    wx.navigateTo({
-      url: '../search/search',
-    })
-  },
+  // navigatorToSearch: function(e) {
+  //   wx.navigateTo({
+  //     url: '../search/search',
+  //   })
+  // },
   navigatorToNotepad: function(e) {
     wx.navigateTo({
       url: '../notepad/notepad',

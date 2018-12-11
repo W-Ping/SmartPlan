@@ -21,17 +21,21 @@ Page({
   onLoad: function(options) {
     for (var i = 0; i < 2; i++) {
       this.data.dayPlanList.push({
+        id: i,
         content: "每天要做的事情" + i
       })
       this.data.diyPlanList.push({
+        id: "ID000"+i,
         content: "自己定义要做的事情" + i,
         startDate: "2018." + (10 + i) + ".12",
         endDate: "2019.0" + (i + 1) + ".13",
       })
       this.data.weekPlanList.push({
+        id: i,
         content: "每周要做的事情每周要做的事情每周要做的事情每周要做的事情每周要做的事情每周要做的事情" + i
       })
       this.data.monthPlanList.push({
+        id: i,
         content: "每月要做的事情" + i
       })
     }
@@ -47,7 +51,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    this.msgModal = this.selectComponent("#msgModal");
   },
 
   /**
@@ -117,4 +121,18 @@ Page({
       url: 'timemange_edit?type=' + type,
     })
   },
+  openQuery: function(e) {
+    var index = e.currentTarget.dataset.index;
+    var diyPlan = this.data.diyPlanList[index];
+    this.msgModal.showModal(e, {
+      id: diyPlan.id,
+      title: diyPlan.startDate + "~" + diyPlan.endDate,
+      content: diyPlan.content,
+      index: index
+    });
+  },
+  confirmDelete: function(e) {
+    console.log(e);
+    console.log(this.msgModal.data.id, this.msgModal.data.index);
+  }
 })

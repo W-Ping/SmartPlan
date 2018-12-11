@@ -1,0 +1,19 @@
+<!--components/msgModal/msgModal.wxml-->
+<view hidden='{{isHidden}}'>
+  <view class='msg-mask'></view>
+  <view class='msg-modal'>
+    <view class='msg-box'>
+      <view class='msg-title'>
+        <text>{{title}}</text>
+      </view>
+      <view class='msg-content'>
+        <text>{{content}}</text>
+      </view>
+    </view>
+    <view class='btn-box'>
+      <view class='btn' bindtap='_bindDelete' hidden='{{!delHidden}}'>删除</view>
+      <view class='btn del'  bindtap='confirmDelete' hidden='{{delHidden}}'>确认删除</view>
+      <view class='btn cancel' bindtap='closeModal'>关闭</view>
+    </view>
+  </view>
+</view>

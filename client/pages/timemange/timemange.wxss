@@ -36,12 +36,13 @@ page {
 .tcb-text {
   width: 95%;
   font-size: 13px;
-  padding-left:4px; 
+  padding-left: 4px;
   min-height: 45px;
   display: flex;
   align-items: center;
   border-bottom: 1px #f6f6f6 solid;
 }
+
 .tcb-option {
   height: 40px;
   line-height: 40px;
@@ -49,14 +50,15 @@ page {
   background: #fff;
   text-align: center;
   color: #888;
-  margin-top:5px; 
-}
-.tcb-time{
-  font-size:14px;
-  font-weight: 600; 
+  margin-top: 5px;
 }
 
-.tc-text-box{
+.tcb-time {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tc-text-box {
   margin: 5px auto;
   display: flex;
   flex-direction: column;
@@ -65,4 +67,32 @@ page {
   width: 96%;
   border-radius: 5px;
   background: #fff;
+}
+
+.close-box {
+  text-align: right;
+  position: relative;
+  width: 100%;
+}
+
+.close {
+  background: #fff;
+  color: #888;
+  border-radius: 12px;
+  line-height: 15px;
+  text-align: center;
+  height: 15px;
+  width: 15px;
+  font-size: 13px;
+  padding: 1px;
+}
+
+.close {
+  top: -3px;
+  right: -3px;
+  position: absolute; /**父元素一定要设置   position: relative;*/
+}
+
+.close::before {
+  content: "\2716";
 }
