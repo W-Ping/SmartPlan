@@ -10,8 +10,8 @@
   </view>
   <view hidden='{{diyHidden}}'>
     <view class='tc-box'>
-      <block wx:for="{{diyPlanList}}" wx:key="*this" wx:for-index="index">
-        <view class='tc-text-box' data-index='{{index}}' bindtap='openQuery'>
+      <block wx:for="{{diyPlanList}}" wx:key="*this"  wx:for-index="index">
+        <view class='tc-text-box' data-type='diy' data-index='{{index}}' bindtap='openQuery'>
           <!-- <view class='close-box'><text class='close'></text></view> -->
           <view class='tcb-time'>
             <text>{{item.startDate}}~{{item.endDate}}</text>
@@ -38,8 +38,8 @@
   </view>
   <view hidden='{{tdHidden}}'>
     <view class='tc-box'>
-      <block wx:for="{{dayPlanList}}" wx:key="*this">
-        <view class='tc-text-box'>
+      <block wx:for="{{dayPlanList}}" wx:key="*this"  wx:for-index="index">
+        <view class='tc-text-box' data-type='day' data-index='{{index}}' bindtap='openQuery' >
           <view class='tcb-text'>
             <text>{{item.content}}</text>
           </view>
@@ -62,8 +62,8 @@
   </view>
   <view hidden='{{weekHidden}}'>
     <view class='tc-box'>
-      <block wx:for="{{weekPlanList}}" wx:key="*this">
-        <view class="tc-text-box">
+      <block wx:for="{{weekPlanList}}" wx:key="*this"  wx:for-index="index">
+        <view class="tc-text-box" data-type='week' data-index='{{index}}' bindtap='openQuery'>
           <view class='tcb-text'>
             <text>{{item.content}}</text>
           </view>
@@ -86,8 +86,8 @@
   </view>
   <view hidden='{{monthHidden}}'>
     <view class='tc-box'>
-      <block wx:for="{{monthPlanList}}" wx:key="*this">
-        <view class='tc-text-box'>
+      <block wx:for="{{monthPlanList}}" wx:key="*this" wx:for-index="index">
+        <view class='tc-text-box' data-type='month' data-index='{{index}}' bindtap='openQuery'>
           <view class='tcb-text'>
             <text>{{item.content}}</text>
           </view>

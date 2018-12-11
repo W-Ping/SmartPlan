@@ -1,9 +1,21 @@
 <!--client/pages/timemange/timemange_edit.wxml-->
-<view>
+<form bindsubmit='savePlan'>
   <view>
-    <textarea placeholder='输入计划内容'></textarea>
+    <view class='diy-box' hidden="{{type!=='diy'}}">
+      <picker mode="date" style='width:85%;' start="{{startDate}}" bindchange="bindStartDateChange">
+        <view class='time'>开始时间：{{startDate}}</view>
+        <input hidden name="startDate" value="{{startDate}}"></input>
+      </picker>
+      <picker mode="date" style='width:85%;' start="{{startDate}}" bindchange="bindEndDateChange">
+        <view  class='time'>结束时间：{{endDate}}</view>
+        <input hidden name="endDate" value="{{endDate}}"></input>
+      </picker>
+    </view>
+    <view class='content-box'>
+      <textarea name="content" placeholder='输入计划内容'></textarea>
+    </view>
+    <view class='save-btn'>
+      <button form-type="submit">保存</button>
+    </view>
   </view>
-  <view>
-    <button>保存</button>
-  </view>
-</view>
+</form>

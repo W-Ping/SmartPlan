@@ -14,3 +14,15 @@ page {
   text-align: center;
   color: #888;
 }
+.save-btn {
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+.save-btn button {
+  width: 90%;
+  background: #00abff;
+  color: #fff;
+}

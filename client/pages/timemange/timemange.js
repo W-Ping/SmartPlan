@@ -25,7 +25,7 @@ Page({
         content: "每天要做的事情" + i
       })
       this.data.diyPlanList.push({
-        id: "ID000"+i,
+        id: "ID000" + i,
         content: "自己定义要做的事情" + i,
         startDate: "2018." + (10 + i) + ".12",
         endDate: "2019.0" + (i + 1) + ".13",
@@ -123,16 +123,72 @@ Page({
   },
   openQuery: function(e) {
     var index = e.currentTarget.dataset.index;
-    var diyPlan = this.data.diyPlanList[index];
-    this.msgModal.showModal(e, {
-      id: diyPlan.id,
-      title: diyPlan.startDate + "~" + diyPlan.endDate,
-      content: diyPlan.content,
-      index: index
-    });
+    var type = e.currentTarget.dataset.type;
+    var info = {};
+    info.index = index;
+    switch (type) {
+      case 'diy':
+        var plan = this.data.diyPlanList[index];
+        info.id = plan.id
+        info.title = plan.startDate + "~" + plan.endDate;
+        info.content = plan.content;
+        info.type = "diy";
+        break;
+      case 'day':
+        var plan = this.data.dayPlanList[index];
+        info.id = plan.id
+        info.title = "";
+        info.content = plan.content;
+        info.type = "day";
+        break;
+      case 'week':
+        var plan = this.data.weekPlanList[index];
+        info.id = plan.id
+        info.title = "";
+        info.content = plan.content;
+        info.type = "week";
+        break;
+      case 'month':
+        var plan = this.data.monthPlanList[index];
+        info.id = plan.id
+        info.title = "";
+        info.content = plan.content;
+        info.type = "month";
+        break;
+    }
+    this.msgModal.showModal(e, info);
   },
   confirmDelete: function(e) {
     console.log(e);
-    console.log(this.msgModal.data.id, this.msgModal.data.index);
+    console.log(this.msgModal.data.type, this.msgModal.data.id, this.msgModal.data.index);
+    var type = this.msgModal.data.type;
+    var index = this.msgModal.data.index;
+    var id = this.msgModal.data.id;
+    switch (type) {
+      case 'diy':
+        this.data.diyPlanList.splice(index, 1);
+        this.setData({
+          diyPlanList: this.data.diyPlanList
+        })
+        break;
+      case 'day':
+        this.data.dayPlanList.splice(index, 1);
+        this.setData({
+          dayPlanList: this.data.dayPlanList
+        })
+        break;
+      case 'week':
+        this.data.weekPlanList.splice(index, 1);
+        this.setData({
+          weekPlanList: this.data.weekPlanList
+        })
+        break;
+      case 'month':
+        this.data.monthPlanList.splice(this.msgModal.data.index, 1);
+        this.setData({
+          monthPlanList: this.data.monthPlanList
+        })
+        break;
+    }
   }
 })

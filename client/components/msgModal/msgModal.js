@@ -17,7 +17,8 @@ Component({
     index: 0,
     id: "",
     title: "",
-    content: ""
+    content: "",
+    type: "",
   },
 
   /**
@@ -33,6 +34,7 @@ Component({
         id: info.id,
         content: info.content,
         title: info.title,
+        type: info.type
       })
     },
     closeModal: function(e) {
