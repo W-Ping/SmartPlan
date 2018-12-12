@@ -1,0 +1,9 @@
+/* client/pages/notepad/notepad_add.wxss */
+
+.save-title {
+  background: #fff;
+  /* height: 50px; */
+  margin: 5px auto;
+  padding: 5px;
+  border-radius: 5px;
+}

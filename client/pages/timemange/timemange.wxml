@@ -22,7 +22,7 @@
         </view>
       </block>
       <view class='tcb-option' data-type='diy' bindtap='navigatorToEdit'>
-        <text space='emsp'>【+】点击添加</text>
+        <text >【+】点击添加</text>
       </view>
     </view>
   </view>

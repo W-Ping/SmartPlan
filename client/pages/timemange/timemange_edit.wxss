@@ -17,6 +17,18 @@
 }
 
 .time {
-  padding-left: 20px;
+  text-align: center;
   margin: 5px auto;
+    font-size: 16px;
+}
+
+
+
+.time-text {
+  font-size: 14px;
+}
+
+._gray {
+  color: gray;
+  font-size: 14px;
 }

@@ -28,7 +28,7 @@ Page({
     console.log(e.detail.userInfo)
     console.log(e.detail.rawData)
     wx.reLaunch({
-      url: '../today/today',
+      url: config.default_page,
     })
   },
   /**

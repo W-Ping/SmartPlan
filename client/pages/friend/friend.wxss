@@ -3,7 +3,7 @@
 .fd-container {
   position: fixed;
   top: 50px;
-  bottom: 45px;
+  bottom: 50px;
 }
 .fd-search {
   height: 50px;

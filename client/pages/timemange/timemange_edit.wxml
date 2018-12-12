@@ -3,15 +3,21 @@
   <view>
     <view class='diy-box' hidden="{{type!=='diy'}}">
       <picker mode="date" style='width:85%;' start="{{startDate}}" bindchange="bindStartDateChange">
-        <view class='time'>开始时间：{{startDate}}</view>
+        <view class='time'>
+          <text>开始时间：</text>
+          <text class="{{startDate?'time-text':'_gray'}}">{{startDate}}</text>
+        </view>
         <input hidden name="startDate" value="{{startDate}}"></input>
       </picker>
       <picker mode="date" style='width:85%;' start="{{startDate}}" bindchange="bindEndDateChange">
-        <view  class='time'>结束时间：{{endDate}}</view>
+        <view class='time'>
+          <text>结束时间：</text>
+          <text class="{{endDate?'time-text':'_gray'}}">{{endDate?endDate:'请选择日期'}}</text>
+        </view>
         <input hidden name="endDate" value="{{endDate}}"></input>
       </picker>
     </view>
-    <view class='content-box'>
+    <view class='save-content'>
       <textarea name="content" placeholder='输入计划内容'></textarea>
     </view>
     <view class='save-btn'>

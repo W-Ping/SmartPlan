@@ -1,1 +1,46 @@
 /* client/pages/notepad/notepad.wxss */
+
+.not-container {
+  position: fixed;
+  top: 5px;
+  bottom: 50px;
+}
+
+.note-box {
+  width: 98%;
+  background: #fff;
+  min-height: 80px;
+  margin: 5px auto;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.note {
+  padding: 5px;
+}
+
+.note-title {
+  border-bottom: 1px solid #f6f6f6;
+}
+
+.note-title {
+  font-weight: 700;
+}
+
+.not-bottom {
+  padding-right: 5px;
+  text-align: right;
+  font-size: 12px;
+  color: #888;
+}
+
+.not-option {
+  position: fixed;
+  bottom: 0;
+  height: 45px;
+  line-height: 45px;
+  width: 100%;
+  background: #00abff;
+  text-align: center;
+  color: #fff;
+}
