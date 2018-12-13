@@ -2,6 +2,10 @@
 
 .sign-cbox {
   font-size: 14px;
+  position: absolute;
+  top: 5px;
+  bottom: 50px;
+  width: 100%;
 }
 
 .sign-cbtn {
@@ -24,15 +28,22 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  padding: 10px 0px 10px 0px;
   width: 100%;
-  padding: 4px;
-  margin-top: 10px;
+  /* margin-top:5px;  */
   background: #fff;
   border-bottom: 1px #f6f6f6 solid;
+  font-weight: 700;
 }
 
 .sb-opt {
   padding-right: 4px;
+}
+
+
+
+.box-mg {
+  margin-top: 5px;
 }
 
 .sdb {
@@ -40,30 +51,34 @@
   flex-direction: row;
   align-items: center;
   width: 100%;
-  padding: 8px;
+  /* padding: 8px; */
   background: #fff;
   border-bottom: 1px #f6f6f6 solid;
   overflow: hidden;
 }
-.sdb-picker{
+
+.sdb-picker {
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
+
 .sdb-desc {
+  padding: 10px 0px 10px 10px;
   width: 20%;
   color: #888;
+}
+
+.sdb-range {
+  width: 50%;
 }
 
 .sdb-text {
   width: 70%;
   text-align: right;
 }
-
-
-
 
 .label-1 {
   display: flex;
@@ -109,7 +124,6 @@
   background: #00abff;
 }
 
-.checkbox-row {
-  padding: 8px;
-  /* background: #fff; */
+.sdb-text-range {
+  width: 40%;
 }

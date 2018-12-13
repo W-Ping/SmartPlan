@@ -1,2 +1,4 @@
 <!--client/pages/statistics/statistics.wxml-->
-<text>client/pages/statistics/statistics.wxml</text>
+<view class='statistics-box'>
+  <view>我还只是一张白纸(￣▽￣)</view>
+</view>

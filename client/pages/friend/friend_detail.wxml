@@ -1,8 +1,8 @@
 <!--client/pages/friend/friend_detail.wxml-->
 <view class='fi-container'>
-  <view class=' fi fi-box'>
-    <view class='fi-image' bindtap='previewImage'>
-      <image src='{{friendInfo.avatarUrl}}'></image>
+  <view class='fi fi-box'>
+    <view class='fi-image pd-5' bindtap='previewImage'>
+      <image  src='{{friendInfo.avatarUrl}}'></image>
     </view>
     <view class='fi-info'>
       <view class='fii-nickName'>
@@ -17,7 +17,7 @@
     </view>
   </view>
   <view class='fi fi-setting'>
-    <view>
+    <view class='pd-5'>
       <text>设置备注和标签</text>
     </view>
     <view class='gt'>
@@ -25,7 +25,7 @@
     </view>
   </view>
   <view class='fi fi-mp'>
-    <view class='fim-desc'>
+    <view class='fim-desc pd-5'> 
       <text>电话</text>
     </view>
     <view class='fim-phone'>
@@ -36,7 +36,7 @@
     </view>
   </view>
   <view class='fi-plan'>
-    <view class='fi-plan-desc'>
+    <view class='fi-plan-desc pd-5'>
       <text>最近的任务</text>
     </view>
     <view class='line'></view>
@@ -48,7 +48,7 @@
     </block>
     <view class='line'></view>
     <view class='fi-plan-more'>
-      <view>
+      <view class='pd-5'>
         <text>更多</text>
       </view>
       <view class='gt'>

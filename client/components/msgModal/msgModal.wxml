@@ -11,9 +11,14 @@
       </view>
     </view>
     <view class='btn-box'>
-      <view class='btn' bindtap='_bindDelete' hidden='{{!delHidden}}'>删除</view>
-      <view class='btn del'  bindtap='confirmDelete' hidden='{{delHidden}}'>确认删除</view>
-      <view class='btn cancel' bindtap='closeModal'>关闭</view>
+      <view class='btn-left'>
+        <view class='btn' bindtap='_bindDelete' hidden='{{!delHidden}}'>删 除</view>
+        <view class='btn del' bindtap='confirmDelete' hidden='{{delHidden}}'>确认删除</view>
+      </view>
+      <view class='btn-right'>
+        <view class='btn cancel' hidden='{{!delHidden}}' bindtap='closeModal'>关 闭</view>
+        <view class='btn cancel' hidden='{{delHidden}}' bindtap='closeModal'>取 消</view>
+      </view>
     </view>
   </view>
 </view>

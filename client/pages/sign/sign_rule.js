@@ -1,4 +1,20 @@
 // client/pages/sign/sign_rule.js
+const hours = [];
+const minutes = [];
+//获取小时
+for (let i = 0; i < 24; i++) {
+  if (i < 10) {
+    i = "0" + i;
+  }
+  hours.push("" + i);
+}
+//获取分钟
+for (let i = 0; i < 60; i++) {
+  if (i < 10) {
+    i = "0" + i;
+  }
+  minutes.push("" + i);
+}
 Page({
 
   /**
@@ -9,8 +25,17 @@ Page({
     offOvTime: '22:30',
     onWkTime: '09:30',
     offWkTime: '18:30',
+    onWkRangeTime: '06:30~10:30',
+    offWkRangeTime: '15:30~23:00',
+    onOvRangeTime: '06:30~10:30',
+    offOvRangeTime: '15:30~23:00',
     wkClockHidden: false,
     ovClockHidden: false,
+    onWkRangeTimeIndex: [6, 30, 23, 0],
+    offWkRangeTimeIndex: [16, 30, 23, 0],
+    onOvRangeTimeIndex: [6, 30, 23, 0],
+    offOvRangeTimeIndex: [16, 30, 23, 0],
+    timeRange: [hours, minutes, hours, minutes],
     wkCheckboxItems: [{
         name: '1',
         value: '星期一',
@@ -88,8 +113,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
-  },
+  onReady: function() {},
 
   /**
    * 生命周期函数--监听页面显示
@@ -132,18 +156,37 @@ Page({
   onShareAppMessage: function() {
 
   },
-  // checkboxChange: function (e) {
-  //   var checked = e.detail.value
-  //   var changed = {}
-  //   for (var i = 0; i < this.data.checkboxItems.length; i++) {
-  //     if (checked.indexOf(this.data.checkboxItems[i].name) !== -1) {
-  //       changed['checkboxItems[' + i + '].checked'] = true
-  //     } else {
-  //       changed['checkboxItems[' + i + '].checked'] = false
-  //     }
-  //   }
-  //   this.setData(changed)
-  // },
+  bindRangeChange: function(e) {
+    var type = e.currentTarget.dataset.type;
+    console.log(type);
+    console.log(e.detail.value);
+    var slected = e.detail.value;
+    var timeRange = this.data.timeRange;
+    var startH = timeRange[0][slected[0]];
+    var startM = timeRange[1][slected[1]];
+    var endH = timeRange[2][slected[2]];
+    var endM = timeRange[3][slected[3]];
+    var rangeTime = startH + ":" + startM + "~" + endH + ":" + endM;
+    var changeData = {};
+    switch (type) {
+      case 'onWk':
+        changeData.onWkRangeTime = rangeTime;
+        break;
+      case 'offWk':
+        changeData.offWkRangeTime = rangeTime;
+        break;
+      case 'onOv':
+        changeData.onOvRangeTime = rangeTime;
+        break;
+      case 'offOv':
+        changeData.offOvRangeTime = rangeTime;
+        break;
+    }
+    this.setData(changeData);
+  },
+  bindRangeColumnChange: function(e) {
+    console.log(e.detail.value, e.detail.column)
+  },
   switchWkChange: function(e) {
     this.setData({
       wkClockHidden: !this.data.wkClockHidden

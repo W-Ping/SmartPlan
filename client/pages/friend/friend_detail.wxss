@@ -17,8 +17,8 @@ page {
   width: 100%;
   background: #fff;
   margin-top: 10px;
-  padding: 4px;
-  height: 30px;
+  /* padding: 4px; */
+  height: 45px;
 }
 
 .fi-box {
@@ -26,14 +26,16 @@ page {
   flex-direction: row;
   align-items: center;
   width: 100%;
-  margin: 10px auto;
-  height: 80px;
-  padding: 10px;
+  margin: 5px auto;
+  height: 100px;
+  /* padding: 10px; */
 }
 
 .fi-image {
-  margin: 0 auto;
   width: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .fi-image image {
@@ -45,6 +47,7 @@ page {
   display: flex;
   flex-direction: column;
   width: 55%;
+  padding-left:5px; 
 }
 
 .fii-uid {
@@ -94,7 +97,7 @@ page {
 }
 
 .fi-plan-desc text, .fi-plan-more text {
-  padding: 4px;
+  /* padding: 4px; */
 }
 
 .fi-plan-more {
