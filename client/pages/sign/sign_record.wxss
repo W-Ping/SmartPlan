@@ -1,1 +1,116 @@
 /* client/pages/sign/sign_record.wxss */
+
+.clock-tab {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45px;
+  width: 100%;
+  background: #fff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: #ccc;
+  font-size: 18px;
+  background: #00abff;
+}
+
+.clock-tab-item {
+  padding: 0px 5px;
+}
+
+.clock-item-active {
+  font-weight: 700;
+  color: #fff;
+  /* border-bottom:1px solid #fff;  */
+}
+
+.clock-search {
+  position: fixed;
+  top: 45px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 60px;
+  background: #fff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: #00abff;
+}
+
+.clock-box {
+  position: fixed;
+  top: 105px;
+  bottom: 5px;
+  left: 0;
+  right: 0;
+  font-size: 14px;
+}
+
+.clock-item {
+  margin: 5px auto;
+  height: 45px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: #fff;
+  width: 90%;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 45px;
+  border: 2px solid #00abff;
+}
+
+.clock-date {
+  width: 30%;
+}
+
+.clock-desc {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: right;
+  width: 70%;
+}
+
+.clock-time {
+  padding-right: 5px;
+  min-width: 70%;
+}
+
+.clock-operation {
+  text-align: center;
+  width: 30%;
+}
+.clock-operation text{
+  padding: 5px;
+  border-bottom: 1px solid #2aadeede;
+}
+.overtime-color {
+  color: rgb(241, 156, 44);
+}
+
+.wk-btn {
+  overflow:visible;
+  color: #2aadeede;
+  border: 1px solid #2aadeede;
+}
+
+.ov-btn {
+  overflow:visible;
+  color: rgb(241, 156, 44);
+  border: 1px solid rgb(241, 156, 44);
+}
+
+.overtime-b-color {
+  border: 2px solid rgb(241, 156, 44);
+}
+
+.cs-btn {
+  margin-left:10px; 
+}

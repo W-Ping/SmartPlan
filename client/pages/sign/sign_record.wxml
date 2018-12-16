@@ -1,2 +1,32 @@
-<!--client/pages/sign/sign_record.wxml-->
-<text>client/pages/sign/sign_record.wxml</text>
+<view class='clock-tab'>
+  <view data-currenttab='0' bindtap='swichTab' class="clock-tab-item {{currentTab=='0'?'clock-item-active':''}}">工 作</view>
+  <view data-currenttab='1' bindtap='swichTab' class="clock-tab-item {{currentTab=='1'?'clock-item-active':''}}">加 班</view>
+</view>
+<view class="clock-search {{currentTab==1?'overtime-color':''}}">
+  <picker mode="date" name="sStartDate" value="{{sStartDate}}" start="1989-11-16" bindchange='changeStartDate'>
+    <view class='cs-date'>{{sStartDate}}</view>
+  </picker>
+  <view style='padding:0px 5px;'>~</view>
+  <picker mode="date" name="sEndDate" value="{{sStartDate}}" start="{{sStartDate}}" bindchange='changeEndDate'>
+    <view class='cs-date'>{{sEndDate}}</view>
+  </picker>
+  <view class='cs-btn'>
+    <button class="{{currentTab==1?'ov-btn':'wk-btn'}}" size='mini'>查询</button>
+  </view>
+</view>
+<scroll-view scroll-y class='clock-box'>
+  <block wx:for="{{clockdList}}" wx:for-index="index" wx:key="*this">
+    <view class="clock-item  {{currentTab==1?'overtime-b-color':''}}">
+      <view class='clock-date'>{{item.clockDate}}</view>
+      <view class="clock-desc">
+        <view class='clock-time' style="width:{{item.status==2?'100%':'70%'}}">
+          {{item.startTime}}~{{item.endTime}}
+        </view>
+        <view hidden='{{item.status==2}}' class='clock-operation'>
+          <text style="{{currentTab==1?'border-bottom: 1px solid rgb(241, 156, 44);':''}}">补卡</text>
+        </view>
+      </view>
+
+    </view>
+  </block>
+</scroll-view>

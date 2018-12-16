@@ -4,7 +4,7 @@
     <view class='box st-image'>
       <image class='image' src='../../images/update_user.png'></image>
     </view>
-    <view class='stt-box'>
+    <view class='stt-box' bindtap='refreshUserInfo' >
       <view class='box stt-text'>
         <text>更新个人昵称和头像</text>
       </view>

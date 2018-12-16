@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    levelArray: ['1级别', '2级别', '3级别'],
+    timeIndex: 0,
   },
 
   /**

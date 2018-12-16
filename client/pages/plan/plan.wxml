@@ -1,25 +1,21 @@
 <!--client/pages/plan/plan.wxml-->
 <view class='plan-continer'>
-  <!-- <view class='plan-declare'>
-    <view>
-      你今天已经新建了
-      <label>5</label>个任务计划！！！
+  <view class='plan-box'>
+    <view class='plan-box'>
+      <view class='circle-btn edit' bindtap='navigatorToEditList'>
+        <text>编辑</text>
+      </view>
     </view>
-  </view>
-  <view class='plan-link'>
-    <navigator url='plan_detail'>
-      <image style='width:60px;height:60px' src='../../images/add_link.png'></image>
-    </navigator>
-  </view> -->
-  <view class='plan-box create'>
-      <view class='circle-btn' bindtap='navigatorToCreate'>
+    <view class='plan-box'>
+      <view class='circle-btn create' bindtap='navigatorToCreate'>
         <text>新建</text>
       </view>
-  </view>
-  <view class='plan-box edit'>
-    <view class='circle-btn' bindtap='navigatorToEditList'>
-      <text>编辑</text>
     </view>
   </view>
-
+  <view class='plan-desc'>
+    <text>Ping!</text>
+  </view>
+  <view class='plan-desc'>
+    <text>既然有了计划那就好好执行吧</text>
+  </view>
 </view>

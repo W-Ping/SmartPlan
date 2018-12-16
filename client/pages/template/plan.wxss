@@ -129,9 +129,11 @@
   flex-direction: row;
   width: 85%;
 }
+
 .di-add {
   width: 15%;
 }
+
 .di-progress {
   display: flex;
   align-items: center;
@@ -139,6 +141,7 @@
   width: 18%;
   color: #fff;
 }
+
 .di-title {
   width: 82%;
 }
@@ -307,4 +310,84 @@
   padding-left: 3px;
   background: #00abff;
   color: #fff;
+}
+
+/**************plan-edit CSS*****************/
+
+.p-container {
+  height: 100%;
+  width: 100%;
+  background: #f6f6f6;
+  font-size: 14px;
+}
+
+.p-box {
+  margin: 5px auto;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f8f8;
+}
+
+.p-textarea {
+  height: 90%;
+  width: 96%;
+  padding: 5px 0px 0px 5px;
+  background: #fff;
+}
+
+.p-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: #fff;
+  margin: 3px auto;
+  height: 45px;
+}
+
+.p-desc {
+  font-size: 15px;
+  width: 30%;
+  text-align: center;
+}
+
+.p-value {
+  width: 60%;
+}
+
+.predict {
+  width: 40%;
+}
+
+.p-unit {
+  text-align: center;
+  width: 30%;
+}
+
+.p-unit text {
+  padding: 5px;
+  border-bottom: 1px #00abff solid;
+}
+
+.p-remark-box {
+  display: flex;
+  flex-direction: row;
+  height: 80px;
+  background: #fff;
+}
+
+.remark {
+  line-height: 80px;
+  height: 80px;
+}
+
+.p-remark {
+  width: 70%;
+  height: 80px;
+}
+
+.p-reamrk-textarea {
+  height: 80px;
+  width: 100%;
 }

@@ -1,5 +1,5 @@
 <!--client/pages/plan/plan_detail.wxml-->
-<form bindsubmit="savTaskSubmit">
+<!-- <form bindsubmit="savTaskSubmit">
   <view class='create-task'>
     <view class='ct-view ct-conent'>
       <textarea placeholder="计划内容" name="content" value="{{taskInfo['content']}}" auto-height auto-focus maxlength='150'></textarea>
@@ -54,4 +54,11 @@
     </view>
   </view>
 </form>
-<selectable id="selectable" name_key="handlerName" value_key="handlerUid" image_key="avatarUrl  " items="{{items}}"  multiSelect="{{false}}" bind:inputText="inputText" bind:closeSelect="closeSelect" catch:confirmSelect='confirmSelect'></selectable>
+<selectable id="selectable" name_key="handlerName" value_key="handlerUid" image_key="avatarUrl  " items="{{items}}"  multiSelect="{{false}}" bind:inputText="inputText" bind:closeSelect="closeSelect" catch:confirmSelect='confirmSelect'></selectable> -->
+<form bindsubmit="savTaskSubmit">
+  <import src="../template/plan.wxml" />
+  <template is="plan-edit" data="{{...planInfo,levelArray,level,timeArray,estimateTimeType}}" />
+  <view class='save-task-btn'>
+    <button formType="submit" style="background-color:#00abff;color:#fff;border-radius:0;">保 存</button>
+  </view>
+</form>

@@ -127,5 +127,23 @@ Page({
     wx.navigateTo({
       url: 'setting_auth?uid=' + uid
     })
+  },
+  refreshUserInfo: function() {
+    wx.showLoading({
+      title: '更新中。。。',
+    })
+    wx.getUserInfo({
+      withCredentials: false,
+      lang: 'zh_CN',
+      success: function(res) {
+        console.log(res);
+      },
+      fail: function(res) {
+
+      },
+      complete: function(res) {
+        wx.hideLoading();
+      }
+    })
   }
 })

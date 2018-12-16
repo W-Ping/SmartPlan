@@ -136,3 +136,46 @@
     <!-- </view> -->
   </navigator>
 </template>
+
+<template name="plan-edit">
+  <view class='p-container'>
+    <view class='p-box'>
+      <textarea class='p-textarea' name="content" value='{{content}}' placeholder='输入计划内容'></textarea>
+    </view>
+    <picker bindchange="levelChange" name="level" value="{{levelArray[level]}}" range="{{levelArray}}">
+      <view class='p-item'>
+        <view class='p-desc'>优先级别</view>
+        <view class='p-value'>{{levelArray[level]}}</view>
+        <view class='gt'>
+          <text>></text>
+        </view>
+      </view>
+    </picker>
+    <view class='p-item' bindtap='navigatorToHanlder' >
+      <view class='p-desc'>经办人</view>
+      <view class='p-value'>{{handler}}</view>
+      <input name="handler" hidden value="{{handler}}"></input>
+      <input name="handlerUid" hidden value="{{handlerUid}}"></input>
+      <view class='gt'>
+        <text>></text>
+      </view>
+    </view>
+    <view class='p-item'>
+      <view class='p-desc'>预估时间</view>
+      <view class='p-value predict '>
+        <input name="estimateTime" value='{{estimateTime}}' type='digit' placeholder='输入时间'></input>
+      </view>
+      <view class='p-unit'>
+        <picker bindchange="timeChange" name="estimateTimeType" value="{{estimateTimeType+1}}" range="{{timeArray}}">
+          <text>{{timeArray[estimateTimeType]}}</text>
+        </picker>
+      </view>
+    </view>
+    <view class='p-remark-box'>
+      <view class='p-desc remark'>备注</view>
+      <view class='p-remark'>
+        <textarea class='p-reamrk-textarea' name="remark" value='{{remark}}' placeholder='输入备注'></textarea>
+      </view>
+    </view>
+  </view>
+</template>

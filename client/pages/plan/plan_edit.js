@@ -9,11 +9,12 @@ Page({
     isAssign: false,
     position: "static",
     textareaShow: true,
-    levelIndex: 0,
+    level: 0,
     levelArray: ['1级别', '2级别', '3级别'],
-    timeIndex: 0,
+    estimateTimeType: 0,
     timeArray: ['小时', '天', '周'],
-    taskInfo: {}
+    taskInfo: {},
+    planInfo: {}
   },
 
   /**
@@ -28,8 +29,22 @@ Page({
       barTitle = '新建';
     } else {
       barTitle = '编辑';
-      //TODO 查询计划明细
+      var planInfo = this.data.planInfo;
+      planInfo.id = "U0001";
+      planInfo.level = 1;
+      planInfo.handler = "王大雷";
+      planInfo.handlerUid = "U0002";
+      planInfo.estimateTime = 12;
+      planInfo.estimateTimeType = 1;
+      planInfo.remark = "宝贝宝贝";
+      planInfo.content = "deom测热热热热热热热";
+      this.setData({
+        planInfo: planInfo,
+        level: planInfo.level,
+        estimateTimeType: planInfo.estimateTimeType,
+      })
     }
+
     wx.setNavigationBarTitle({
       title: barTitle,
     })
@@ -103,19 +118,25 @@ Page({
     console.log('picker发送选择改变，携带值为', e)
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
-      levelIndex: e.detail.value
+      level: e.detail.value
     })
   },
   timeChange: function(e) {
     console.log('picker time 发送选择改变，携带值为', e.detail.value)
     this.setData({
-      timeIndex: e.detail.value
+      estimateTimeType: e.detail.value
     })
   },
   savTaskSubmit: function(e) {
     var taskInfo = e.detail.value;
     console.log('创建任务信息', taskInfo)
   },
+  navigatorToHanlder:function(e){
+    wx.navigateTo({
+      url: '../friend/friend_handler',
+    })
+  },
+
   closeSelect: function(e) {
     console.log("关闭", e);
     this.setData({

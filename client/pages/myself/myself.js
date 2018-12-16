@@ -19,7 +19,7 @@ Page({
     for (var i = 0; i < 5; i++) {
       that.data.statPlanList.push({
         id: "ID" + i,
-        statDay: '2018.01.01',
+        statDay: '2018.01',
         addPlanCount: Math.ceil(Math.random() * 1000),
         startPlanCount: Math.ceil(Math.random() * 1000),
         finishPlanCount: Math.ceil(Math.random() * 2000)
@@ -118,6 +118,12 @@ Page({
   navigatorToStatistics: function(e) {
     wx.navigateTo({
       url: '../statistics/statistics',
+    })
+  },
+  navigatorStatPlan:function(e){
+    var statDate=e.currentTarget.dataset.statdate;
+    wx.navigateTo({
+      url: '../plan/plan_history?date=' + statDate,
     })
   },
 })
