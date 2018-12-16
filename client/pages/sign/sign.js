@@ -22,7 +22,7 @@ Page({
     onActualWkOverTime: "10:30",
     offWkActualOverTime: "20:30",
     weekDay: util.getWeek(),
-    today:  util.formatUnixTime(new Date(),'Y年M月D日')
+    today: util.formatUnixTime(new Date(), 'Y年M月D日')
   },
 
   /**
@@ -93,12 +93,14 @@ Page({
     if (normalOnWkTimeFlag == 0) { //上班打卡
       var onWkTime = this.data.onWkTime;
       if (util.compareTime(onWkTime, nowTime)) {
+        wx.vibrateLong();
         this.setData({
           onWkActualTime: nowTime,
           normalOnWkTimeFlag: 1
         })
       } else {
         util.showConfirm(null, "上班迟到打卡？", () => {
+          wx.vibrateLong();
           this.setData({
             onWkActualTime: nowTime,
             normalOnWkTimeFlag: 2
@@ -109,12 +111,14 @@ Page({
       var normalOffWkTimeFlag = this.data.normalOffWkTimeFlag;
       var offWkTime = this.data.offWkTime;
       if (util.compareTime(nowTime, offWkTime)) {
+        wx.vibrateLong();
         this.setData({
           offWkActualTime: nowTime,
           normalOffWkTimeFlag: 1
         })
       } else {
         util.showConfirm(null, "下班早退打卡？", () => {
+          wx.vibrateLong();
           this.setData({
             offWkActualTime: nowTime,
             normalOffWkTimeFlag: 2
@@ -132,12 +136,14 @@ Page({
     if (normalOnOvTimeFlag == 0) { //上班打卡
       var onWkOvTime = this.data.onWkOvTime;
       if (util.compareTime(onWkOvTime, nowTime)) {
+        wx.vibrateLong();
         this.setData({
           onActualWkOverTime: nowTime,
           normalOnOvTimeFlag: 1
         })
       } else {
         util.showConfirm(null, "加班迟到打卡？", () => {
+          wx.vibrateLong();
           this.setData({
             onActualWkOverTime: nowTime,
             normalOnOvTimeFlag: 2
@@ -149,12 +155,14 @@ Page({
       var normalOffOvTimeFlag = this.data.normalOffOvTimeFlag;
       var offWkOvTime = this.data.offWkOvTime;
       if (util.compareTime(nowTime, offWkOvTime)) {
+        wx.vibrateLong();
         this.setData({
           offWkActualOverTime: nowTime,
           normalOffOvTimeFlag: 1
         })
       } else {
         util.showConfirm(null, "加班早退打卡？", () => {
+          wx.vibrateLong();
           this.setData({
             offWkActualOverTime: nowTime,
             normalOffOvTimeFlag: 2
