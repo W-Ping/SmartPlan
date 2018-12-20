@@ -1,7 +1,13 @@
-<!--client/pages/friend/friend_handler.wxml-->
+<view class='fd-handle'>
+  <view class='fd-cancel' bindtap='selecedFdCancel'>取消</view>
+  <view class='fd-confirm'>确定</view>
+</view>
 <scroll-view class='fd-container' scroll-y>
   <block wx:for="{{friendList}}" wx:for-item="item" wx:for-index="index" wx:key="*this">
-    <view class='fd-box' data-uid='{{item.uid}}' bindtap='navigatorDetail'>
+    <view class='fd-box' data-uid='{{item.uid}}' data-index='{{index}}' bindtap='selecedFdItem'>
+      <view class="fd radio">
+        <view class="fd-radio {{item.selected==true?'radio-selected':''}}"></view>
+      </view>
       <view class='fd image'>
         <image src='{{item.avatarUrl}}'></image>
       </view>

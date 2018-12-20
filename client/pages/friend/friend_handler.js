@@ -6,13 +6,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-    friendList:[]
+    friendList: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     var that = this;
     for (var i = 0; i < 22; i++) {
       that.data.friendList.push({
@@ -24,7 +24,7 @@ Page({
         userLabel: "朋友",
         status: 0,
         content: i + "我的任务就是测试这个DEMO是不是可以如果可以就用这个模板来测试",
-        isTouchMove: false //默认隐藏删除
+        selected: false //默认隐藏删除
       })
     }
     that.setData({
@@ -37,49 +37,72 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
-  }
+  },
+  selecedFdItem: function(e) {
+    var index = e.currentTarget.dataset.index;
+    var uid = e.currentTarget.dataset.uid;
+    var friendList = this.data.friendList;
+    for (var i = 0; i < friendList.length; i++) {
+      if (i == index) {
+        friendList[i].selected = true;
+      } else {
+        friendList[i].selected = false;
+      }
+    }
+    this.setData({
+      friendList: friendList
+    })
+  },
+  selecedFdConfirm: function(e) {
+
+  },
+  selecedFdCancel: function() {
+    wx.navigateBack({
+      delta: 1
+    })
+  },
 })
