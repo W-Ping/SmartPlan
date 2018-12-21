@@ -13,7 +13,6 @@ Page({
     levelArray: ['1级别', '2级别', '3级别'],
     estimateTimeType: 0,
     timeArray: ['小时', '天', '周'],
-    taskInfo: {},
     planInfo: {}
   },
 

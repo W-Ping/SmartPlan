@@ -21,19 +21,7 @@
   font-weight: 800;
 }
 
-.priority {
-  background-color: #888;
-}
-
-.start {
-  background: green;
-}
-
-.delete {
-  background: red;
-}
-
-.todo-plan, .doing-plan {
+.todo-plan, .doing-plan, .finish-plan {
   display: flex;
   width: 98%;
   margin: 10rpx auto;
@@ -43,7 +31,7 @@
   font-size: 14px;
   border-bottom: 1px solid #ccc;
   overflow: hidden;
-  min-height: 120rpx;
+  min-height: 150rpx;
 }
 
 .di-box, .conent {
@@ -61,7 +49,7 @@
 
 .tt-level {
   width: 15%;
-  background: blue;
+  background: #ccc;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,11 +60,12 @@
   color: #fff;
 }
 
-.tt-title {
+.tt-title, .ft-title {
   width: 70%;
   display: flex;
   align-items: center;
   justify-content: left;
+  padding-left: 5px;
 }
 
 .tt-auther, .di-add {
@@ -86,34 +75,6 @@
   justify-content: center;
   background: #ccc;
   font-size: 12px;
-}
-
-.level-1 {
-  background: #c9171e;
-}
-
-.title-level-1 {
-  background: #e6363ca6;
-  /* background: -webkit-linear-gradient(left, #f8020b , rgb(236, 9, 46)); 
-  background: -o-linear-gradient(right,#f8020b , rgb(236, 9, 46)); 
-  background: -moz-linear-gradient(right, #f8020b , rgb(236, 9, 46)); 
-  background: linear-gradient(to right,#f8020b , rgb(236, 9, 46)); */
-}
-
-.level-2 {
-  background: #ed7300;
-}
-
-.title-level-2 {
-  background: #f8a85d93;
-}
-
-.level-3 {
-  background: #16a951;
-}
-
-.title-level-3 {
-  background: rgb(175, 231, 63);
 }
 
 .touch-move-active .conent, .touch-move-active .di-box,
@@ -140,26 +101,21 @@
   justify-content: center;
   width: 18%;
   color: #fff;
+  background: #ccc;
 }
 
 .di-title {
   width: 82%;
 }
 
-/**************finish-plan CSS*****************/
-
-.finish-plan {
+.di-title>view:first-child {
   display: flex;
-  width: 98%;
-  margin: 10rpx auto;
-  flex-direction: row;
-  background: #fff;
-  border-radius: 5px;
-  font-size: 14px;
-  border-bottom: 1px solid #ccc;
-  overflow: hidden;
-  min-height: 120rpx;
+  align-items: center;
+  justify-content: left;
+  padding-left: 5px;
 }
+
+/**************finish-plan CSS*****************/
 
 .ft-conent {
   display: flex;
@@ -280,7 +236,7 @@
   font-size: 14px;
   border-bottom: 1px solid #ccc;
   overflow: hidden;
-  min-height: 120rpx;
+  min-height: 150rpx;
 }
 
 .conent-box {
@@ -373,21 +329,57 @@
 .p-remark-box {
   display: flex;
   flex-direction: row;
-  height: 80px;
+  height: 50px;
   background: #fff;
 }
 
 .remark {
-  line-height: 80px;
-  height: 80px;
+  line-height: 50px;
+  height: inherit;
 }
 
 .p-remark {
   width: 70%;
-  height: 80px;
+  height: inherit;
 }
 
 .p-reamrk-textarea {
-  height: 80px;
+  height: inherit;
   width: 100%;
+}
+
+.priority {
+  background-color: #888;
+}
+
+.start {
+  background: green;
+}
+
+.delete {
+  background: red;
+}
+
+.level-1 {
+  background: #ff2121;
+}
+
+.title-level-1 {
+  background: #ff2121a4;
+}
+
+.level-2 {
+  background: #ed7300;
+}
+
+.title-level-2 {
+  background: #ed720086;
+}
+
+.level-3 {
+  background: #16a951;
+}
+
+.title-level-3 {
+  background: #16a9519c;
 }

@@ -13,9 +13,9 @@
     </view>
   </view>
   <view class='plan-desc'>
-    <text>Ping!</text>
+    <text>{{userInfo.nickName}}</text>
   </view>
-  <view class='plan-desc'>
-    <text>既然有了计划那就好好执行吧</text>
-  </view>
+  <!-- <view class='plan-desc'>
+    <text>既然有了计划那就好好执行。</text>
+  </view> -->
 </view>

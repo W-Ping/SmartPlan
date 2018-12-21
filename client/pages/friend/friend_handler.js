@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    selectedId: -1,
     friendList: []
   },
 
@@ -94,11 +95,32 @@ Page({
       }
     }
     this.setData({
+      selectedId: index,
       friendList: friendList
     })
   },
   selecedFdConfirm: function(e) {
-
+    var selectedId = this.data.selectedId;
+    if (selectedId != -1) {
+      var selectedItem = this.data.friendList[selectedId];
+      var pages = getCurrentPages();
+      var previousPage = pages[pages.length - 2];
+      if (previousPage.route == "pages/plan/plan_edit") {
+        var planInfo = previousPage.data.planInfo;
+        planInfo.handlerUid = selectedItem.uid;
+        planInfo.handler = selectedItem.nickName;
+        previousPage.setData({
+          planInfo: planInfo
+        })
+      }
+    } else {
+      wx.showToast({
+        icon: 'none',
+        title: '请选择经办人',
+      })
+      return;
+    }
+    this.selecedFdCancel();
   },
   selecedFdCancel: function() {
     wx.navigateBack({

@@ -1,16 +1,21 @@
 // client/pages/plan/plan.js
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    userInfo: {}
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.setData({
+      userInfo: app.globalData.userInfo,
+
+    })
   },
 
   /**
@@ -59,12 +64,12 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {},
-  navigatorToCreate:function(){
+  navigatorToCreate: function() {
     wx.navigateTo({
       url: 'plan_edit?opt=add',
     })
   },
-  navigatorToEditList: function () {
+  navigatorToEditList: function() {
     wx.navigateTo({
       url: 'plan_list',
     })

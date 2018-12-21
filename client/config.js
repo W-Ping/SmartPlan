@@ -8,7 +8,7 @@ var host = 'https://taflgi5t.qcloud.la';
 // var host = 'http://127.0.0.1:5757';
 var config = {
 
-  default_page: '../myself/myself',
+  default_page: '../today/today',
   // 下面的地址配合云端 Demo 工作
   service: {
     host,
