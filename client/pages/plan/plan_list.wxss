@@ -1,1 +1,41 @@
 /* client/pages/plan/plan_list.wxss */
+
+page {
+  background: #f6f6f6;
+}
+
+.p-condition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+.pc-date {
+  width: 100%;
+}
+
+.pc-opt {
+  margin-left: 10px;
+}
+
+.pc-opt-btn {
+  height: 30px;
+  width: 60px;
+  border-radius: 5px;
+  line-height: 30px;
+  background: #00abff;
+  text-align: center;
+  color: #fff;
+}
+
+.p-list {
+  margin: 50px 0px 0px 0px;
+}

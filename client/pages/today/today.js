@@ -1,5 +1,5 @@
 // client/pages/today/today.js
-let commonUtil = require('../../utils/commonUtil.js');
+const commonUtil = require('../../utils/commonUtil.js');
 var sliderWidth = 96;
 Page({
 
@@ -7,10 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tabs: ["待办中", "进行中", "已完成"],
     activeIndex: 0,
-    sliderOffset: 0,
-    sliderLeft: 0,
     todoPlanList: [],
     doingPlanList: [],
     finishPlanList: [],
@@ -22,14 +19,6 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
-    wx.getSystemInfo({
-      success: function(res) {
-        that.setData({
-          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
-          sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
-        });
-      }
-    });
     for (var i = 0; i < 6; i++) {
       that.data.todoPlanList.push({
         id: "ID" + i,
@@ -115,9 +104,8 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {},
-  tabClick: function(e) {
+  swtichBar: function(e) {
     this.setData({
-      sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id
     });
   },
@@ -144,10 +132,10 @@ Page({
       todoPlanList: this.data.todoPlanList
     })
   },
-  todoTouchend: function (e) {
+  todoTouchend: function(e) {
     console.log("todo touch end....");
   },
-   doingTouchstart: function (e) {
+  doingTouchstart: function(e) {
     console.log("doing touch start....");
     //开始触摸时 重置所有删除
     commonUtil.preTouchMoveBox(this.data.doingPlanList);
@@ -157,7 +145,7 @@ Page({
       doingPlanList: this.data.doingPlanList
     })
   },
-  doingTouchmove: function (e) {
+  doingTouchmove: function(e) {
     console.log("doing touch move....");
     var index = e.currentTarget.dataset.index, //当前索引
       startX = this.data.startX, //开始X坐标
@@ -239,10 +227,18 @@ Page({
   //任务详情
   planDetail: function(e) {
     var status = e.currentTarget.dataset.status;
-    var id = e.currentTarget.dataset.id;
-    console.log("任务ID:" + id + ";任务状态:" + status)
+    var planno = e.currentTarget.dataset.planno;
+    console.log("任务ID:" + planno + ";任务状态:" + status)
     wx.navigateTo({
-      url: 'today_detail',
+      url: '../plan/plan_detail',
+    })
+  },
+  planDetailToEdit: function(e) {
+    var status = e.currentTarget.dataset.status;
+    var planno = e.currentTarget.dataset.planno;
+    console.log("任务ID:" + planno + ";任务状态:" + status)
+    wx.navigateTo({
+      url: '../plan/plan_edit',
     })
   }
 })

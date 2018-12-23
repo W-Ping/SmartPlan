@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    sDate: '2018-11-23',
     planList: [],
     startX: 0, //开始坐标
     startY: 0
@@ -81,7 +82,7 @@ Page({
 
   },
 
-  touchstart: function(e) {
+  planTouchstart: function(e) {
     console.log("touch start....");
     //开始触摸时 重置所有删除
     this.data.planList.forEach(function(v, i) {
@@ -95,7 +96,7 @@ Page({
 
     })
   },
-  touchmove: function(e) {
+  planTouchmove: function(e) {
     console.log("touch move....");
     var that = this,
       index = e.currentTarget.dataset.index, //当前索引
@@ -132,7 +133,7 @@ Page({
       planList: that.data.planList
     })
   },
-  touchend: function(e) {
+  planTouchend: function(e) {
     console.log("touch end....");
   },
   angle: function(start, end) {
@@ -165,5 +166,17 @@ Page({
       planList: planList
     })
   },
-
+  changeEndDate: function(e) {
+    this.setData({
+      sDate: e.detail.value
+    })
+  },
+  planDetailToEdit: function(e) {
+    var status = e.currentTarget.dataset.status;
+    var planno = e.currentTarget.dataset.planno;
+    console.log("任务ID:" + planno + ";任务状态:" + status)
+    wx.navigateTo({
+      url: 'plan_edit?planNo=' + planno,
+    })
+  },
 })

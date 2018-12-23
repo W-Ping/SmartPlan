@@ -10,7 +10,7 @@ Page({
     position: "static",
     textareaShow: true,
     level: 0,
-    levelArray: ['1级别', '2级别', '3级别'],
+    levelArray: ['1级', '2级', '3级'],
     estimateTimeType: 0,
     timeArray: ['小时', '天', '周'],
     planInfo: {}

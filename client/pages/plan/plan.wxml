@@ -13,9 +13,10 @@
     </view>
   </view>
   <view class='plan-desc'>
-    <text>{{userInfo.nickName}}</text>
+    <text>人总要计划点什么</text>
+    <!-- <text space='ensp'>{{userInfo.nickName}} 你好！</text> -->
   </view>
-  <!-- <view class='plan-desc'>
-    <text>既然有了计划那就好好执行。</text>
-  </view> -->
+  <view class='plan-desc'>
+    <!-- <text>人，总要计划点什么</text> -->
+  </view>
 </view>

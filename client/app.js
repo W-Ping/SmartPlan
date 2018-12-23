@@ -10,8 +10,7 @@ App({
             console.log(options.shareTicket)
         }
         //获取手机信息
-        var phoneInfo = wx.getSystemInfoSync();
-        this.globalData.phoneInfo = phoneInfo;
+        this.globalData.phoneInfo = wx.getSystemInfoSync();
         qcloud.setLoginUrl(config.service.loginUrl);
         //登录
         this.bindGetUserInfo();

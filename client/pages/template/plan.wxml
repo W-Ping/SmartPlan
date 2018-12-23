@@ -1,6 +1,7 @@
-<!--模板【代办任务、进行中任务、完成任务】-->
+<!--待办-->
 <template name="todo-plan">
-  <view class="todo-plan {{item.isTouchMove ? 'touch-move-active' : ''}}" bindtouchstart="todoTouchstart" bindtouchmove="todoTouchmove" bindtouchend="todoTouchend" data-index="{{index}}">
+  <view class="todo-plan {{item.isTouchMove ? 'touch-move-active' : ''}}" data-planNo="{{item.planNo}}" data-status='{{item.status}}' bindlongtap='planDetailToEdit' bindtouchstart="todoTouchstart" bindtouchmove="todoTouchmove" bindtouchend="todoTouchend"
+    data-index="{{index}}">
     <view class='conent'>
       <view class="tt-level level-{{item.level}}">
         <view class="level-type">{{item.level}}级</view>
@@ -16,10 +17,11 @@
     </view>
   </view>
 </template>
+<!-- 进行中 -->
 <template name="doing-plan">
   <view class="doing-plan {{item.isTouchMove ? 'touch-move-active' : ''}}" bindtouchstart="doingTouchstart" bindtouchmove="doingTouchmove" bindtouchend="doingTouchend" data-index="{{index}}">
     <view class='di-box'>
-      <view class='di-conent'>
+      <view class='di-conent' data-planNo="{{item.planNo}}" data-status='{{item.status}}' bindlongtap='planDetailToEdit'>
         <view class='di-progress level-{{item.level}}'>
           <text>{{item.progress}}%</text>
         </view>
@@ -40,8 +42,9 @@
     </view>
   </view>
 </template>
+<!-- 已完成 -->
 <template name="finish-plan">
-  <view class='finish-plan' data-id='{{item.id}}' data-status='{{item.status}}' bindtap='planDetail'>
+  <view class='finish-plan' data-planNo="{{item.planNo}}" data-status='{{item.status}}' bindtap='planDetail'>
     <view class='ft-conent'>
       <view class="ft-quality">
         <view class="quality-type">{{item.quality}}</view>
@@ -53,90 +56,70 @@
     </view>
   </view>
 </template>
+<!-- 已完成详情 -->
 <template name="finish-plan-detail">
   <view class='finish-plan-detail'>
-    <view class='ftd ftd-conent'>{{conent}}</view>
-    <view class='ftd ftd-level'>
-      <view>
-        <label>优先级别</label>
-      </view>
-      <view>{{level}}</view>
+    <scroll-view scroll-y class='ftd-conent'>{{content}}</scroll-view>
+    <view class='ftd'>
+      <view>优先级别</view>
+      <view>{{level}}级</view>
     </view>
-    <view class='ftd ftd-startTime'>
-      <view>
-        <label>预估</label>
-      </view>
-      <view>{{estimateTime+''+estimateType}}</view>
+    <view class='ftd'>
+      <view>预估</view>
+      <view>{{estimateTime}}{{estimateTimeType}}</view>
     </view>
-    <view class='ftd ftd-estimateTime'>
+    <view class='ftd'>
+      <view> 预估时间</view>
       <view>
-        <label>预估时间</label>
-      </view>
-      <view class='estimateTime'>
-        <view>
-          <text>{{estimateStartTime}}</text>
-        </view>
-        <view>至</view>
-        <view>
-          <text>{{estimateEndTime}}</text>
-        </view>
+        <text>{{estimateStartTime}}</text>
+        <text>~</text>
+        <text>{{estimateEndTime}}</text>
       </view>
     </view>
-    <view class='ftd ftd-estimateTime'>
+    <view class='ftd'>
+      <view>实际时间</view>
       <view>
-        <label>实际时间</label>
-      </view>
-      <view class='estimateTime'>
-        <view>
-          <text>{{startTime}}</text>
-        </view>
-        <view>至</view>
-        <view>
-          <text>{{finishTime}}</text>
-        </view>
+        <text>{{actualStartTime}}</text>
+        <text>~</text>
+        <text>{{actualEndTime}}</text>
       </view>
     </view>
-    <view class='ftd ftd-auther'>
-      <view>
-        <label>报告人</label>
-      </view>
+    <view class='ftd'>
+      <view>创建人</view>
       <view>{{auther}}</view>
     </view>
-    <view class='ftd ftd-finisher'>
+    <view class='ftd'>
+      <view>经办人</view>
+      <view>{{handler}}</view>
+    </view>
+    <view class='ftd-remark'>
+      <view>备注</view>
       <view>
-        <label>经办人</label>
+        <view class='ftd-r-remark'> {{remark}}</view>
       </view>
-      <view>{{finisher}}</view>
     </view>
   </view>
 </template>
-<template name="plan-list">
-  <navigator class="plan-list {{item.isTouchMove ? 'touch-move-active' : ''}}" bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="touchend" data-index="{{index}}" url="{{url+'?opt=edit&planNo='+item.planNo}}">
-    <!-- <view class="plan-list list"> -->
+<!--可编辑任务-->
+<template name="list-plan">
+  <view class="todo-plan {{item.isTouchMove ? 'touch-move-active' : ''}}" data-planNo="{{item.planNo}}" data-status='{{item.status}}' bindlongtap='planDetailToEdit' bindtouchstart="planTouchstart" bindtouchmove="planTouchmove" bindtouchend="planTouchend"
+    data-index="{{index}}">
     <view class='conent'>
-      <view class='conent-box'>
-        <view class='tt-no'>
-          <text>{{item.planNo}}</text>
-        </view>
-        <view class='tt-box'>
-          <view class="tt-level e-level level-{{item.level}}">
-            <view class="level-type">{{item.level}}级</view>
-          </view>
-          <view class='tt-title e-title title-level-{{item.level}}'>
-            <text>{{item.content}}</text>
-          </view>
-        </view>
+      <view class="tt-level level-{{item.level}}">
+        <view class="level-type">{{item.level}}级</view>
       </view>
-      <view class='tt-auther e-auther'>{{item.auther}}</view>
+      <view class='tt-title title-level-{{item.level}}'>
+        <text>{{item.content}}</text>
+      </view>
+      <view class='tt-auther'>{{item.auther}}</view>
     </view>
     <view class='posit'>
-      <view class='p-opt priority' catchtap="topPlan" data-planNo="{{item.planNo}}" data-index="{{index}}">优 先</view>
+      <view class='p-opt priority' catchtap="planDetailToEdit" data-planNo="{{item.planNo}}" data-index="{{index}}">编 辑</view>
       <view class='p-opt delete' catchtap="deletePlan" data-planNo="{{item.planNo}}" data-index="{{index}}">删 除</view>
     </view>
-    <!-- </view> -->
-  </navigator>
+  </view>
 </template>
-
+<!-- 编辑任务详情 -->
 <template name="plan-edit">
   <view class='p-container'>
     <view class='p-box'>
@@ -151,7 +134,7 @@
         </view>
       </view>
     </picker>
-    <view class='p-item' bindtap='navigatorToHanlder' >
+    <view class='p-item' bindtap='navigatorToHanlder'>
       <view class='p-desc'>经办人</view>
       <view class='p-value'>{{handler}}</view>
       <input name="handler" hidden value="{{handler}}"></input>
@@ -172,7 +155,9 @@
       </view>
     </view>
     <view class='p-remark-box'>
-      <view class='p-desc remark'>备注</view>
+      <view class='p-desc remark'>
+        <text>备注</text>
+      </view>
       <view class='p-remark'>
         <textarea class='p-reamrk-textarea' name="remark" value='{{remark}}' placeholder='输入备注'></textarea>
       </view>
