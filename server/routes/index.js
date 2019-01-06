@@ -8,7 +8,7 @@ const controllers = require('../controllers')
 
 // 从 sdk 中取出中间件
 // 这里展示如何使用 Koa 中间件完成登录态的颁发与验证
-const { auth: { authorizationMiddleware, validationMiddleware } } = require('../qcloud')
+const {auth: {authorizationMiddleware, validationMiddleware}} = require('../qcloud')
 
 // --- 登录与授权 Demo --- //
 // 登录接口
@@ -31,9 +31,20 @@ router.get('/message', controllers.message.get)
 // POST 用来处理微信转发过来的客服消息
 router.post('/message', controllers.message.post)
 //获取小程序二维码
-router.get('/createwxaqrcode', controllers.wxcode.createwxaqrcode)
+// router.get('/createwxaqrcode', controllers.wxcode.createwxaqrcode)
 //获取小程序码
-router.get('/getwxacode', controllers.wxcode.getwxacode)
+// router.get('/getwxacode', controllers.wxcode.getwxacode)
 //获取小程序码
-router.get('/getwxacodeunlimit', controllers.wxcode.getwxacodeunlimit)
+// router.get('/getwxacodeunlimit', controllers.wxcode.getwxacodeunlimit)
+//用户信息
+router.get('/userinfo/get', controllers.userinfo.get)
+router.post('/userinfo/update', controllers.userinfo.update)
+//计划信息
+router.post('/plan/save', controllers.plan.saveOrUpdatePlanInfo)
+router.post('/plan/query', controllers.plan.queryPlanInfo)
+router.post('/plan/detail/query', controllers.plan.query)
+router.get('/plan/detail/get', controllers.plan.get)
+router.post('/plan/detail/save', controllers.plan.save)
+router.post('/plan/detail/update', controllers.plan.update)
+
 module.exports = router

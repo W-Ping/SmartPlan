@@ -23,7 +23,7 @@ const CONF = {
         port: 3306,
         user: 'root',
         db: 'cAuth',
-        pass: 'lwp30801admin',
+        pass: 'root',
         char: 'utf8mb4'
     },
 
@@ -34,9 +34,20 @@ const CONF = {
          */
         region: 'ap-shanghai',
         // Bucket 名称
-        fileBucket: 'qcloudtest',
+        fileBucket: 'file',
+        imageBucket: 'image',
+        videoBucket: 'video',
         // 文件夹
-        uploadFolder: ''
+        uploadFolder: '',
+        maxSize: 20, //最大文件限制，单位M
+        /**
+         * 判断文件类型
+         * 为保证安全默认支持的文件类型有：
+         * 图片：jpg jpg2000 git bmp png
+         * 音频：mp3 m4a mp4
+         * 文件：pdf
+         */
+        mimetypes: ['image/jpeg', 'image/jp2', 'image/jpm', 'image/jpx', 'image/gif', 'image/bmp', 'image/png', 'audio/mpeg', 'audio/mp3', 'video/mp4', 'audio/m4a', 'application/pdf']
     },
 
     serverHost: "https://taflgi5t.qcloud.la",
@@ -44,8 +55,8 @@ const CONF = {
     tunnelSignatureKey: "27fb7d1c161b7ca52d73cce0f1d833f9f5b5ec89",
     // 腾讯云相关配置可以查看云 API 秘钥控制台：https://console.cloud.tencent.com/capi
     qcloudAppId: "1256808148",
-    qcloudSecretId: "AKIDL5swF6PWzZzMfp8O6nIwlP5fDeu1gf7R",
-    qcloudSecretKey: "NqIb5PlWGV9h3FLNJiEf6RezEfQpKeXG",
+    qcloudSecretId: "AKIDLrGkTUPHkSo4EIGymRxRp38T2TlsqZAb",
+    qcloudSecretKey: "ymRvMenkWxKXZRDpJbmphRzN5c1GKDvS",
     // 微信登录态有效期
     wxLoginExpires: 7200,
     wxMessageToken: 'abcdefgh'

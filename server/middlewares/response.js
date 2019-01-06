@@ -1,5 +1,6 @@
 const debug = require('debug')('koa-weapp-demo')
-
+const moment = require('moment')
+const {validationUserMiddleware} = require('./validationMiddleware')
 /**
  * 响应处理模块
  */
@@ -11,10 +12,29 @@ module.exports = async function (ctx, next) {
         // 处理响应结果
         // 如果直接写入在 body 中，则不作处理
         // 如果写在 ctx.body 为空，则使用 state 作为响应
-        ctx.body = ctx.body ? ctx.body : {
-            code: ctx.state.code !== undefined ? ctx.state.code : 0,
-            data: ctx.state.data !== undefined ? ctx.state.data : {}
+        if (ctx.body) {
+            if (ctx.body.data) {
+                Object.keys(ctx.body.data).map(key => {
+                    var val = ctx.body.data[key];
+                    if (null == val || undefined === val) {
+                        ctx.body.data[key] = "";
+                    } else if (val.constructor === Date) {
+                        val = moment(new Date(val)).format('YYYY-MM-DD HH:mm:ss')
+                        ctx.body.data[key] = val;
+                    }
+                })
+            }
+
+        } else {
+            ctx.body = {
+                code: ctx.state.code !== undefined ? ctx.state.code : 0,
+                data: ctx.state.data !== undefined ? ctx.state.data : {}
+            }
         }
+        // ctx.body = ctx.body ? ctx.body : {
+        //     code: ctx.state.code !== undefined ? ctx.state.code : 0,
+        //     data: ctx.state.data !== undefined ? ctx.state.data : {}
+        // }
     } catch (e) {
         // catch 住全局的错误信息
         debug('Catch Error: %o', e)

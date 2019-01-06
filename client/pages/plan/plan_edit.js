@@ -1,19 +1,28 @@
-// client/pages/plan/plan_detail.js
+const request = require("../../utils/request")
+const config = require('../../config')
+const util = require('../../utils/util')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    items: [],
-    isAssign: false,
-    position: "static",
-    textareaShow: true,
-    level: 0,
-    levelArray: ['1级', '2级', '3级'],
-    estimateTimeType: 0,
-    timeArray: ['小时', '天', '周'],
-    planInfo: {}
+    planDetailInfo: {},
+    planEndTime: util.nowDateAdd(),
+    planStartTime: util.formatUnixTime(new Date(), 'Y-M-D'),
+    maxTime: util.nowDateAdd(),
+    minTime: util.formatUnixTime(new Date(), 'Y-M-D'),
+    roleItems: [{
+      name: '公开',
+      value: 0,
+      desc: '所有人可看',
+      selected: true
+    }, {
+      name: '私密',
+      value: 1,
+      desc: '仅自己可看',
+      selected: false
+    }]
   },
 
   /**
@@ -53,7 +62,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    this.selectable = this.selectComponent("#selectable");
   },
 
   /**
@@ -95,68 +103,41 @@ Page({
   onShareAppMessage: function() {
 
   },
-  selectHandler: function(e) {
-    var items = [];
-    var handlerUid = this.data.taskInfo.handlerUid || '';
-    items.push({
-      handlerUid: "U0001",
-      handlerName: "我自己"
-    })
-    for (var i = 0; i < 10; i++) {
-      items.push({
-        handlerUid: "U00" + (i + 2),
-        handlerName: "王丽丽" + (i + 2)
-      })
+  onSelectRole: function(e) {
+    var index = e.currentTarget.dataset.index;
+    var roleItems = this.data.roleItems;
+    if (!roleItems[index].selected) {
+      for (var i = 0; i < roleItems.length; i++) {
+        if (i == index) {
+          roleItems[i].selected = true;
+        } else {
+          roleItems[i].selected = false;
+        }
+      }
+    }
+
+    this.setData({
+      roleItems: roleItems
+    });
+  },
+  changePlanStartTime: function(e) {
+    if (this.data.planEndTime < e.detail.value) {
+      this.data.planEndTime = this.data.maxTime;
     }
     this.setData({
-      items: items,
+      planStartTime: e.detail.value,
+      planEndTime: this.data.planEndTime
     })
-    this.selectable.showSelect(e);
   },
-  levelChange: function(e) {
-    console.log('picker发送选择改变，携带值为', e)
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+  changePlanEndTime: function(e) {
     this.setData({
-      level: e.detail.value
+      planEndTime: e.detail.value,
     })
   },
-  timeChange: function(e) {
-    console.log('picker time 发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      estimateTimeType: e.detail.value
-    })
-  },
-  savTaskSubmit: function(e) {
-    var taskInfo = e.detail.value;
-    console.log('创建任务信息', taskInfo)
-  },
-  navigatorToHanlder:function(e){
-    wx.navigateTo({
-      url: '../friend/friend_handler',
-    })
-  },
-
-  closeSelect: function(e) {
-    console.log("关闭", e);
-    this.setData({
-      position: "static",
-      textareaShow: true,
-    })
-  },
-  confirmSelect: function(e) {
-    var selectedItems = this.selectable.data.selectedItems;
-    var selectedItem = selectedItems[0];
-    console.log('选择经办人信息', selectedItem)
-    this.data.taskInfo.handlerUid = selectedItem.handlerUid ? selectedItem.handlerUid : "";
-    this.data.taskInfo.handlerName = selectedItem.handlerName ? selectedItem.handlerName : "";
-    console.log('选择经办人信息', this.data.taskInfo)
-    this.setData({
-      taskInfo: this.data.taskInfo
-    })
-  },
-  inputText: function(e) {
-    var text = this.selectable.data.inputText;
-    console.log("查询文字：", text);
-    //TODO
-  },
+  savTaskSubmit: function (e) {
+    var planDetailInfo = e.detail.value;
+      request.postReq(config.service.savePlanDetailInfo,planDetailInfo,res=>{
+          util.showSuccess("保存成功");
+      })
+  },  
 })

@@ -87,7 +87,7 @@ Page({
   },
    navigatorToSetting: function(e) {
     wx.navigateTo({
-      url: 'setting',
+      url: 'setting?uid=' +this.data.userInfo.uid,
     })
   },
   navigatorToFriend: function(e) {

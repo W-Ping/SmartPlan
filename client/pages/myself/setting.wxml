@@ -4,7 +4,7 @@
     <view class='box st-image'>
       <image class='image' src='../../images/update_user.png'></image>
     </view>
-    <view class='stt-box' bindtap='refreshUserInfo' >
+    <view class='stt-box' data-uid='{{userInfo.uid}}'  bindtap='refreshUserInfo' >
       <view class='box stt-text'>
         <text>更新个人昵称和头像</text>
       </view>
@@ -22,13 +22,13 @@
     <view class='box st-image'>
       <image class='image' src='../../images/real_name.png'></image>
     </view>
-    <view class='stt-box' bindtap='navigatorToEdit' data-uid='{{userinfo.uid}}' data-opt='rn' data-value='{{userinfo.realName}}'>
+    <view class='stt-box' bindtap='navigatorToEdit' data-uid='{{userInfo.uid}}' data-opt='rn' data-value='{{userInfo.realName}}'>
       <view class='box stt-text'>
         <view class='std-desc'>
           <text>真实姓名</text>
         </view>
         <view class='std-value'>
-          <text>{{userinfo.realName}}</text>
+          <text>{{userInfo.realName}}</text>
         </view>
       </view>
       <view class='gt'>
@@ -46,7 +46,7 @@
           <text>性别</text>
         </view>
         <view class='std-value'>
-          <text>{{userinfo.gender==0?'女':'男'}}</text>
+          <text>{{userInfo.gender==0?'女':'男'}}</text>
         </view>
       </view>
       <view class='gt'>
@@ -58,14 +58,14 @@
     <view class='box st-image'>
       <image class='image' src='../../images/birthday.png'></image>
     </view>
-    <picker mode="date" style='width:85%;' value="{{userinfo.birthday}}" start="1900-01-01" bindchange="bindDateChange">
+    <picker mode="date" style='width:85%;' value="{{userInfo.birthday}}" start="1900-01-01" bindchange="bindDateChange">
       <view class='stt-box c-picker'>
         <view class='box stt-text'>
           <view class='std-desc'>
             <text>生日</text>
           </view>
           <view class='std-value'>
-            <text>{{userinfo.birthday}}</text>
+            <text>{{userInfo.birthday}}</text>
           </view>
         </view>
         <view class='gt'>
@@ -78,13 +78,13 @@
     <view class='box st-image'>
       <image class='image' src='../../images/mobile_phone.png'></image>
     </view>
-    <view class='stt-box' bindtap='navigatorToEdit' data-uid='{{userinfo.uid}}' data-opt='mp' data-value='{{userinfo.mobilePhone}}'>
+    <view class='stt-box' bindtap='navigatorToEdit' data-uid='{{userInfo.uid}}' data-opt='mp' data-value='{{userInfo.mobile_phone}}'>
       <view class='box stt-text'>
         <view class='std-desc'>
           <text>手机号码</text>
         </view>
         <view class='std-value'>
-          <text>{{userinfo.mobilePhone}}</text>
+          <text>{{userInfo.mobile_phone}}</text>
         </view>
       </view>
       <view class='gt'>
@@ -96,13 +96,13 @@
     <view class='box st-image'>
       <image class='image' src='../../images/email.png'></image>
     </view>
-    <view class='stt-box' bindtap='navigatorToEdit' data-uid='{{userinfo.uid}}' data-opt='em' data-value='{{userinfo.email}}'>
+    <view class='stt-box' bindtap='navigatorToEdit' data-uid='{{userInfo.uid}}' data-opt='em' data-value='{{userInfo.e_mail}}'>
       <view class='box stt-text'>
         <view class='std-desc'>
           <text>电子邮箱</text>
         </view>
         <view class='std-value'>
-          <text>{{userinfo.email}}</text>
+          <text>{{userInfo.e_mail}}</text>
         </view>
       </view>
       <view class='gt'>
@@ -119,7 +119,7 @@
     <view class='box st-image'>
       <image class='image' src='../../images/distribution.png'></image>
     </view>
-    <view class='stt-box' bindtap='navigatorToRight' data-uid='{{userinfo.uid}}'>
+    <view class='stt-box' bindtap='navigatorToRight' data-uid='{{userInfo.uid}}'>
       <view class='box stt-text'>
         <view class='std-desc'>
           <text>可分配</text>
@@ -143,7 +143,7 @@
         <text>公开</text>
       </view>
       <view class='std-value '>
-        <switch color="#00abff" checked="{{userinfo.open==0}}" bindchange="switchOpenChange"></switch>
+        <switch color="#00abff" checked="{{userInfo.open==0}}" bindchange="switchOpenChange"></switch>
       </view>
     </view>
   </view>

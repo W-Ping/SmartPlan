@@ -1,4 +1,4 @@
-<form bindsubmit="updateUserinfo">
+<form bindsubmit="updateUserInfo">
   <view class='save-val'>
     <input hidden name="uid" value="{{uid}}"></input>
     <input focus name="{{name}}" type="{{type}}" maxlength="{{maxlength}}" placeholder="{{placeholder}}" value='{{value}}'></input>

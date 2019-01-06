@@ -13,6 +13,7 @@
 	},
 	"appid": "wx1465f9a62bfea385",
 	"projectname": "SmartPlan",
+	"compileType": "miniprogram",
 	"condition": {
 		"search": {
 			"current": -1,
