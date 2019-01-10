@@ -41,10 +41,13 @@ router.get('/userinfo/get', controllers.userinfo.get)
 router.post('/userinfo/update', controllers.userinfo.update)
 //计划信息
 router.post('/plan/save', controllers.plan.saveOrUpdatePlanInfo)
+router.get('/plan/get', controllers.plan.getPlanInfo)
 router.post('/plan/query', controllers.plan.queryPlanInfo)
 router.post('/plan/detail/query', controllers.plan.query)
 router.get('/plan/detail/get', controllers.plan.get)
 router.post('/plan/detail/save', controllers.plan.save)
 router.post('/plan/detail/update', controllers.plan.update)
+router.delete('/plan/detail/del', controllers.plan.del)
+
 
 module.exports = router

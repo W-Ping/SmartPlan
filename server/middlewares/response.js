@@ -1,6 +1,5 @@
 const debug = require('debug')('koa-weapp-demo')
 const moment = require('moment')
-const {validationUserMiddleware} = require('./validationMiddleware')
 /**
  * 响应处理模块
  */
@@ -14,17 +13,8 @@ module.exports = async function (ctx, next) {
         // 如果写在 ctx.body 为空，则使用 state 作为响应
         if (ctx.body) {
             if (ctx.body.data) {
-                Object.keys(ctx.body.data).map(key => {
-                    var val = ctx.body.data[key];
-                    if (null == val || undefined === val) {
-                        ctx.body.data[key] = "";
-                    } else if (val.constructor === Date) {
-                        val = moment(new Date(val)).format('YYYY-MM-DD HH:mm:ss')
-                        ctx.body.data[key] = val;
-                    }
-                })
+                responseTransform(ctx.body.data);
             }
-
         } else {
             ctx.body = {
                 code: ctx.state.code !== undefined ? ctx.state.code : 0,
@@ -47,5 +37,23 @@ module.exports = async function (ctx, next) {
             code: -1,
             error: e && e.message ? e.message : e.toString()
         }
+    }
+
+    function responseTransform(response) {
+        Object.keys(response).map(key => {
+            var val = response[key];
+            if (null == val || undefined === val) {
+                response[key] = "";
+            } else if (val.constructor === Date) {
+                val = moment(new Date(val)).format('YYYY-MM-DD HH:mm:ss')
+                response[key] = val;
+            } else if (val.constructor == Object) {
+                responseTransform(val);
+            } else if (val.constructor === Array) {
+                val.forEach(v => {
+                    responseTransform(v);
+                })
+            }
+        })
     }
 }

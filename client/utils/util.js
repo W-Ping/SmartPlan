@@ -25,6 +25,9 @@ const getNowTime = () => {
 const formatUnixTime = (date, format) => {
     var formateArr = ["Y", "M", "D", "h", "m", "s"];
     var returnArr = [];
+    if (date.constructor == String) {
+        date = new Date(date);
+    }
     returnArr.push(date.getFullYear());
     returnArr.push(formatNumber(date.getMonth() + 1));
     returnArr.push(formatNumber(date.getDate()));
@@ -66,7 +69,7 @@ function getWeek(day) {
 function nowDateAdd(day) {
     day = day || 7;
     var nowDate = new Date(formatUnixTime(new Date(), "Y-M-D"));
-    return nowDate = formatUnixTime(new Date(nowDate.getTime() + day * 24 * 60 * 60 * 1000),"Y-M-D");
+    return nowDate = formatUnixTime(new Date(nowDate.getTime() + day * 24 * 60 * 60 * 1000), "Y-M-D");
 }
 
 /**

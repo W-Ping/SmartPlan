@@ -115,7 +115,6 @@ Page({
         }
       }
     }
-
     this.setData({
       roleItems: roleItems
     });
@@ -137,7 +136,11 @@ Page({
   savTaskSubmit: function (e) {
     var planDetailInfo = e.detail.value;
       request.postReq(config.service.savePlanDetailInfo,planDetailInfo,res=>{
-          util.showSuccess("保存成功");
+        if (res.code==1){
+          wx.navigateTo({
+            url: 'plan_info?pNo=' + res.data.plan_no,
+          })
+        }
       })
   },  
 })

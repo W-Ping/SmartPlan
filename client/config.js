@@ -35,9 +35,12 @@ var config = {
         //更新用户信息
         updateUserInfo: `${host}/weapp/userinfo/update`,
         //计划信息
+        getPlanInfo: `${host}/weapp/plan/get`,
         savePlanDetailInfo: `${host}/weapp/plan/detail/save`,
         updatePlanDetailInfo: `${host}/weapp/plan/detail/update`,
+        topIndex: `${host}/weapp/plan/detail/topIndex`,
         getPlanDetailInfo: `${host}/weapp/plan/detail/get`,
+        delPlanDetailInfo: `${host}/weapp/plan/detail/del`,
         queryPlanDetailInfo: `${host}/weapp/plan/detail/query`,
     }
 };

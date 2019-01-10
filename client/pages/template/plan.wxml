@@ -122,6 +122,7 @@
 <!-- 编辑任务详情 -->
 <template name="plan-edit">
   <view class='p-container'>
+    <input hidden name="plan_no" value='{{plan_no}}'/>
     <view class='p-box'>
       <textarea class='p-textarea' name="plan_detail_name" value='{{plan_detail_name}}' placeholder='输入计划内容'></textarea>
     </view>
