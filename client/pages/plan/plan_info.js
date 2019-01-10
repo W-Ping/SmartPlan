@@ -167,29 +167,37 @@ Page({
         var pdNo = e.currentTarget.dataset.pdno;
         var pNo = this.data.planInfo.plan_no;
         var pNo = this.data.planInfo.plan_no;
+        var planLength = this.data.planDetailInfoList.length;
         if (pdNo && pNo) {
             request.deleteReq(config.service.delPlanDetailInfo, "pdNo=" + pdNo + "&pNo=" + pNo, res => {
                 if (res.code == 1) {
                     console.log("index", index);
-                    if (priority == 1 && this.data.planDetailInfoList.length > 1) {
-                        // var planDetailInfo = this.data.planDetailInfoListp[index + 1];
+                    if (priority == 1 && planLength > 1) {
                         this.data.planDetailInfoList.splice(index, 1);
                         var planDetailInfo = this.data.planDetailInfoList[0];
                         if (planDetailInfo) {
                             this.data.planDetailInfoList[0].priority = 1;
                             request.postReq(config.service.topIndex, {
                                 priority: 1,
-                                pNo: pNo,
                                 pdNo: planDetailInfo.plan_detail_no
                             }, res => {
-                                this.data.planDetailInfoList = commonUtil.toArrayTop(this.data.planDetailInfoList, 0);
-                                this.setData({
-                                    planDetailInfoList: this.data.planDetailInfoList
-                                })
+                                if (res.code == 1) {
+                                    this.data.planInfo.plan_title = res.data.plan_detail_name
+                                    this.data.planDetailInfoList = commonUtil.toArrayTop(this.data.planDetailInfoList, 0);
+                                    this.setData({
+                                        planInfo: this.data.planInfo,
+                                        planDetailInfoList: this.data.planDetailInfoList
+                                    })
+                                }
                             })
                         }
-                    }else{
+                    } else {
+                        this.data.planDetailInfoList.splice(index, 1);
+                        if (planLength == 1) {
+                            this.data.planInfo = {};
+                        }
                         this.setData({
+                            planInfo: this.data.planInfo,
                             planDetailInfoList: this.data.planDetailInfoList
                         })
                     }
@@ -197,6 +205,10 @@ Page({
                 }
             })
         }
-
     },
+    navigatorToAdd: function (e) {
+        wx.switchTab({
+            url: 'plan',
+        })
+    }
 })

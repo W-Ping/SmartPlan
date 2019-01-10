@@ -12,7 +12,7 @@ const util = require('../tools/util')
  */
 async function query(ctx, next) {
     let condition = ctx.request.body;
-    await mysql(CNF.DB_TABLE.plan_detail_info).select('*').where({condition}).then(res => {
+    await mysql(CNF.DB_TABLE.plan_detail_info).select('*').where({condition}).orderByRaw('priority desc').then(res => {
         SUCCESS(ctx, res);
     }).catch(e => {
         debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
@@ -236,21 +236,26 @@ function del(ctx, next) {
     let uid = userInfo.uid;
     return mysql(CNF.DB_TABLE.plan_detail_info).count("id as idCount").where({plan_no: pNo}).andWhere('creator_uid', uid).then(res => {
         if (res && res[0].idCount == 1) {
-            return mysql(CNF.DB_TABLE.plan_info)
-                .transacting(tx)
-                .del().where({plan_no: pNo, creator_uid: uid})
-                .then(res => {
-                    return mysql(CNF.DB_TABLE.plan_detail_info).del().where({plan_no: pdNo, creator_uid: uid});
-                }).then(res => {
-                        tx.commit
-                        return Promise.resolve(1);
-                    }
-                ).catch(e => {
-                    tx.rollback();
-                    return Promise.resolve(-1);
-                    debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_DELETED_TO_DB, e)
-                    throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_DELETED_TO_DB}\n${e}`)
-                })
+            return mysql.transaction(function (tx) {
+                return mysql(CNF.DB_TABLE.plan_info)
+                    .transacting(tx)
+                    .del().where({plan_no: pNo, creator_uid: uid})
+                    .then(res => {
+                        return mysql(CNF.DB_TABLE.plan_detail_info).del().where({
+                            plan_detail_no: pdNo,
+                            creator_uid: uid
+                        });
+                    }).then(res => {
+                            tx.commit
+                            return Promise.resolve(1);
+                        }
+                    ).catch(e => {
+                        tx.rollback();
+                        return Promise.resolve(-1);
+                        debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_DELETED_TO_DB, e)
+                        throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_DELETED_TO_DB}\n${e}`)
+                    })
+            })
         } else {
             return mysql(CNF.DB_TABLE.plan_detail_info).del().where({
                 plan_detail_no: pdNo,
@@ -271,6 +276,30 @@ function del(ctx, next) {
     }).catch(e => {
         debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_DELETED_TO_DB, e)
         throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_DELETED_TO_DB}\n${e}`)
+    })
+}
+
+/**
+ *
+ * @param ctx
+ * @param next
+ * @returns {Promise<void>}
+ */
+function topIndex(ctx, next) {
+    let condition = ctx.request.body;
+    let pdNo = condition.pdNo;
+    return mysql(CNF.DB_TABLE.plan_detail_info).update({priority: 0}).where({priority: 1}).andWhereNot({plan_detail_no: pdNo}).then(async res => {
+        return mysql(CNF.DB_TABLE.plan_detail_info).select('plan_detail_name', 'plan_no').where({plan_detail_no: pdNo}).first().then(async result => {
+            await mysql(CNF.DB_TABLE.plan_info).update({plan_title: result.plan_detail_name}).where({plan_no: result.plan_no}).then(async res => {
+                await mysql(CNF.DB_TABLE.plan_detail_info).update({priority: 1}).where({plan_detail_no: pdNo})
+            })
+            return Promise.resolve(result);
+        })
+    }).then(res => {
+        SUCCESS(ctx, res);
+    }).catch(e => {
+        debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_UPDATE_TO_DB, e)
+        throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_UPDATE_TO_DB}\n${e}`)
     })
 }
 
@@ -305,4 +334,5 @@ module.exports = {
     queryPlanInfo,
     getPlanInfo,
     del,
+    topIndex,
 }

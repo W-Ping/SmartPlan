@@ -48,6 +48,7 @@ router.get('/plan/detail/get', controllers.plan.get)
 router.post('/plan/detail/save', controllers.plan.save)
 router.post('/plan/detail/update', controllers.plan.update)
 router.delete('/plan/detail/del', controllers.plan.del)
+router.post('/plan/detail/topIndex', controllers.plan.topIndex)
 
 
 module.exports = router

@@ -1,4 +1,4 @@
-<view class='plan-box'>
+<view wx:if="{{planInfo&&planInfo.plan_title}}" class='plan-box'>
   <view class='pb-title'>
     <text>{{planInfo.plan_title}}</text>
   </view>
@@ -7,9 +7,15 @@
     <text>{{planInfo.start_time}}~{{planInfo.end_time}}</text>
   </view>
 </view>
+<view wx:else class='pb-view'>
+  <view class='pb-add'>
+    <button class='pb-add-btn' bindtap='navigatorToAdd'>去新建</button>
+  </view>
+</view>
 <scroll-view scroll-y class='plan-detail-box'>
   <block wx:for="{{planDetailInfoList}}" wx:for-item="item" wx:for-index="index" wx:key="*this">
-    <view class="plan-item {{item.isTouchMove ? 'touch-move-active' : ''}}"  data-planNo="{{item.planNo}}" data-status='{{item.status}}' bindlongtap='planDetailToEdit' bindtouchstart="planTouchstart" bindtouchmove="planTouchmove" bindtouchend="planTouchend" data-index="{{index}}">
+    <view class="plan-item {{item.isTouchMove ? 'touch-move-active' : ''}}" data-planNo="{{item.planNo}}" data-status='{{item.status}}' bindlongtap='planDetailToEdit' bindtouchstart="planTouchstart" bindtouchmove="planTouchmove" bindtouchend="planTouchend"
+      data-index="{{index}}">
       <view class="pi-content">
         <view class='pi-title'>
           <text>{{item.plan_detail_name}}</text>

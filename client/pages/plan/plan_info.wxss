@@ -31,7 +31,6 @@ page {
   padding-right: 20rpx;
   white-space: pre-wrap;
   font-size: 15px;
-  font-weight: 800;
   color: #f6f6f6;
 }
 
@@ -147,8 +146,32 @@ page {
   background: red;
 }
 
-.touch-move-active .pi-content,
-.touch-move-active .plan-posit {
+.touch-move-active .pi-content, .touch-move-active .plan-posit {
   -webkit-transform: translateX(0);
   transform: translateX(0);
+}
+
+
+.pb-view {
+  margin: 10px auto;
+  width: 100%;
+}
+.pb-add {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pb-add-btn {
+  display: inline-block;
+  margin: 10px auto;
+  height: 80rpx;
+  width: 250rpx;
+  /* border-radius: 50%; */
+  background: #00abff;
+  line-height: 80rpx;
+  text-align: center;
+  color: #fff;
+  font-size: 15px;
+  font-weight:700; 
 }
