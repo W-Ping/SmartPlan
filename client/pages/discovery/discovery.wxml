@@ -1,0 +1,20 @@
+<view class='plan-navbar'>
+  <view class="plan-navbar-item {{activeIndex==0?'active':''}}" id='0' bindtap='swtichBar'>
+    <view class='plan-navbar-title'>我的</view>
+  </view>
+  <view class="plan-navbar-item {{activeIndex==1?'active':''}}" id='1' bindtap='swtichBar'>
+    <view class='plan-navbar-title'>推荐</view>
+  </view>
+  <view class="plan-navbar-item {{activeIndex==1?'active':''}}" id='3' bindtap='swtichBar'>
+    <view class='plan-navbar-title'>进行中</view>
+  </view>
+</view>
+<import src="../template/plan.wxml" />
+<scroll-view scroll-y class='plan-content'>
+  <block wx:if="{{activeIndex==0}}" wx:for="{{todoPlanList}}" wx:for-item="item" wx:for-index="index" wx:key="key">
+    <template is="todo-plan" data="{{item,index}}" />
+  </block>
+  <block wx:if="{{activeIndex==1}}" wx:for="{{doingPlanList}}" wx:for-item="item" wx:for-index="index" wx:key="key">
+    <template is="doing-plan" data="{{item,index}}" />
+  </block>
+</scroll-view>
