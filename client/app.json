@@ -8,7 +8,6 @@
     "pages/addCgi/addCgi",
     "pages/template/plan",
     "pages/plan/plan_list",
-    "pages/plan/plan_edit",
     "pages/template/statistics",
     "pages/myself/setting",
     "pages/myself/setting_edit",
@@ -30,13 +29,16 @@
     "pages/friend/friend_handler",
     "pages/plan/plan_detail",
     "pages/plan/plan_info",
-    "pages/discovery/discovery"
+    "pages/discovery/discovery",
+    "pages/plan/plan_page",
+    "pages/plan/plan_detail_edit",
+    "pages/plan/plan_detail_add"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#00abff",
-    "navigationBarTitleText": "废才计划",
+    "navigationBarTitleText": "7天小目标",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
@@ -46,16 +48,16 @@
     "borderStyle": "black",
     "list": [
       {
-        "pagePath": "pages/today/today",
+        "pagePath": "pages/discovery/discovery",
         "iconPath": "images/find.png",
         "selectedIconPath": "images/find_bk.png",
-        "text": "今天"
+        "text": "首页"
       },
       {
         "pagePath": "pages/plan/plan",
         "iconPath": "images/plan.png",
         "selectedIconPath": "images/plan_bk.png",
-        "text": "计划"
+        "text": "目标"
       },
       {
         "pagePath": "pages/myself/myself",

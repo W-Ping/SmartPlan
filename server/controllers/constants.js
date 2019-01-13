@@ -3,6 +3,7 @@ CNF = {
         'user_info': 'user_info',
         'plan_info': 'plan_info',
         'plan_detail_info': 'plan_detail_info',
+        'plan_user_ref_info': 'plan_user_ref_info',
     },
     OPT_STATE: {
         SUCCESS_CODE: 1,

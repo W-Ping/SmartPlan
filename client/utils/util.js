@@ -23,6 +23,8 @@ const getNowTime = () => {
     return formatTime(new Date()).substr(10).substr(0, 6).trim();
 }
 const formatUnixTime = (date, format) => {
+    if (!date) return '';
+    format = format ? format : 'Y-M-D'
     var formateArr = ["Y", "M", "D", "h", "m", "s"];
     var returnArr = [];
     if (date.constructor == String) {

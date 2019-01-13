@@ -1,8 +1,0 @@
-
-<form bindsubmit="savTaskSubmit">
-  <import src="../template/plan.wxml" />
-  <template is="plan-edit" data="{{...planDetailInfo,roleItems,planStartTime,planEndTime,minTime,maxTime}}" />
-  <view class='save-task-btn'>
-    <button formType="submit" style="background-color:#00abff;color:#fff;border-radius:0;">保 存</button>
-  </view>
-</form>

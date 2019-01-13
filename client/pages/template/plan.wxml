@@ -1,153 +1,162 @@
 <!--待办-->
 <template name="todo-plan">
-  <view class="todo-plan {{item.isTouchMove ? 'touch-move-active' : ''}}" data-planNo="{{item.planNo}}" data-status='{{item.status}}' bindlongtap='planDetailToEdit' bindtouchstart="todoTouchstart" bindtouchmove="todoTouchmove" bindtouchend="todoTouchend"
-    data-index="{{index}}">
-    <view class='conent'>
-      <view class="tt-level level-{{item.level}}">
-        <view class="level-type">{{item.level}}级</view>
+  <view class="todo-plan {{isTouchMove ? 'touch-move-active' : ''}}" bindtouchstart="todoTouchstart" bindtouchmove="todoTouchmove" bindtouchend="todoTouchend" data-pdno="{{plan_detail_no}}" data-status='{{status}}' bindlongtap='navigatorToEdit' data-index="{{index}}">
+    <view class='plan-todo-box'>
+      <view class='plan-todo-content'>
+        {{plan_detail_name}}
       </view>
-      <view class='tt-title title-level-{{item.level}}'>
-        <text>{{item.content}}</text>
+      <view class='plan-todo-creator'>
+        <image class='todo-creator-avatar' src='{{avatarUrl}}'></image>
+        <text>{{creator_name}}</text>
       </view>
-      <view class='tt-auther'>{{item.auther}}</view>
     </view>
-    <view class='posit'>
-      <view class='p-opt delete' catchtap="deletePlan" data-planNo="{{item.planNo}}" data-index="{{index}}">删 除</view>
-      <view class='p-opt start' catchtap="startPlan" data-planNo="{{item.planNo}}" data-index="{{index}}">启 动</view>
+    <view class='plan-posit'>
+      <view class='pp-opt delete-btn' bindtap="onDeletePlan" data-opt='0' data-pno="{{plan_no}}" data-pdno="{{plan_detail_no}}" data-index="{{index}}">删 除</view>
+      <view class='pp-opt start-btn' bindtap="onStartPlan" data-pno='{{plan_no}}' data-pdno="{{plan_detail_no}}" data-index="{{index}}">启 动</view>
+    </view>
+  </view>
+</template>
+<template name="follow-plan">
+  <view class='follow-plan-box'>
+    <view class='follow-plan-content'>
+      <view class='follow-plan-title'>{{plan_detail_name}}</view>
+      <view class='follow-creator'>
+        <image class='follow-creator-avatar' src='{{avatarUrl}}'></image>
+        <text>{{creator_name}}</text>
+      </view>
+    </view>
+    <view class='follow-plan-remind'>
+      <text>提醒</text>
     </view>
   </view>
 </template>
 <!-- 进行中 -->
 <template name="doing-plan">
-  <view class="doing-plan {{item.isTouchMove ? 'touch-move-active' : ''}}" bindtouchstart="doingTouchstart" bindtouchmove="doingTouchmove" bindtouchend="doingTouchend" data-index="{{index}}">
-    <view class='di-box'>
-      <view class='di-conent' data-planNo="{{item.planNo}}" data-status='{{item.status}}' bindlongtap='planDetailToEdit'>
-        <view class='di-progress level-{{item.level}}'>
-          <text>{{item.progress}}%</text>
+  <view class="doing-plan {{isTouchMove ? 'touch-move-active' : ''}}" bindtouchstart="doingTouchstart" bindtouchmove="doingTouchmove" bindtouchend="doingTouchend" data-index="{{index}}">
+    <view class='plan-doing-box'>
+      <view class='doing-conent' data-pdno="{{plan_detail_no}}" data-index="{{index}}" data-status='{{status}}' bindlongtap='navigatorToEdit'>
+        <view class='doing-progress'>
+          <text>{{progress}}%</text>
         </view>
-        <view class='di-title  title-level-{{item.level}}'>
-          <view style='height:150rpx;'>{{item.content}}</view>
-          <view style='height:10rpx; overflow: hidden;'>
-            <progress percent="{{item.progress}}" active-mode="forwards" stroke-width="20px" active='true' activeColor='#00abff' />
+        <view class='doing-title'>
+          <view class='doing-title-detail' style='height:210rpx;'>{{plan_detail_name}}</view>
+          <view style='height:25rpx; overflow: hidden;'>
+            <progress percent="{{progress}}" active-mode="forwards" stroke-width='25px' active='true' activeColor='#00abff' />
           </view>
         </view>
       </view>
-      <view class='di-add' data-index="{{index}}" bindtap='addprogress'>
+      <view class='doing-add' data-index="{{index}}" bindtap='onAddProgress'>
         <image style="width:30px;height:40px;background-color: #eeeeee;" mode="widthFix" src='../../images/add.png'></image>
       </view>
     </view>
-    <view class='posit'>
-      <view class='p-opt priority' catchtap="topPlan" data-planNo="{{item.planNo}}" data-index="{{index}}">优 先</view>
-      <view class='p-opt delete' catchtap="deletePlan" data-planNo="{{item.planNo}}" data-index="{{index}}">删 除</view>
+    <view class='plan-posit'>
+      <view class='pp-opt priority-btn' bindtap="onToTop" data-pdno="{{plan_detail_no}}"  data-index="{{index}}">优 先</view>
+      <view class='pp-opt delete-btn'   bindtap="onDeletePlan" data-opt='1' data-pno='{{plan_no}}' data-pdno="{{plan_detail_no}}" data-index="{{index}}">删 除</view>
+    </view>
+  </view>
+</template>
+<template name="follow-doing-plan">
+  <view class='follow-plan-box'>
+    <view class='follow-plan-progress'>
+      <text>{{progress}}%</text>
+    </view>
+    <view class='follow-plan-content'>
+      <view class='follow-plan-title'>{{plan_detail_name}}</view>
+      <view class='follow-creator'>
+        <image class='follow-creator-avatar' src='{{avatarUrl}}'></image>
+        <text>{{creator_name}}</text>
+      </view>
+    </view>
+    <view class='follow-plan-remind'>
+      <text>提醒</text>
     </view>
   </view>
 </template>
 <!-- 已完成 -->
-<template name="finish-plan">
-  <view class='finish-plan' data-planNo="{{item.planNo}}" data-status='{{item.status}}' bindtap='planDetail'>
-    <view class='ft-conent'>
-      <view class="ft-quality">
-        <view class="quality-type">{{item.quality}}</view>
-      </view>
-      <view class='ft-title'>
-        <text>{{item.content}}</text>
-      </view>
-      <view class='ft-finisher'>{{item.finisher}}</view>
+<template name="done-plan">
+  <view class='done-plan' data-pdno="{{plan_detail_no}}" data-status='{{status}}' bindtap='navigatorToDetail'>
+    <view class='plan-done-content'>
+      {{plan_detail_name}}
+    </view>
+    <view class='plan-done-creator'>
+      <image class='done-creator-avatar' src='{{avatarUrl}}'></image>
+      <text>{{creator_name}}</text>
     </view>
   </view>
 </template>
 <!-- 已完成详情 -->
-<template name="finish-plan-detail">
-  <view class='finish-plan-detail'>
-    <scroll-view scroll-y class='ftd-conent'>{{content}}</scroll-view>
-    <view class='ftd'>
-      <view>优先级别</view>
-      <view>{{level}}级</view>
-    </view>
-    <view class='ftd'>
-      <view>预估</view>
-      <view>{{estimateTime}}{{estimateTimeType}}</view>
-    </view>
-    <view class='ftd'>
-      <view> 预估时间</view>
-      <view>
-        <text>{{estimateStartTime}}</text>
-        <text>~</text>
-        <text>{{estimateEndTime}}</text>
+<template name="done-plan-detail">
+  <view class='done-plan-detail'>
+    <scroll-view scroll-y class='done-conent'>{{plan_detail_name}}</scroll-view>
+    <view class='done-plan-box'>
+      <view class='done-detail-item'>
+        <view class='done-item-desc'>
+          <text>预计时间</text>
+        </view>
+        <view class='done-item-val'>{{plan_start_time}}~{{plan_start_time}}</view>
       </view>
-    </view>
-    <view class='ftd'>
-      <view>实际时间</view>
-      <view>
-        <text>{{actualStartTime}}</text>
-        <text>~</text>
-        <text>{{actualEndTime}}</text>
+      <view class='done-detail-item'>
+        <view class='done-item-desc'>
+          <text>实际时间</text>
+        </view>
+        <view class='done-item-val'>{{plan_actual_start_time}}~{{plan_actual_start_time}}</view>
       </view>
-    </view>
-    <view class='ftd'>
-      <view>创建人</view>
-      <view>{{auther}}</view>
-    </view>
-    <view class='ftd'>
-      <view>经办人</view>
-      <view>{{handler}}</view>
-    </view>
-    <view class='ftd-remark'>
-      <view>备注</view>
-      <view>
-        <view class='ftd-r-remark'> {{remark}}</view>
+      <view class='done-detail-item'>
+        <view class='done-item-desc'>
+          <text>完成人</text>
+        </view>
+        <view class='done-item-val'>
+          <image src="{{avatarUrl}}"></image> {{creator_name}}
+        </view>
+      </view>
+      <view hidden='{{!remark}}' class='done-detail-reamrk'>
+        {{remark}}
       </view>
     </view>
   </view>
 </template>
-<!--可编辑任务-->
-<template name="list-plan">
-  <view class="todo-plan {{item.isTouchMove ? 'touch-move-active' : ''}}" data-planNo="{{item.planNo}}" data-status='{{item.status}}' bindlongtap='planDetailToEdit' bindtouchstart="planTouchstart" bindtouchmove="planTouchmove" bindtouchend="planTouchend"
-    data-index="{{index}}">
-    <view class='conent'>
-      <view class="tt-level level-{{item.level}}">
-        <view class="level-type">{{item.level}}级</view>
-      </view>
-      <view class='tt-title title-level-{{item.level}}'>
-        <text>{{item.content}}</text>
-      </view>
-      <view class='tt-auther'>{{item.auther}}</view>
-    </view>
-    <view class='posit'>
-      <view class='p-opt priority' catchtap="planDetailToEdit" data-planNo="{{item.planNo}}" data-index="{{index}}">编 辑</view>
-      <view class='p-opt delete' catchtap="deletePlan" data-planNo="{{item.planNo}}" data-index="{{index}}">删 除</view>
-    </view>
-  </view>
-</template>
-<!-- 编辑任务详情 -->
+<!-- 编辑目标详情 -->
 <template name="plan-edit">
   <view class='p-container'>
-    <input hidden name="plan_no" value='{{plan_no}}'/>
+    <input hidden name="plan_no" value='{{plan_no}}' />
+    <input hidden name="status" value='{{status?status:0}}' />
+    <input hidden name="plan_detail_no" value='{{plan_detail_no}}' />
     <view class='p-box'>
-      <textarea class='p-textarea' name="plan_detail_name" value='{{plan_detail_name}}' placeholder='输入计划内容'></textarea>
+      <textarea class='p-textarea' maxlength='150' focus name="plan_detail_name" value='{{plan_detail_name}}' placeholder='输入你的目标（最多150字）'></textarea>
     </view>
     <picker mode="date" bindchange="changePlanStartTime" start="{{minTime}}" end="{{maxTime}}" name="plan_start_time" value="{{planStartTime}}">
       <view class='p-item'>
-        <view class='p-desc'>计划开始时间</view>
-        <view class='p-value'>{{plan_start_time?plan_start_time:planStartTime}}</view>
+        <view class='p-desc'>目标开始</view>
+        <view class='p-value'>{{planStartTime}}</view>
         <view class='gt'>
           <text>></text>
         </view>
       </view>
     </picker>
-    <picker mode="date"  bindchange="changePlanEndTime"  start="{{planStartTime}}" end="{{maxTime}}" name="plan_end_time" value="{{planEndTime}}">
+    <picker mode="date" bindchange="changePlanEndTime" start="{{planStartTime}}" end="{{maxTime}}" name="plan_end_time" value="{{planEndTime}}">
       <view class='p-item'>
-        <view class='p-desc'>计划结束时间</view>
-        <view class='p-value'>{{plan_end_time?plan_end_time:planEndTime}}</view>
+        <view class='p-desc'>目标结束</view>
+        <view class='p-value'>{{planEndTime}}</view>
         <view class='gt'>
           <text>></text>
         </view>
       </view>
     </picker>
+    <navigator></navigator>
+    <view class='p-item' bindtap='navigatorToFollow'>
+      <view class='p-desc'>好友监督</view>
+      <view class="p-value {{followNames?'':'p-follow-desc'}}">{{followNames?followNames:'添加好友监督目标(最多3个)'}}</view>
+      <view class='gt'>
+        <text>></text>
+      </view>
+    </view>
     <view class='p-item right'>
       <view class='p-desc'>权限设置</view>
+      <view class='p-item-switch'>
+        <switch color="#00abff" checked="{{roleOpen}}" bindchange="switchRoleBox"></switch>
+      </view>
     </view>
-    <view class='p-item-right'>
+    <view hidden='{{!roleOpen}}' class='p-item-right'>
       <block wx:for="{{roleItems}}" wx:index="index" wx:key="key">
         <view class='pir-box' data-index='{{index}}' bindtap='onSelectRole'>
           <view class='pir-b-item1'>
@@ -168,7 +177,56 @@
       </block>
     </view>
     <view class='p-remark-box'>
-      <textarea class='p-reamrk-textarea' name="remark" value='{{remark}}' placeholder='输入备注'></textarea>
+      <textarea class='p-reamrk-textarea' maxlength='150' name="remark" value='{{remark}}' placeholder='输入备注（最多150字）'></textarea>
+    </view>
+  </view>
+</template>
+<!-- 我的目标 -->
+<template name="myselfPlanTemplate">
+  <view class='pl-box' data-pno='{{plan_no}}' bindtap='onClickPlan'>
+    <view class='pl-date'>
+      <text>{{start_time}}~{{end_time}}</text>
+    </view>
+    <view class='pl-content'>{{plan_title}}
+    </view>
+    <view class='plf-creator'>
+      <image class='plf-avatar' src='{{avatarUrl}}'></image>
+      <text>{{creator_name}}</text>
+    </view>
+  </view>
+</template>
+<!-- 好友的目标 -->
+<template name="fdPlanTemplate">
+  <view class='plf-box' data-pno='{{plan_no}}' bindtap='onClickPlan'>
+    <view class='plf-date'>
+      <text>{{start_time}}~{{end_time}}</text>
+    </view>
+    <view class='plf-content'>
+      <text>{{plan_title?plan_title:""}}</text>
+    </view>
+    <view class='plf-creator'>
+      <image class='plf-avatar' src='{{avatarUrl}}'></image>
+      <text>{{creator_name}}</text>
+    </view>
+  </view>
+</template>
+
+<!--可编辑任务-->
+<template name="list-plan">
+  <view class="todo-plan {{item.isTouchMove ? 'touch-move-active' : ''}}" data-planNo="{{item.planNo}}" data-status='{{item.status}}' bindlongtap='planDetailToEdit' bindtouchstart="planTouchstart" bindtouchmove="planTouchmove" bindtouchend="planTouchend"
+    data-index="{{index}}">
+    <view class='conent'>
+      <view class="tt-level level-{{item.level}}">
+        <view class="level-type">{{item.level}}级</view>
+      </view>
+      <view class='tt-title title-level-{{item.level}}'>
+        <text>{{item.content}}</text>
+      </view>
+      <view class='tt-auther'>{{item.auther}}</view>
+    </view>
+    <view class='posit'>
+      <view class='p-opt priority' catchtap="planDetailToEdit" data-planNo="{{item.planNo}}" data-index="{{index}}">编 辑</view>
+      <view class='p-opt delete' catchtap="deletePlan" data-planNo="{{item.planNo}}" data-index="{{index}}">删 除</view>
     </view>
   </view>
 </template>

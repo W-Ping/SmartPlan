@@ -1,0 +1,29 @@
+<!--client/pages/plan/plan_page.wxml-->
+<view class='dis-head'>
+  <view class='dis-navbar'>
+    <block wx:for="{{tabs}}" wx:for-index="index" wx:key="*this">
+      <view id="{{index}}" class="dis-navbar-item {{activeIndex==index?'dis-navbar-active':''}}" bindtap='swtichBar'>
+        <view class='dis-navbar-title'>{{item}}</view>
+      </view>
+      <view class="dis-navbar-slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+    </block>
+  </view>
+</view>
+<import src="../template/plan.wxml" />
+<scroll-view scroll-y class='dis-content'>
+  <view hidden="{{activeIndex != 0}}">
+    <block wx:for="{{todoPlanInfoList}}" wx:for-item="item" wx:for-index="index" wx:key="key">
+      <template  is="{{templateType==1?'follow-plan':'todo-plan'}}"  data="{{...item,index}}" />
+    </block>
+  </view>
+  <view hidden="{{activeIndex != 1}}">
+    <block wx:for="{{doingPlanInfoList}}" wx:for-item="item" wx:for-index="index" wx:key="key">
+        <template is="{{templateType==1?'follow-doing-plan':'doing-plan'}}" data="{{...item,index}}" />
+    </block>
+  </view>
+  <view hidden="{{activeIndex != 2}}">
+    <block wx:for="{{donePlanInfoList}}" wx:for-item="item" wx:for-index="index" wx:key="key">
+      <template is="done-plan"  data="{{...item,index}}" />
+    </block>
+  </view>
+</scroll-view>

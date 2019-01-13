@@ -42,6 +42,7 @@ router.post('/userinfo/update', controllers.userinfo.update)
 //计划信息
 router.post('/plan/save', controllers.plan.saveOrUpdatePlanInfo)
 router.get('/plan/get', controllers.plan.getPlanInfo)
+router.get('/plan/last/get', controllers.plan.getLastPlanInfo)
 router.post('/plan/query', controllers.plan.queryPlanInfo)
 router.post('/plan/detail/query', controllers.plan.query)
 router.get('/plan/detail/get', controllers.plan.get)
@@ -49,6 +50,8 @@ router.post('/plan/detail/save', controllers.plan.save)
 router.post('/plan/detail/update', controllers.plan.update)
 router.delete('/plan/detail/del', controllers.plan.del)
 router.post('/plan/detail/topIndex', controllers.plan.topIndex)
+router.post('/plan/detail/progress/add', controllers.plan.addProgress)
+router.post('/plan/detail/start', controllers.plan.startPlanDetailInfo)
 
 
 module.exports = router

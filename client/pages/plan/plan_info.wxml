@@ -1,6 +1,5 @@
 <view wx:if="{{planInfo&&planInfo.plan_title}}" class='plan-box'>
-  <view class='pb-title'>
-    <text>{{planInfo.plan_title}}</text>
+  <view class='pb-title'>{{planInfo.plan_title}}
   </view>
   <view class='pb-vm'></view>
   <view class='pb-time'>
@@ -14,19 +13,32 @@
 </view>
 <scroll-view scroll-y class='plan-detail-box'>
   <block wx:for="{{planDetailInfoList}}" wx:for-item="item" wx:for-index="index" wx:key="*this">
-    <view class="plan-item {{item.isTouchMove ? 'touch-move-active' : ''}}" data-planNo="{{item.planNo}}" data-status='{{item.status}}' bindlongtap='planDetailToEdit' bindtouchstart="planTouchstart" bindtouchmove="planTouchmove" bindtouchend="planTouchend"
-      data-index="{{index}}">
-      <view class="pi-content">
-        <view class='pi-title'>
-          <text>{{item.plan_detail_name}}</text>
+    <view wx:if="{{item.status!=2}}">
+      <view class="plan-item {{item.isTouchMove ? 'touch-move-active' : ''}}" data-planNo="{{item.planNo}}" data-status='{{item.status}}' bindlongtap='planDetailToEdit' bindtouchstart="planTouchstart" bindtouchmove="planTouchmove" bindtouchend="planTouchend"
+        data-index="{{index}}">
+        <view class="pi-content">
+          <view class='pi-title'>{{item.plan_detail_name}}</view>
+          <view class='pi-other'>
+            <text class='pi-status'>{{item.status_desc}}</text>
+            <text>{{item.plan_start_time}}~{{item.plan_end_time}}</text>
+          </view>
         </view>
-        <view class='pi-other'>
-          <text>{{item.plan_start_time}}~{{item.plan_end_time}}</text>
+        <view class='plan-posit'>
+          <view class='plan-opt priority' catchtap="onToTop" data-pdno="{{item.plan_detail_no}}" data-index="{{index}}">优 先</view>
+          <view class='plan-opt delete' catchtap="onDeletePlan" data-priority='{{item.priority}}' data-pdno="{{item.plan_detail_no}}" data-index="{{index}}">删 除</view>
         </view>
       </view>
-      <view class='plan-posit'>
-        <view class='plan-opt priority' catchtap="onToTop" data-pdno="{{item.plan_detail_no}}" data-index="{{index}}">优 先</view>
-        <view class='plan-opt delete' catchtap="onDeletePlan" data-priority='{{item.priority}}' data-pdno="{{item.plan_detail_no}}" data-index="{{index}}">删 除</view>
+    </view>
+    <view wx:else>
+   <view class="plan-item"  data-planNo="{{item.planNo}}" data-status='{{item.status}}' bindlongtap='planDetailToEdit'
+        data-index="{{index}}">
+        <view class="pi-content">
+          <view class='pi-title'>{{item.plan_detail_name}}</view>
+          <view class='pi-other'>
+            <text class='pi-status'>{{item.status_desc}}</text>
+            <text>{{item.plan_start_time}}~{{item.plan_end_time}}</text>
+          </view>
+        </view>
       </view>
     </view>
   </block>

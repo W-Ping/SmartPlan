@@ -7,7 +7,7 @@
 // var host = 'https://taflgi5t.qcloud.la';
 var host = 'http://127.0.0.1:5757';
 var config = {
-    default_page: '../plan/plan',
+    default_page: '../discovery/discovery',
 
     // 下面的地址配合云端 Demo 工作
     service: {
@@ -36,12 +36,16 @@ var config = {
         updateUserInfo: `${host}/weapp/userinfo/update`,
         //计划信息
         getPlanInfo: `${host}/weapp/plan/get`,
+        getLastPlanInfo: `${host}/weapp/plan/last/get`,
         savePlanDetailInfo: `${host}/weapp/plan/detail/save`,
         updatePlanDetailInfo: `${host}/weapp/plan/detail/update`,
         topIndex: `${host}/weapp/plan/detail/topIndex`,
         getPlanDetailInfo: `${host}/weapp/plan/detail/get`,
         delPlanDetailInfo: `${host}/weapp/plan/detail/del`,
         queryPlanDetailInfo: `${host}/weapp/plan/detail/query`,
+        queryPlanInfo: `${host}/weapp/plan/query`,
+        startPlanDetailInfo: `${host}/weapp/plan/detail/start`,
+        addPlanProgress: `${host}/weapp/plan/detail/progress/add`,
     }
 };
 

@@ -1,35 +1,33 @@
 // client/pages/plan/plan_detail.js
+
+const request = require("../../utils/request")
+const config = require('../../config')
+const util = require('../../utils/util')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    planInfo: {}
+    planDetailInfo: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    var planNo = options.planNo;
-    var planInfo = {
-      planNo: "P0009",
-      auther: "欧阳林",
-      handler: "刘伟丽",
-      level: Math.ceil(Math.random() * 3),
-      status: 2,
-      content:"Demo我的任务就是测试这个DEMO是不是可以如果可以就用这个模板来测试",
-      estimateTime: 2,
-      estimateTimeType: '天',
-      estimateStartTime: '2018-11-12',
-      estimateEndTime: '2018-12-02',
-      actualStartTime: '2018-11-14',
-      actualEndTime: '2018-12-01',
-      remark:"remark我的任务就是测试"
-    }
-    this.setData({
-      planInfo: planInfo
+    var pdNo = options.pdNo;
+    request.getReq(config.service.getPlanDetailInfo, "pdNo=" + pdNo, res => {
+      if (res.code == 1) {
+        var planDetailInfo = res.data;
+        planDetailInfo.plan_start_time = util.formatUnixTime(planDetailInfo.plan_start_time, "Y.M.D");
+        planDetailInfo.plan_end_time = util.formatUnixTime(planDetailInfo.plan_end_time, "Y.M.D");
+        planDetailInfo.plan_actual_start_time = util.formatUnixTime(planDetailInfo.plan_actual_start_time, "Y.M.D");
+        planDetailInfo.plan_actual_end_time = util.formatUnixTime(planDetailInfo.plan_actual_end_time, "Y.M.D");
+        this.setData({
+          planDetailInfo: planDetailInfo
+        })
+      }
     })
   },
 

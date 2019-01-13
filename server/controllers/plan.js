@@ -12,7 +12,7 @@ const util = require('../tools/util')
  */
 async function query(ctx, next) {
     let condition = ctx.request.body;
-    await mysql(CNF.DB_TABLE.plan_detail_info).select('*').where({condition}).orderByRaw('priority desc').then(res => {
+    await mysql(CNF.DB_TABLE.plan_detail_info).select('*').where(condition).orderByRaw('priority desc').then(res => {
         SUCCESS(ctx, res);
     }).catch(e => {
         debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
@@ -27,9 +27,29 @@ async function query(ctx, next) {
  * @returns {Promise<void>}
  */
 async function get(ctx, next) {
-    let {plan_detail_no} = ctx.query;
-    await mysql(CNF.DB_TABLE.plan_detail_info).select('*').where({plan_detail_no}).first().then(res => {
-        SUCCESS(ctx, res);
+    let {pdNo} = ctx.query;
+    await mysql(CNF.DB_TABLE.plan_detail_info).select('*').where({plan_detail_no: pdNo}).first().then(async res => {
+        if (res) {
+            let result = {planDetailInfo: res};
+            await mysql(CNF.DB_TABLE.plan_info).select("*").where({plan_no: res.plan_no}).first().then(async res => {
+                result.planInfo = res;
+                await mysql(CNF.DB_TABLE.plan_user_ref_info).select(CNF.DB_TABLE.plan_user_ref_info + ".*", CNF.DB_TABLE.user_info + ".nickName").leftJoin(CNF.DB_TABLE.user_info, function () {
+                    this.on(CNF.DB_TABLE.plan_user_ref_info + '.friend_uid', '=', CNF.DB_TABLE.user_info + '.uid')
+                }).where({
+                    plan_detail_no: pdNo
+                }).andWhere(CNF.DB_TABLE.plan_user_ref_info + ".status", 0).then(res => {
+                    if (res && res.length > 0) {
+                        result.planSuperviseList = res;
+                    } else {
+                        result.planSuperviseList = [];
+                    }
+                    SUCCESS(ctx, result);
+                });
+            })
+        } else {
+            SUCCESS(ctx, {});
+        }
+
     }).catch(e => {
         debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
         throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB}\n${e}`)
@@ -69,14 +89,34 @@ async function save(ctx, next) {
     let userInfo = ctx.state.$sysInfo.userinfo;
     planDetailInfo.creator_uid = userInfo.uid;
     planDetailInfo.creator_name = userInfo.realName;
+    planDetailInfo.avatarUrl = userInfo.avatarUrl;
+    let followUidList = planDetailInfo.followUidList;
+    console.log("followUidList", followUidList);
+    delete planDetailInfo.followUidList;
+    console.log(planDetailInfo);
     if (planDetailInfo.plan_detail_no) {
         planDetailInfo.update_time = nowTime;
-        await mysql(CNF.DB_TABLE.plan_detail_info).update(planDetailInfo).where({plan_detail_no}).then(res => {
-            SUCCESS(ctx, planDetailInfo);
-        }).catch(e => {
-            debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_UPDATE_TO_DB, e)
-            throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_UPDATE_TO_DB}\n${e}`)
+        await  mysql(CNF.DB_TABLE.plan_detail_info).select("id", 'priority', "plan_no").where({
+            plan_detail_no: planDetailInfo.plan_detail_no,
+            is_deleted: 0
+        }).first().then(async res => {
+            if (res && res.priority == 1 && res.plan_detail_name !== planDetailInfo.plan_detail_name) {
+                await mysql(CNF.DB_TABLE.plan_info).update({plan_title: planDetailInfo.plan_detail_name}).where({plan_no: res.plan_no})
+            }
+            await mysql(CNF.DB_TABLE.plan_detail_info).update(planDetailInfo).where({
+                plan_detail_no: plan_detail_no,
+                creator_uid: userInfo.uid,
+                is_deleted: 0
+            }).then(async res => {
+                await savePlanUserRef(followUidList, planDetailInfo, userInfo).then(res => {
+                    SUCCESS(ctx, planDetailInfo);
+                });
+            }).catch(e => {
+                debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_UPDATE_TO_DB, e)
+                throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_UPDATE_TO_DB}\n${e}`)
+            })
         })
+
     } else {
         await mysql(CNF.DB_TABLE.plan_detail_info).select('plan_detail_no').orderBy('create_time', 'desc').first()
             .then(async lastPlanDetail => {
@@ -92,11 +132,14 @@ async function save(ctx, next) {
                     planInfo.plan_title = planDetailInfo.plan_detail_name || '';
                     planInfo.creator_uid = userInfo.uid;
                     planInfo.creator_name = userInfo.realName;
+                    planInfo.auth_type = planDetailInfo.auth_type || 0;
+                    planInfo.avatarUrl = userInfo.avatarUrl;
                     await  initPlanInfo(planInfo, planDetailInfo).then(res => {
                         planDetailInfo.plan_no = res.plan_no;
                         planDetailInfo.priority = res.priority;
                     });
                 }
+                await savePlanUserRef(followUidList, planDetailInfo, userInfo);
                 await mysql(CNF.DB_TABLE.plan_detail_info).insert(planDetailInfo).then(async res => {
                     SUCCESS(ctx, planDetailInfo);
                 });
@@ -110,6 +153,62 @@ async function save(ctx, next) {
 }
 
 /**
+ *
+ * @param followUidList
+ * @param planDetailInfo
+ * @param userInfo
+ * @returns {Promise<void>}
+ */
+async function savePlanUserRef(followUidList, planDetailInfo, userInfo) {
+    if (followUidList && followUidList.length > 0 && planDetailInfo && userInfo) {
+        await mysql(CNF.DB_TABLE.plan_user_ref_info).del().where({
+            creator_uid: userInfo.uid,
+            plan_detail_no: planDetailInfo.plan_detail_no
+        }).then(async res => {
+            let nowTime = util.nowTime();
+            let planUserRefInfoList = []
+            followUidList.forEach(function (v, i) {
+                planUserRefInfoList.push({
+                    id: uuidGenerator().replace(/-/g, ''),
+                    friend_uid: v,
+                    plan_no: planDetailInfo.plan_no,
+                    plan_detail_no: planDetailInfo.plan_detail_no,
+                    creator_uid: userInfo.uid,
+                    create_time: nowTime,
+                    update_time: nowTime,
+                })
+            })
+            await  mysql(CNF.DB_TABLE.plan_user_ref_info).insert(planUserRefInfoList);
+        }).catch(e => {
+            debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_INSERT_TO_DB, e)
+            throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_INSERT_TO_DB}\n${e}`)
+        })
+    }
+}
+
+function getAuthorizationPlanNo(uid) {
+    return mysql(CNF.DB_TABLE.plan_user_ref_info).distinct("plan_no", 'plan_detail_no').select().where({
+        friend_uid: uid,
+        status: 0
+    }).then(res => {
+        if (res) {
+            let planNoList = [];
+            let planDetailNoList = [];
+            res.forEach(function (v, i) {
+                planNoList.push(v.plan_no);
+                planDetailNoList.push(v.plan_detail_no);
+            })
+            return Promise.resolve({planNoList: planNoList, planDetailNoList: planDetailNoList})
+        } else {
+            return Promise.resolve({})
+        }
+    }).catch(e => {
+        debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
+        throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB}\n${e}`)
+    })
+}
+
+/**
  * 初始化计划主表
  * @param planInfo
  * @returns {*}
@@ -118,9 +217,10 @@ function initPlanInfo(planInfo, planDetailInfo) {
     if (planInfo && planDetailInfo) {
         let startTime = planDetailInfo.plan_start_time;
         let endTime = planDetailInfo.plan_end_time;
+        console.log("planInfo", planInfo);
         return mysql(CNF.DB_TABLE.plan_info).select("plan_no").where('start_time', '<=', startTime).andWhere('end_time', '>=', endTime)
             .andWhere('creator_uid', planInfo.creator_uid).first().then(res => {
-                if (!res || res.plan_no <= 0) {
+                if (!res || !res.plan_no) {
                     return mysql(CNF.DB_TABLE.plan_info).select("plan_no").orderBy("create_time", 'desc').first().then(last => {
                         let planNo = util.generateNo(CNF.PLAN_PREFIX, last ? last.plan_no : null, 1);
                         planInfo.id = uuidGenerator().replace(/-/g, '');
@@ -188,13 +288,33 @@ async function saveOrUpdatePlanInfo(ctx, next) {
  * @returns {Promise<void>}
  */
 async function queryPlanInfo(ctx, next) {
-    let condition = ctx.request.body || {1: 1};
-    await mysql(CNF.DB_TABLE.plan_info).select("*").where(condition).then(res => {
-        SUCCESS(ctx, res);
-    }).catch(e => {
-        debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
-        throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB}\n${e}`)
-    });
+    let condition = ctx.request.body;
+    let userInfo = ctx.state.$sysInfo.userinfo;
+    let uid = userInfo.uid;
+    console.log(condition);
+    if (condition && condition.type == 1) {
+        await getAuthorizationPlanNo(uid).then(async res => {
+            let planNoList = res.planNoList;
+            await mysql(CNF.DB_TABLE.plan_info).select("*").where(builder => {
+                builder.whereIn("plan_no", planNoList).andWhere("auth_type", 0).andWhereNot("creator_uid", uid)
+            }).then(res => {
+                console.log(res);
+                SUCCESS(ctx, res);
+            }).catch(e => {
+                debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
+                throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB}\n${e}`)
+            });
+        })
+    } else {
+        await  mysql(CNF.DB_TABLE.plan_info).select("*").where(builder => {
+            builder.where("creator_uid", uid).andWhere("auth_type", 0)
+        }).then(res => {
+            SUCCESS(ctx, res);
+        }).catch(e => {
+            debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
+            throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB}\n${e}`)
+        });
+    }
 }
 
 /**
@@ -211,8 +331,9 @@ async function getPlanInfo(ctx, next) {
             planDetailInfoList: []
         }
         if (res) {
-            await  mysql(CNF.DB_TABLE.plan_detail_info).select("*").where({plan_no: planNo}).then(list => {
+            await  mysql(CNF.DB_TABLE.plan_detail_info).select("*").where({plan_no: planNo}).orderByRaw("priority desc,status asc,create_time desc").then(list => {
                 result.planDetailInfoList = list
+                console.log("planDetailInfoList", list);
                 SUCCESS(ctx, result);
             })
         } else {
@@ -225,12 +346,32 @@ async function getPlanInfo(ctx, next) {
 }
 
 /**
+ *  获取最新的目标计划
  *
  * @param ctx
  * @param next
  * @returns {Promise<void>}
  */
-function del(ctx, next) {
+async function getLastPlanInfo(ctx, next) {
+    let userInfo = ctx.state.$sysInfo.userinfo;
+    await mysql(CNF.DB_TABLE.plan_info).select('*').where({
+        is_deleted: 0,
+        creator_uid: userInfo.uid
+    }).andWhereNot('status', 2).orderBy('start_time', 'desc').first().then(async res => {
+        SUCCESS(ctx, res);
+    }).catch(e => {
+        debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
+        throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB}\n${e}`)
+    });
+}
+
+/**
+ *
+ * @param ctx
+ * @param next
+ * @returns {Promise<void>}
+ */
+async function del(ctx, next) {
     let {pNo, pdNo} = ctx.query;
     let userInfo = ctx.state.$sysInfo.userinfo;
     let uid = userInfo.uid;
@@ -257,15 +398,44 @@ function del(ctx, next) {
                     })
             })
         } else {
-            return mysql(CNF.DB_TABLE.plan_detail_info).del().where({
-                plan_detail_no: pdNo,
-                creator_uid: uid
-            }).then(res => {
-                return Promise.resolve(1);
-            }).catch(e => {
-                debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_DELETED_TO_DB, e)
-                throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_DELETED_TO_DB}\n${e}`)
+            return mysql(CNF.DB_TABLE.plan_detail_info).select("priority", "plan_no").where({plan_detail_no: pdNo}).first().then(res => {
+                if (res && res.priority == 1) {
+                    return mysql(CNF.DB_TABLE.plan_detail_info).select("id", "plan_detail_name").where({plan_no: pNo}).whereNot({
+                        plan_detail_no: pdNo,
+                        priority: 1
+                    }).whereNotNull("plan_detail_name").orderByRaw("status asc,create_time desc").first().then(res => {
+                        console.log("del.....", res);
+                        let plan_detail_name = res && res.plan_detail_name ? res.plan_detail_name : '';
+                        return mysql(CNF.DB_TABLE.plan_detail_info).update({priority: 1}).where('id', res.id).then(async res => {
+                            if (plan_detail_name) {
+                                await mysql(CNF.DB_TABLE.plan_info).update({plan_title: plan_detail_name}).where({plan_no: pNo})
+                            }
+                            return mysql(CNF.DB_TABLE.plan_detail_info).del().where({
+                                plan_detail_no: pdNo,
+                                creator_uid: uid
+                            }).then(res => {
+                                return Promise.resolve(1);
+                            }).catch(e => {
+                                return Promise.resolve(-1);
+                                debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_DELETED_TO_DB, e)
+                                throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_DELETED_TO_DB}\n${e}`)
+                            })
+                        })
+                    })
+                } else {
+                    return mysql(CNF.DB_TABLE.plan_detail_info).del().where({
+                        plan_detail_no: pdNo,
+                        creator_uid: uid
+                    }).then(res => {
+                        return Promise.resolve(1);
+                    }).catch(e => {
+                        return Promise.resolve(-1);
+                        debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_DELETED_TO_DB, e)
+                        throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_DELETED_TO_DB}\n${e}`)
+                    })
+                }
             })
+
         }
     }).then(res => {
         if (res == 1) {
@@ -303,6 +473,59 @@ function topIndex(ctx, next) {
     })
 }
 
+async function addProgress(ctx, next) {
+    let condition = ctx.request.body;
+    let pdNo = condition.plan_detail_no;
+    let progress = condition.progress;
+    let nowTime = util.nowTime();
+    if (pdNo && progress) {
+        let updateInfo = {progress: progress, update_time: nowTime}
+        if (progress >= 100) {
+            updateInfo.status = 2;
+            updateInfo.plan_actual_end_time = nowTime;
+        }
+        await mysql(CNF.DB_TABLE.plan_detail_info).update(updateInfo).where("plan_detail_no", pdNo).then(res => {
+            SUCCESS(ctx, res);
+        }).catch(e => {
+            debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_UPDATE_TO_DB, e)
+            throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_UPDATE_TO_DB}\n${e}`)
+        })
+    }
+}
+
+async function startPlanDetailInfo(ctx, next) {
+    let condition = ctx.request.body;
+    let pdNo = condition.pdNo;
+    let pNo = condition.pNo;
+    let userInfo = ctx.state.$sysInfo.userinfo;
+    let uid = userInfo.uid;
+    let nowTime = util.nowTime();
+    await mysql(CNF.DB_TABLE.plan_info).select("id").where({
+        plan_no: pNo,
+        is_deleted: 0,
+        status: 0,
+        creator_uid: uid
+    }).first().then(async res => {
+        if (res && res.id) {
+            await  mysql(CNF.DB_TABLE.plan_info).update({status: 1, update_time: nowTime}).where({
+                id: res.id
+            });
+        }
+        await mysql(CNF.DB_TABLE.plan_detail_info).update({
+            status: 1,
+            progress: 10,
+            plan_actual_start_time: nowTime,
+            update_time: nowTime,
+        }).where({plan_detail_no: pdNo, creator_uid: uid, is_deleted: 0,}).then(res => {
+            SUCCESS(ctx, res)
+        })
+    }).catch(e => {
+        debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_UPDATE_TO_DB, e)
+        throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_UPDATE_TO_DB}\n${e}`)
+    })
+
+}
+
 // function deletePlanInfo(condition){
 //     mysql.transaction(function (t) {
 //         return mysql(table)
@@ -333,6 +556,9 @@ module.exports = {
     saveOrUpdatePlanInfo,
     queryPlanInfo,
     getPlanInfo,
+    getLastPlanInfo,
+    startPlanDetailInfo,
+    addProgress,
     del,
     topIndex,
 }

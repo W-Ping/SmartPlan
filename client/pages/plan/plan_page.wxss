@@ -6,6 +6,7 @@
   z-index: 500;
   top: 0;
   width: 100%;
+  background: #fff;
   border-bottom: 1rpx solid #ccc;
 }
 
@@ -31,7 +32,6 @@
   line-height: 40px;
   text-align: center;
   font-size: 0;
-  background: #fff;
 }
 .dis-navbar-item.dis-navbar-active {
   color: #00abff;
@@ -50,7 +50,10 @@
 }
 .dis-content{
   position: fixed;
-  top: 40px;
+  top: 45px;
+  left: 0;
+  right: 0;
+  bottom: 5rpx;
 }
 
 

@@ -36,7 +36,7 @@ Page({
         that.processBiYingPhoto(res.data.images[0].url);
       },
       fail: function (error) {
-        console.log('错误信息是：' + error);
+        console.log('错误信息是：',error);
       }
     })
   },

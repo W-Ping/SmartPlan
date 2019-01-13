@@ -66,7 +66,7 @@ Page({
   onShareAppMessage: function() {},
   navigatorToCreate: function() {
     wx.navigateTo({
-      url: 'plan_edit?opt=add',
+      url: 'plan_detail_add'
     })
   },
   navigatorToEditList: function() {

@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "selectable": "/components/selectable/selectable",
-    "textable": "/components/textable/textable"
-  },
-  "navigationBarTitleText": ""
-}
