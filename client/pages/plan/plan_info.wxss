@@ -10,7 +10,7 @@ page {
   right: 0;
   width: 100%;
   height: 80px;
-  background: #ccc
+  background: #ccc;
 }
 
 .pb-title {
@@ -52,6 +52,7 @@ page {
   text-align: center;
   line-height: 80px;
   color: #00abff;
+
 }
 
 .plan-detail-box {
@@ -172,4 +173,20 @@ page {
   color: #fff;
   font-size: 15px;
   font-weight: 700;
+}
+
+.nav-index-btn {
+  display: inline-block;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  line-height: 45px;
+  text-align: center;
+  background: rgba(0, 171, 255, 0.7);
+  text-shadow: rgba(247, 243, 243, 0.9) 0px 1px 2px;
+  color: #fff;
+  z-index: 1001;
 }

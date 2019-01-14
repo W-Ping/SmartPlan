@@ -1,6 +1,5 @@
-const {auth: {validation}} = require('../qcloud')
+const {auth: {validation,getUserInfoBySKey}} = require('../qcloud')
 const {getUserByOpenId} = require('../controllers/userinfo')
-
 /**
  * 响应处理模块
  */

@@ -214,5 +214,10 @@ Page({
     wx.switchTab({
       url: 'plan',
     })
+  },
+  navigatorToIndex:function(e){
+    wx.switchTab({
+      url: '../discovery/discovery',
+    })
   }
 })

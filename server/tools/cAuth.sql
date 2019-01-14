@@ -18,7 +18,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 -- Table structure for cappinfo
 -- ----------------------------
-DROP TABLE IF EXISTS `cappinfo`;
+DROP TABLE IF EXISTS `cAppinfo`;
 CREATE TABLE `cappinfo` (
   `appid` char(36) DEFAULT NULL,
   `secret` char(64) DEFAULT NULL,
@@ -29,9 +29,9 @@ CREATE TABLE `cappinfo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
--- Table structure for csessioninfo
+-- Table structure for csessioninfoS
 -- ----------------------------
-DROP TABLE IF EXISTS `csessioninfo`;
+DROP TABLE IF EXISTS `cessioninfo`;
 CREATE TABLE `csessioninfo` (
   `open_id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `uuid` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,

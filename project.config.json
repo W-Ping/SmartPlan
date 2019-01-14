@@ -31,8 +31,29 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 0,
+			"list": [
+				{
+					"id": 0,
+					"name": "SHARE-分享卡片",
+					"pathName": "pages/myself/myself",
+					"query": "uid=u10001",
+					"scene": "1044",
+					"shareInfo": {
+						"groupName": "测试模拟群2",
+						"shareName": "8z9smFWSK0HDS6VHgtcALzY_9lvq0GGEEHyoRWE5gTc@cr4dev",
+						"shareKey": "bAwx6PdYcLkjzCTx9hTllZ0ZyxU11GQvIispNEXcy1RY3g8_oiyHsy1jcrmJUyMLbDojiSQNQlxU0ggKDYmAHQ~~"
+					}
+				},
+				{
+					"id": -1,
+					"name": "App 分享消息卡片",
+					"pathName": "pages/discovery/discovery",
+					"query": "openid=198999809",
+					"scene": "1036",
+					"referrerInfo": {}
+				}
+			]
 		}
 	}
 }

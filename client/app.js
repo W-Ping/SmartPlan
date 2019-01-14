@@ -1,10 +1,21 @@
 //app.js
 var qcloud = require('./vendor/wafer2-client-sdk/index')
 var config = require('./config')
-// var util = require('./utils/util.js');
+const request = require("./utils/request")
 App({
     onLaunch: function (options) {
         console.log("onLaunch options ", options);
+        if (options) {
+            wx.getShareInfo({
+                shareTicket: options.shareTicket,
+                success: function (res) {
+                    console.log(res);
+                    request.postReq(config.service.getShareInfo, res, result => {
+                        console.log("result=>", result);
+                    })
+                }
+            })
+        }
         //设置登录路径
         qcloud.setLoginUrl(config.service.loginUrl);
         //获取手机信息
@@ -32,7 +43,7 @@ App({
     },
     globalData: {
         phoneInfo: {},
-        userInfo:{},
-        logged:false,
+        userInfo: {},
+        logged: false,
     }
 })

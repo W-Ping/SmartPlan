@@ -1,3 +1,10 @@
+.dis-head {
+  position: absolute;
+  top: 0;
+  height: 100rpx;
+  width: 100%;
+}
+
 .dis-navbar {
   display: flex;
   display: -webkit-box;
@@ -6,6 +13,7 @@
   z-index: 500;
   top: 0;
   width: 100%;
+  height: inherit;
   border-bottom: 1rpx solid #ccc;
 }
 
@@ -26,16 +34,18 @@
   -webkit-box-flex: 1;
   -webkit-flex: 1;
   flex: 1;
-  height:40px; 
+  height: 100rpx;
   /* padding: 10px 0; */
-  line-height: 40px;
+  line-height:100rpx;
   text-align: center;
   font-size: 0;
   background: #fff;
 }
+
 .dis-navbar-item.dis-navbar-active {
   color: #00abff;
 }
+
 .dis-navbar-slider {
   position: absolute;
   content: " ";
@@ -48,9 +58,9 @@
   transition: -webkit-transform 0.3s;
   transition: transform 0.3s;
 }
-.dis-content{
+
+.dis-content {
   position: fixed;
-  top: 40px;
+  top: 110rpx;
+  bottom: 10rpx;
 }
-
-
