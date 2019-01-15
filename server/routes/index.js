@@ -53,6 +53,7 @@ router.post('/plan/detail/topIndex', controllers.plan.topIndex)
 router.post('/plan/detail/progress/add', controllers.plan.addProgress)
 router.post('/plan/detail/start', controllers.plan.startPlanDetailInfo)
 router.post('/share/user/get', controllers.share.getShareInfo)
+router.get('/share/user/get/:uid', controllers.share.getShareInfoByUid)
 
 
 module.exports = router

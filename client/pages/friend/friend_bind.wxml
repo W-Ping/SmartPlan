@@ -1,12 +1,44 @@
 <!--client/pages/friend/friend_bind.wxml-->
 <view class='f-box'>
-  <view class='f-box-avatarUrl'>
-    <image src='{{avatarUrl}}'></image>
+  <view class='f-box-image'>
+    <view class='f-user-box'>
+      <view class='avatar-box'>
+        <open-data type="userAvatarUrl"></open-data>
+      </view>
+      <view class='f-box-nickName'>
+        <open-data type="userNickName"></open-data>
+      </view>
+      <!-- <view hidden='{{!realName}}'>
+        <text>({{realName}})</text>
+      </view> -->
+    </view>
+    <view class='f-user-box arrow'>
+      <!-- <view class='arrow-box'>===绑定==</view> -->
+      <!-- <view class='arrow-box'></view> -->
+    </view>
+    <view class='f-user-box'>
+      <view class='avatar-box'>
+        <image class='avatarUrl' src='{{avatarUrl}}'></image>
+      </view>
+      <view class='f-box-nickName'>
+        <text>{{nickName}}</text>
+      </view>
+      <view hidden='{{!realName}}'>
+        <text>({{realName}})</text>
+      </view>
+    </view>
   </view>
-  <view class='f-box-nickName'>
-    <text>{{nickName}}</text>
+  <view class='f-box-desc'>
+    <text><text class='user-desc-text' space="ensp">{{nickName}}{{realName?'('+realName+')':''}}</text> 请求您做他的目标监督员\n</text>
+    <text>你可以帮助监督他的目标\n</text>
+    <text>你也可以请求他协助监督你的目标</text>
   </view>
-</view>
-<view class='f-box-btn' bindtap='onAgreeBind'>
-  <button type='primary'>同意添加</button>
+  <view class='f-box-btn' bindtap='onAgreeBind'>
+    <view class='btn-item'>
+      <button style='background:gold;' type='primary'> 残忍拒绝</button>
+    </view>
+    <view class='btn-item'>
+      <button style='background:#00abff;' class='cancel-agree' type='primary'>同意添加</button>
+    </view>
+  </view>
 </view>

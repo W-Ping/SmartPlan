@@ -1,4 +1,6 @@
 var app = new getApp();
+const request = require("../../utils/request.js")
+var config = require('../../config')
 Page({
 
   /**
@@ -7,16 +9,26 @@ Page({
   data: {
     avatarUrl: '',
     nickName: '',
-    bindUserInfo:{},
+    realName: '',
+    bindUserInfo: {},
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log("friend_bind",options)
-    var bindUserInfo= app.globalData.bindUserInfo;
+    console.log("friend_bind", options)
+    var bindUserInfo = app.globalData.bindUserInfo;
     console.log(bindUserInfo)
+    request.getReq(config.service.getShareInfoByUid + "/" + options.uid, null, res => {
+      if (res.code == 1 && res.data)
+        var data = res.data;
+      this.setData({
+        avatarUrl: data.avatarUrl,
+        realName: data.realName,
+        nickName: data.nickName
+      })
+    })
   },
 
   /**
@@ -67,7 +79,7 @@ Page({
   onShareAppMessage: function() {
 
   },
-  onAgreeBind:function(e){
+  onAgreeBind: function(e) {
     console.log("onAgreeBind..", app.globalData.bindUserInfo)
   }
 })

@@ -38,6 +38,16 @@ async function get(ctx, next) {
     })
 }
 
+/**
+ *  查询用户
+ * @param uid
+ * @returns {*}
+ */
+function getUserInfoByUid(uid) {
+    if (!uid) throw new Error(ERRORS.DBERR.BIZ_ERR_NO_UID_ON_CALL_GETUSERINFOFUNCTION);
+    return mysql(CNF.DB_TABLE.user_info).select('uid', 'nickName', 'realName', 'avatarUrl').where("uid", uid).first();
+}
+
 /***
  *  登录 创建/更新用户信息
  * @param ctx
@@ -100,5 +110,6 @@ module.exports = {
     get,
     update,
     updateWithLogin,
-    getUserByOpenId
+    getUserByOpenId,
+    getUserInfoByUid
 }

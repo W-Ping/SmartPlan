@@ -1,1 +1,78 @@
-/* client/pages/friend/friend_bind.wxss */
+.f-box {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.f-box-image {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.f-user-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 20rpx;
+  height: 280rpx;
+  justify-content: flex-start;
+}
+
+.arrow {
+  justify-content: center;
+  background: rebeccapurple;
+}
+
+.avatar-box {
+  overflow: hidden;
+  display: block;
+  height: 160rpx;
+  width: 160rpx;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  /* background: red; */
+}
+
+.avatarUrl {
+  height: 160rpx;
+  width: 160rpx;
+  border-radius: 50%;
+}
+
+.f-box-nickName {
+  height: 50rpx;
+}
+
+.f-box-desc {
+  color: #888;
+  font-size: 14px;
+  margin: 0 0 20rpx 0;
+}
+
+.user-desc-text {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.f-box-btn {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn-item{
+  margin:0 10rpx;
+}
