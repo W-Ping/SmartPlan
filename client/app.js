@@ -5,7 +5,7 @@ const request = require("./utils/request")
 App({
     onLaunch: function (options) {
         console.log("onLaunch options ", options);
-        if (options) {
+      if (options && options.shareTicket) {
             wx.getShareInfo({
                 shareTicket: options.shareTicket,
                 success: function (res) {
@@ -45,5 +45,6 @@ App({
         phoneInfo: {},
         userInfo: {},
         logged: false,
+        bindUserInfo:{}
     }
 })

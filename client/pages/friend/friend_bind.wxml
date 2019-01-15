@@ -1,0 +1,12 @@
+<!--client/pages/friend/friend_bind.wxml-->
+<view class='f-box'>
+  <view class='f-box-avatarUrl'>
+    <image src='{{avatarUrl}}'></image>
+  </view>
+  <view class='f-box-nickName'>
+    <text>{{nickName}}</text>
+  </view>
+</view>
+<view class='f-box-btn' bindtap='onAgreeBind'>
+  <button type='primary'>同意添加</button>
+</view>

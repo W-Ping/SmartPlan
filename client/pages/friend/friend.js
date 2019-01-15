@@ -20,6 +20,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    wx.showShareMenu({
+      withShareTicket: true
+    })
     var that = this;
     for (var i = 0; i < 22; i++) {
       that.data.friendList.push({
@@ -54,7 +57,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    wx.showShareMenu({
+      withShareTicket: true
+    })
   },
 
   /**
@@ -95,8 +100,8 @@ Page({
       console.log(res.target)
     }
     return {
-      title: (app.globalData.userInfo.nickName || '我') + '的火星计划',
-      path: 'pages/today/today',
+      title: (app.globalData.userInfo.nickName || '我') + '的7天目标',
+      path: 'pages/friend_bind/friend_bind',
       imageUrl: this.data.imageUrl,
       success: function(res) {
         // 转发成功
@@ -104,10 +109,6 @@ Page({
         wx.showToast({
           title: '分享成功',
         })
-        wx.showShareMenu({
-          // 要求小程序返回分享目标信息
-          withShareTicket: true
-        });
       },
       fail: function(res) {
         // 转发失败
