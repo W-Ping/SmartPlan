@@ -4,6 +4,7 @@ CNF = {
         'plan_info': 'plan_info',
         'plan_detail_info': 'plan_detail_info',
         'plan_user_ref_info': 'plan_user_ref_info',
+        'user_relation_info': 'user_relation_info',
     },
     OPT_STATE: {
         SUCCESS_CODE: 1,

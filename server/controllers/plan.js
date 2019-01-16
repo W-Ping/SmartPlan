@@ -217,7 +217,6 @@ function initPlanInfo(planInfo, planDetailInfo) {
     if (planInfo && planDetailInfo) {
         let startTime = planDetailInfo.plan_start_time;
         let endTime = planDetailInfo.plan_end_time;
-        console.log("planInfo", planInfo);
         return mysql(CNF.DB_TABLE.plan_info).select("plan_no").where('start_time', '<=', startTime).andWhere('end_time', '>=', endTime)
             .andWhere('creator_uid', planInfo.creator_uid).first().then(res => {
                 if (!res || !res.plan_no) {

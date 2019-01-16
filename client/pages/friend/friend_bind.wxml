@@ -33,12 +33,12 @@
     <text>你可以帮助监督他的目标\n</text>
     <text>你也可以请求他协助监督你的目标</text>
   </view>
-  <view class='f-box-btn' bindtap='onAgreeBind'>
+  <view class='f-box-btn'>
     <view class='btn-item'>
-      <button style='background:gold;' type='primary'> 残忍拒绝</button>
+      <button style='background:gold;' open-type="getUserInfo" bindtap='onRefuse' type='primary'> 残忍拒绝</button>
     </view>
     <view class='btn-item'>
-      <button style='background:#00abff;' class='cancel-agree' type='primary'>同意添加</button>
+      <button style='background:#00abff;' open-type="getUserInfo" bindtap='onAgree'  class='cancel-agree' type='primary'>同意添加</button>
     </view>
   </view>
 </view>

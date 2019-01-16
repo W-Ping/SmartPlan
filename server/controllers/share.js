@@ -9,7 +9,6 @@ function getShareInfo(ctx, next) {
     let condition = ctx.request.body;
     let iv = condition.iv;
     let encryptedData = condition.encryptedData;
-    console.log(condition);
     return AuthDbService.getUserInfoBySKey(skey).then(result => {
         if (result) {
             var pc = new WxCrypt(config.appId, result[0].session_key)
@@ -23,10 +22,21 @@ function getShareInfo(ctx, next) {
 
 async function getShareInfoByUid(ctx, next) {
     let params = ctx.params;
-    console.log(params);
     await  userinfo.getUserInfoByUid(params.uid).then(res => {
         SUCCESS(ctx, res);
     })
 }
 
-module.exports = {getShareInfo, getShareInfoByUid}
+async function bindShareUser(ctx, next) {
+    let parmas = ctx.request.body;
+    console.log(parmas);
+    await userinfo.saveOrUpdateBindUser(parmas.uid, parmas.relation_uid).then(res => {
+        if (res && res.code == 1) {
+            SUCCESS(ctx, res.msg);
+        } else {
+            FAILED(ctx, "添加好友失败");
+        }
+    })
+}
+
+module.exports = {getShareInfo, getShareInfoByUid, bindShareUser}

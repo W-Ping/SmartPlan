@@ -48,6 +48,7 @@ var config = {
     addPlanProgress: `${host}/weapp/plan/detail/progress/add`,
     getShareInfo: `${host}/weapp/share/user/get`,
     getShareInfoByUid: `${host}/weapp/share/user/get`,
+    bindShareUser: `${host}/weapp/share/user/bind`,
   }
 };
 

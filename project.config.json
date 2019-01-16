@@ -31,13 +31,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 2,
 			"list": [
 				{
 					"id": 0,
 					"name": "SHARE-分享卡片",
 					"pathName": "pages/myself/myself",
-					"query": "uid=u10001",
+					"query": "uid=U3782977",
 					"scene": "1044",
 					"shareInfo": {
 						"groupName": "测试模拟群2",
@@ -49,7 +49,7 @@
 					"id": 1,
 					"name": "App 分享消息卡片",
 					"pathName": "pages/friend/friend_bind",
-					"query": "uid=U7172726",
+					"query": "uid=U3782977",
 					"scene": "1036",
 					"referrerInfo": {}
 				},
@@ -57,7 +57,7 @@
 					"id": 2,
 					"name": "单人聊天会话中的小程序消息卡片",
 					"pathName": "pages/friend/friend_bind",
-					"query": "uid=u10001",
+					"query": "uid=U4382982",
 					"scene": "1007"
 				}
 			]

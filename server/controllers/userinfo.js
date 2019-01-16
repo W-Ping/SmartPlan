@@ -106,10 +106,52 @@ function getUserByOpenId(open_id) {
     return mysql(CNF.DB_TABLE.user_info).select("*").where({open_id, status: 0}).first();
 }
 
+function saveOrUpdateBindUser(uid, relation_uid, updateInfo) {
+    let nowTime = util.nowTime();
+    return mysql(CNF.DB_TABLE.user_relation_info).select("id").where({
+        uid: uid,
+        relation_uid: relation_uid,
+        status: 0
+    }).first().then(res => {
+        if (res && res.id) {
+            if (updateInfo) {
+                updateInfo.update_time = nowTime;
+                return mysql(CNF.DB_TABLE.user_relation_info).update(updateInfo).where('id', res.id).then(res => {
+                    console.log("update userRelationInfo", res);
+                    return Promise.resolve({code: 1, msg: '用户关系更新成功'});
+                }).catch(e => {
+                    debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_UPDATE_TO_DB, e)
+                    throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_UPDATE_TO_DB}\n${e}`)
+                })
+            } else {
+                console.log(uid, relation_uid, "用户关系已经绑定");
+                return Promise.resolve({code: 1, msg: '用户关系已经绑定'});
+            }
+        } else {
+            let userRelationInfo = {};
+            userRelationInfo.id = uuidGenerator().replace(/-/g, '');
+            userRelationInfo.status = 0;
+            userRelationInfo.relation_uid = relation_uid;
+            userRelationInfo.uid = uid;
+            userRelationInfo.relation_lable = '朋友';
+            userRelationInfo.create_time = nowTime;
+            userRelationInfo.update_time = nowTime;
+            return mysql(CNF.DB_TABLE.user_relation_info).insert(userRelationInfo).then(res => {
+                console.log("insert userRelationInfo", res);
+                return Promise.resolve({code: 1, msg: '用户关系绑定成功'});
+            }).catch(e => {
+                debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_INSERT_TO_DB, e)
+                throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_INSERT_TO_DB}\n${e}`)
+            })
+        }
+    })
+}
+
 module.exports = {
     get,
     update,
     updateWithLogin,
     getUserByOpenId,
-    getUserInfoByUid
+    getUserInfoByUid,
+    saveOrUpdateBindUser
 }
