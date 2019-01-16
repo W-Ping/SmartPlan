@@ -1,6 +1,6 @@
 <!--client/pages/friend/friend_bind.wxml-->
 <view class='f-box'>
-  <view class='f-box-image'>
+  <view hidden="{{loginFlag}}" class='f-box-image'>
     <view class='f-user-box'>
       <view class='avatar-box'>
         <open-data type="userAvatarUrl"></open-data>
@@ -8,13 +8,8 @@
       <view class='f-box-nickName'>
         <open-data type="userNickName"></open-data>
       </view>
-      <!-- <view hidden='{{!realName}}'>
-        <text>({{realName}})</text>
-      </view> -->
     </view>
     <view class='f-user-box arrow'>
-      <!-- <view class='arrow-box'>===绑定==</view> -->
-      <!-- <view class='arrow-box'></view> -->
     </view>
     <view class='f-user-box'>
       <view class='avatar-box'>
@@ -29,16 +24,20 @@
     </view>
   </view>
   <view class='f-box-desc'>
-    <text><text class='user-desc-text' space="ensp">{{nickName}}{{realName?'('+realName+')':''}}</text> 请求您做他的目标监督员\n</text>
-    <text>你可以帮助监督他的目标\n</text>
-    <text>你也可以请求他协助监督你的目标</text>
+    <view class='fbd-title'>{{nickName}}{{realName?'('+realName+')':''}}邀请您做他的目标监督员</view>
+    <block wx:for="{{realtionDesc}}" wx:key="key">
+      <view class='fdb-desc'><text class='desc-index'></text>{{item}}</view>
+    </block>
   </view>
-  <view class='f-box-btn'>
+  <view wx:if="{{loginFlag}}" class='f-box-btn'>
+    <button style='background:#00abff;width:50%;' open-type="getUserInfo" bindtap='onAgree' class='cancel-agree' type='primary'>进入首页</button>
+  </view>
+  <view wx:else class='f-box-btn'>
     <view class='btn-item'>
       <button style='background:gold;' open-type="getUserInfo" bindtap='onRefuse' type='primary'> 残忍拒绝</button>
     </view>
     <view class='btn-item'>
-      <button style='background:#00abff;' open-type="getUserInfo" bindtap='onAgree'  class='cancel-agree' type='primary'>同意添加</button>
+      <button style='background:#00abff;' open-type="getUserInfo" bindtap='onAgree' class='cancel-agree' type='primary'>同意添加</button>
     </view>
   </view>
 </view>

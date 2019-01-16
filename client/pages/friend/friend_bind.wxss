@@ -58,12 +58,33 @@
 .f-box-desc {
   color: #888;
   font-size: 14px;
-  margin: 0 0 20rpx 0;
+  margin: 20rpx auto;
+  padding: 15rpx;
 }
-
+.fbd-title{
+  font-size: 15px;
+  font-weight: 600;
+}
 .user-desc-text {
   font-size: 15px;
   font-weight: 600;
+  color: #000;
+}
+.fdb-desc{
+  display: flex;
+  align-items: center;
+  overflow-wrap: break-word;
+}
+.desc-index {
+  display: inline-block;
+  width: 25rpx;
+  height: 25rpx;
+  border-radius: 50%;
+  background: #ccc;
+  line-height: 25rpx;
+  text-align: center;
+  padding: 10rpx;
+  margin: 0 5rpx 0 15rpx;
 }
 
 .f-box-btn {
@@ -73,6 +94,7 @@
   align-items: center;
   justify-content: center;
 }
-.btn-item{
-  margin:0 10rpx;
+
+.btn-item {
+  margin: 0 10rpx;
 }

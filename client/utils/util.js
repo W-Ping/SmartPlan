@@ -178,7 +178,7 @@ var showModel = (title, content) => {
 
     wx.showModal({
         title,
-        content: JSON.stringify(content),
+        content: content?JSON.stringify(content):'',
         showCancel: false
     })
 }

@@ -1,5 +1,6 @@
 // client/pages/friend/friend_detail.js
-
+const request = require("../../utils/request.js")
+var config = require('../../config')
 var app = new getApp();
 Page({
 
@@ -16,6 +17,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    var uid=options.uid;
+      request.getReq(config.service.getRelationUserDetail,"uid="+uid,res=>{
+          if(res && res.code==1){
+            this.setData({
+              friendInfo:res.data
+            })
+          }
+      })
     var planInfoList = [];
     for (var i = 0; i < 2; i++) {
       planInfoList.push({
@@ -28,17 +37,6 @@ Page({
       })
     }
     console.log(planInfoList);
-    this.setData({
-      friendInfo: {
-        uid: "UID0002",
-        nickName: "小布",
-        userLabel: "同事",
-        mobilePhone: '',
-        avatarUrl: '../../images/default_avatar.png',
-        planInfoList: planInfoList
-      },
-
-    })
   },
 
   /**
@@ -75,7 +73,7 @@ Page({
 
   },
   previewImage: function(e) {
-    var url = app.globalData.userInfo.avatarUrl;
+    var url = e.currentTarget.dataset.avatar;
     wx.previewImage({
       urls: [url],
     })

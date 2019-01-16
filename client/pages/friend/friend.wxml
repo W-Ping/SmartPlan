@@ -5,17 +5,17 @@
 </view>
 <search id="search"  searchResult="{{searchResult}}" bindinputChange="inputChange" bindinputConfirm='inputConfirm'></search>
 <scroll-view class='fd-container' scroll-y>
-  <block wx:for="{{friendList}}" wx:for-item="item" wx:for-index="index" wx:key="*this">
+  <block wx:for="{{relationUserList}}" wx:for-item="item" wx:for-index="index" wx:key="*this">
     <view class='fd-box' data-uid='{{item.uid}}' bindtap='navigatorDetail'>
-      <view class='fd image'>
-        <image src='{{item.avatarUrl}}'></image>
+      <view class='fd-image'>
+        <image class='fd-avatar' src='{{item.avatarUrl}}'></image>
       </view>
-      <view class='fd userName'>
-        <text>{{item.nickName}}</text>
+      <view class='fd-userName'>
+        <text>{{item.nickName}}{{item.realName?'('+item.realName+')':''}}</text>
       </view>
-      <view class='fd userLabel'>
+      <view class='fd-userLabel'>
         <view>
-          <text>{{item.userLabel}}</text>
+          <text>{{item.relation_lable}}</text>
         </view>
       </view>
     </view>
@@ -29,7 +29,7 @@
           <image style='width: 20px;height: 20px;' src='../../images/share_f.png'></image>
         </view>
         <view>
-          <text>邀请好友</text>
+          <text>邀请朋友</text>
         </view>
       </view>
     </view>

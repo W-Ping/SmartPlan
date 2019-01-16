@@ -5,6 +5,7 @@ const request = require("./utils/request")
 App({
   onLaunch: function(options) {
     console.log("onLaunch options ", options);
+    var scene = decodeURIComponent(options.scene)
     var scene = options.scene;
     if (options && options.shareTicket) {
       wx.getShareInfo({
@@ -21,10 +22,6 @@ App({
     qcloud.setLoginUrl(config.service.loginUrl);
     //获取手机信息
     this.globalData.phoneInfo = wx.getSystemInfoSync();
-    var scene = decodeURIComponent(options.scene)
-    if (scene == 1044) {
-      console.log(options.shareTicket)
-    }
     const session = qcloud.Session.get();
     console.log("登录信息【onLaunch】session", session)
     if (session) {

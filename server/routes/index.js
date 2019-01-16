@@ -55,6 +55,8 @@ router.post('/plan/detail/start', controllers.plan.startPlanDetailInfo)
 router.post('/share/user/get', controllers.share.getShareInfo)
 router.get('/share/user/get/:uid', controllers.share.getShareInfoByUid)
 router.post('/share/user/bind', controllers.share.bindShareUser)
+router.post('/user/relation/get', controllers.userinfo.getRelationUserList)
+router.get('/user/detail/relation/get', controllers.userinfo.getRelationUserDetail)
 
 
 module.exports = router
