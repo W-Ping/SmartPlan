@@ -14,7 +14,8 @@ Component({
     size: 14,
     searchResult: [],
     inputShowed: false,
-    keyword: ""
+    keyword: "",
+    selectedId: ''
   },
 
   /**
@@ -26,10 +27,17 @@ Component({
         inputShowed: true
       });
     },
-    hideInput: function() {
+    hideInput: function(e) {
+      var inputShowed = false;
+      if (e && !e.autoHideInput){
+        inputShowed=true;
+      }
       this.setData({
         keyword: "",
-        inputShowed: false
+        inputShowed: inputShowed
+      });
+      this.triggerEvent("hideInput", {
+        composed: true
       });
     },
     clearInput: function() {
@@ -55,6 +63,15 @@ Component({
         keyword: e.detail.value
       });
       this.triggerEvent("inputConfirm", {
+        composed: true
+      });
+    },
+    onSelected: function(e) {
+      var selectedid = e.currentTarget.dataset.selectedid;
+      this.setData({
+        selectedId: selectedid
+      })
+      this.triggerEvent("onSelected", {
         composed: true
       });
     }

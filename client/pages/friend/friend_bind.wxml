@@ -24,20 +24,27 @@
     </view>
   </view>
   <view class='f-box-desc'>
-    <view class='fbd-title'>{{nickName}}{{realName?'('+realName+')':''}}邀请您做他的目标监督员</view>
+    <view wx:if="{{relationFlag=='Y'}}" class='fbd-title'>{{nickName}}{{realName?'('+realName+')':''}}已经是你的好友了</view>
+    <view wx:else class='fbd-title'>{{nickName}}{{realName?'('+realName+')':''}}邀请您做他的目标监督员</view>
     <block wx:for="{{realtionDesc}}" wx:key="key">
-      <view class='fdb-desc'><text class='desc-index'></text>{{item}}</view>
+      <view class='fdb-desc'>
+        <text class='desc-index'></text>{{item}}</view>
     </block>
   </view>
   <view wx:if="{{loginFlag}}" class='f-box-btn'>
     <button style='background:#00abff;width:50%;' open-type="getUserInfo" bindtap='onAgree' class='cancel-agree' type='primary'>进入首页</button>
   </view>
-  <view wx:else class='f-box-btn'>
-    <view class='btn-item'>
-      <button style='background:gold;' open-type="getUserInfo" bindtap='onRefuse' type='primary'> 残忍拒绝</button>
+  <view wx:else>
+    <view wx:if="{{relationFlag=='Y'}}" >
+      <button style='background:#00abff;' open-type="getUserInfo" bindtap='onAgree' class='cancel-agree' type='primary'>进入首页</button>
     </view>
-    <view class='btn-item'>
-      <button style='background:#00abff;' open-type="getUserInfo" bindtap='onAgree' class='cancel-agree' type='primary'>同意添加</button>
+    <view wx:else class='f-box-btn'>
+      <view class='btn-item'>
+        <button style='background:gold;' open-type="getUserInfo" bindtap='onRefuse' type='primary'> 暂不添加</button>
+      </view>
+      <view class='btn-item'>
+        <button style='background:#00abff;' open-type="getUserInfo" bindtap='onAgree' class='cancel-agree' type='primary'>同意添加</button>
+      </view>
     </view>
   </view>
 </view>

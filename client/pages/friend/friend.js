@@ -24,6 +24,7 @@ Page({
             withShareTicket: true
         })
         request.postReq(config.service.getRelationUserList, null, res => {
+            console.log(res);
             if (res.code == 1) {
                 this.setData({
                     relationUserList: res.data,
@@ -214,33 +215,43 @@ Page({
         })
     },
     inputConfirm: function (e) {
-        console.log("search inputConfirm ", this.searchbar)
         var keyword = this.searchbar.data.keyword;
         console.log("搜索关键字", keyword)
-        var searchResult = [];
-        for (var i = 0; i < 3; i++) {
-            searchResult.push({
-                url: "friend_detail?uid=UID00" + i,
-                text: "小布" + i
-            })
-        }
-        console.log("搜索关结果", searchResult);
-        this.searchbar.setData({
-            searchResult: searchResult
+        request.getReq(config.service.getUserByKeyword + "/" + keyword, null, res => {
+            if (res.code == 1) {
+                this.searchbar.setData({
+                    searchResult: res.data
+                })
+            }
         })
+
     },
     inputChange: function (e) {
-        console.log("search inputChange ", this.searchbar)
+        // console.log("search inputChange ", this.searchbar)
         var keyword = this.searchbar.data.keyword;
-        var searchResult = [];
-        for (var i = 0; i < 3; i++) {
-            searchResult.push({
-                url: "friend_detail?uid=UID00" + i,
-                text: "小布" + i
-            })
-        }
-        this.searchbar.setData({
-            searchResult: searchResult
+        if (!keyword) return;
+        request.getReq(config.service.getUserByKeyword + "/" + keyword, null, res => {
+            if (res.code == 1) {
+                this.searchbar.setData({
+                    searchResult: res.data
+                })
+            }
         })
-    }
+    },
+    onSelected: function (e) {
+        var selectedId = this.searchbar.data.selectedId;
+        console.log(selectedId);
+        request.postReq(config.service.getRelationUserList, {uid: selectedId}, res => {
+            if (res.code == 1) {
+                this.setData({
+                    relationUserList: res.data
+                })
+            
+            }
+        })
+      this.searchbar.hideInput({autoHideInput:false});
+    },
+  hideInput:function(e){
+    console.log("hideInput")
+  }
 })

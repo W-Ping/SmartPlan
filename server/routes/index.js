@@ -56,7 +56,9 @@ router.post('/share/user/get', controllers.share.getShareInfo)
 router.get('/share/user/get/:uid', controllers.share.getShareInfoByUid)
 router.post('/share/user/bind', controllers.share.bindShareUser)
 router.post('/user/relation/get', controllers.userinfo.getRelationUserList)
+router.get('/user/info/get/:keyword', controllers.userinfo.getUserByKeyword)
 router.get('/user/detail/relation/get', controllers.userinfo.getRelationUserDetail)
+router.get('/user/share/relation/check', controllers.share.checkUserRelation)
 
 
 module.exports = router

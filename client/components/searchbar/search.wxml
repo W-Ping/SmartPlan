@@ -17,12 +17,10 @@
     <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
   </view>
   <view class="weui-cells searchbar-result search-box" wx:if="{{keyword.length > 0}}">
-    <block wx:for="{{searchResult}}" wx:for-item="item" wx:for-index="index" wx:key="*this">
-      <navigator url="{{item.url}}" class="weui-cell" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">
-          <view>{{item.text}}</view>
+    <block wx:for="{{searchResult}}" wx:for-item="item" wx:for-index="index" wx:key="uid">
+        <view bindtap='onSelected' data-selectedid='{{item.uid}}' class="weui-cell__bd">
+          <view>{{item.nickName}}{{item.realName?'('+item.realName+')':''}}</view>
         </view>
-      </navigator>
     </block>
   </view>
 </view>

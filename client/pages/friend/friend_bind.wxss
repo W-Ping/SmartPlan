@@ -77,11 +77,11 @@
 }
 .desc-index {
   display: inline-block;
-  width: 25rpx;
-  height: 25rpx;
+  width: 10rpx;
+  height: 10rpx;
   border-radius: 50%;
   background: #ccc;
-  line-height: 25rpx;
+  line-height: 10rpx;
   text-align: center;
   padding: 10rpx;
   margin: 0 5rpx 0 15rpx;

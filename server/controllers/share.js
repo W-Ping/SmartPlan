@@ -2,6 +2,7 @@ const WxCrypt = require('../tools/WxCrypt')
 const AuthDbService = require('./AuthDbService')
 const userinfo = require('./userinfo')
 const config = require('../config')
+const {mysql} = require("../qcloud");
 const {SUCCESS, FAILED, CNF, ERRORS_BIZ} = require("./constants")
 
 function getShareInfo(ctx, next) {
@@ -39,4 +40,19 @@ async function bindShareUser(ctx, next) {
     })
 }
 
-module.exports = {getShareInfo, getShareInfoByUid, bindShareUser}
+async function checkUserRelation(ctx, next) {
+    let {uid, refUid} = ctx.query;
+    await  mysql(CNF.DB_TABLE.user_relation_info).select("id").where("status", 0).andWhere(function () {
+        this.whereIn("uid", [uid, refUid]).andWhere(function () {
+            this.whereIn("relation_uid", [uid, refUid])
+        })
+    }).then(res => {
+        if (res && res.length > 0) {
+            SUCCESS(ctx, "Y");
+        } else {
+            SUCCESS(ctx, "N");
+        }
+    });
+}
+
+module.exports = {getShareInfo, getShareInfoByUid, bindShareUser, checkUserRelation}

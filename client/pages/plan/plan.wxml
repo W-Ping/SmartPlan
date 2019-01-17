@@ -1,11 +1,11 @@
 <!--client/pages/plan/plan.wxml-->
 <view class='plan-continer'>
   <view class='plan-box'>
-    <view class='plan-box'>
+    <!-- <view class='plan-box'>
       <view class='circle-btn edit' bindtap='navigatorToEditList'>
         <text>编辑</text>
       </view>
-    </view>
+    </view> -->
     <view class='plan-box'>
       <view class='circle-btn create' bindtap='navigatorToCreate'>
         <text>新建</text>
@@ -13,7 +13,7 @@
     </view>
   </view>
   <view class='plan-desc'>
-    <text>人总要计划点什么</text>
+    <!-- <text>人总要计划点什么</text> -->
     <!-- <text space='ensp'>{{userInfo.nickName}} 你好！</text> -->
   </view>
   <view class='plan-desc'>

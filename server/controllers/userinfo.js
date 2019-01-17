@@ -102,6 +102,15 @@ function updateWithLogin(userInfo) {
         });
 }
 
+async function getUserByKeyword(ctx, next) {
+    let {keyword} = ctx.params;
+    await  mysql(CNF.DB_TABLE.user_info).select("uid", "nickName", "realName", "avatarUrl").where("status", 0).andWhere(function () {
+        this.where("nickName", "like", "%" + keyword + "%").orWhere("realName", "like", "%" + keyword + "%")
+    }).then(res => {
+        SUCCESS(ctx, res);
+    })
+}
+
 function getUserByOpenId(open_id) {
     return mysql(CNF.DB_TABLE.user_info).select("*").where({open_id, status: 0}).first();
 }
@@ -149,20 +158,21 @@ function saveOrUpdateBindUser(uid, relation_uid, updateInfo) {
 
 function getRelationUserList(ctx, next) {
     let params = ctx.request.body;
-    let condition={};
-    if(params && params.nickName){
-
-    }
     let userInfo = ctx.state.$sysInfo.userinfo;
-    return mysql(CNF.DB_TABLE.user_info).select(CNF.DB_TABLE.user_info + ".uid", "avatarUrl","nickName", "realName", CNF.DB_TABLE.user_relation_info + ".relation_lable").innerJoin(CNF.DB_TABLE.user_relation_info, function () {
+    return mysql(CNF.DB_TABLE.user_info).select(CNF.DB_TABLE.user_info + ".uid", "avatarUrl", "nickName", "realName", CNF.DB_TABLE.user_relation_info + ".relation_lable").innerJoin(CNF.DB_TABLE.user_relation_info, function () {
         this.on(CNF.DB_TABLE.user_info + '.uid', '=', CNF.DB_TABLE.user_relation_info + '.relation_uid')
-    }).andWhere(CNF.DB_TABLE.user_relation_info + ".uid", userInfo.uid).andWhere(CNF.DB_TABLE.user_relation_info + ".status", 0).then(res => {
+    }).andWhere(CNF.DB_TABLE.user_relation_info + ".uid", userInfo.uid).andWhere(CNF.DB_TABLE.user_relation_info + ".status", 0).andWhere(function () {
+        if (params && params.uid) {
+            this.where(CNF.DB_TABLE.user_info + ".uid", params.uid)
+        }
+    }).then(res => {
         SUCCESS(ctx, res)
         // return Promise.resolve({code: 1, data: res});
     })
 
 }
-async function getRelationUserDetail(ctx,next) {
+
+async function getRelationUserDetail(ctx, next) {
     const {uid} = ctx.query;
     await mysql(CNF.DB_TABLE.user_info).select(CNF.DB_TABLE.user_info + ".*", CNF.DB_TABLE.user_relation_info + ".relation_lable").innerJoin(CNF.DB_TABLE.user_relation_info, function () {
         this.on(CNF.DB_TABLE.user_info + '.uid', '=', CNF.DB_TABLE.user_relation_info + '.relation_uid')
@@ -174,6 +184,7 @@ async function getRelationUserDetail(ctx,next) {
         throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB}\n${e}`)
     })
 }
+
 module.exports = {
     get,
     update,
@@ -182,5 +193,6 @@ module.exports = {
     getUserInfoByUid,
     saveOrUpdateBindUser,
     getRelationUserList,
-    getRelationUserDetail
+    getRelationUserDetail,
+    getUserByKeyword,
 }
