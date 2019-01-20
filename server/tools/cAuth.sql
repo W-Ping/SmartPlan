@@ -136,3 +136,82 @@ CREATE TABLE `user_info` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `_unique` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='用户信息表';
+
+
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost
+Source Server Version : 50722
+Source Host           : localhost:3306
+Source Database       : cauth
+
+Target Server Type    : MYSQL
+Target Server Version : 50722
+File Encoding         : 65001
+
+Date: 2019-01-21 00:58:20
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for clock_record_info
+-- ----------------------------
+DROP TABLE IF EXISTS `clock_record_info`;
+CREATE TABLE `clock_record_info` (
+  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `clock_on_time` time DEFAULT NULL,
+  `clock_off_time` time DEFAULT NULL,
+  `clock_type` int(11) NOT NULL DEFAULT '0' COMMENT '0:正常上班打卡;1:加班打卡',
+  `date_version` date DEFAULT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost
+Source Server Version : 50722
+Source Host           : localhost:3306
+Source Database       : cauth
+
+Target Server Type    : MYSQL
+Target Server Version : 50722
+File Encoding         : 65001
+
+Date: 2019-01-21 00:58:31
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for clock_rule_info
+-- ----------------------------
+DROP TABLE IF EXISTS `clock_rule_info`;
+CREATE TABLE `clock_rule_info` (
+  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `clock_on_time` time DEFAULT NULL,
+  `clock_off_time` time DEFAULT NULL,
+  `clock_type` int(11) DEFAULT '0',
+  `clock_on_min_time` time DEFAULT NULL,
+  `clock_on_max_time` time DEFAULT NULL,
+  `clock_off_min_time` time DEFAULT NULL,
+  `clock_off_max_time` time DEFAULT NULL,
+  `clock_valid_week` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` int(11) DEFAULT '0' COMMENT '0:有效；1：无效',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of clock_rule_info
+-- ----------------------------
+INSERT INTO `clock_rule_info` VALUES ('1', 'U5072730', '09:30:00', '18:10:00', '0', '06:00:00', '09:35:00', '18:30:00', '20:30:00', '1,4,5,2,3', '0', '2019-01-20 16:25:30', '2019-01-21 00:56:42');
+INSERT INTO `clock_rule_info` VALUES ('2', 'U5072730', '20:00:00', '23:59:00', '1', '20:40:00', '23:59:00', '21:00:00', '23:00:00', '3,1,5', '0', '2019-01-20 16:25:30', '2019-01-21 00:56:42');
+INSERT INTO `clock_rule_info` VALUES ('3', 'U5072730', '09:30:00', '18:30:00', '2', '06:30:00', '11:00:00', '16:30:00', '19:30:00', '0,6', '0', '2019-01-20 16:25:30', '2019-01-21 00:56:42');
