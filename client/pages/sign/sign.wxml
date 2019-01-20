@@ -303,7 +303,7 @@
             <view class='wxc-time-box'>
               <block wx:if="{{normalOffOvTimeFlag==2}}">
                 <view>
-                  <text>{{offWkActualOverTime}}</text>
+                  <text>{{offActualWkOverTime}}</text>
                 </view>
               </block>
             </view>
@@ -356,7 +356,7 @@
             <view class='wxc-time-box'>
               <block wx:if="{{normalOffOvTimeFlag==1}}">
                 <view>
-                  <text>{{offWkActualOverTime}}</text>
+                  <text>{{offActualWkOverTime}}</text>
                 </view>
               </block>
             </view>

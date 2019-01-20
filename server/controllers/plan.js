@@ -91,9 +91,7 @@ async function save(ctx, next) {
     planDetailInfo.creator_name = userInfo.realName;
     planDetailInfo.avatarUrl = userInfo.avatarUrl;
     let followUidList = planDetailInfo.followUidList;
-    console.log("followUidList", followUidList);
     delete planDetailInfo.followUidList;
-    console.log(planDetailInfo);
     if (planDetailInfo.plan_detail_no) {
         planDetailInfo.update_time = nowTime;
         await  mysql(CNF.DB_TABLE.plan_detail_info).select("id", 'priority', "plan_no").where({

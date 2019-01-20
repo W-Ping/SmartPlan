@@ -28,7 +28,7 @@ module.exports = async function (ctx, next) {
     } catch (e) {
         // catch 住全局的错误信息
         debug('Catch Error: %o', e)
-
+        console.log(e);
         // 设置状态码为 200 - 服务端错误
         ctx.status = 200
 

@@ -3,7 +3,7 @@
     <view class='sign-box'>
       <view class='sb-desc pd-5'>工作打卡</view>
       <view class='sb-opt'>
-        <switch color="#00abff" name="wkActive" checked bindchange="switchWkChange"></switch>
+        <switch color="#00abff" name="wkActive" checked="{{!wkClockHidden}}"  bindchange="switchWkChange"></switch>
       </view>
     </view>
     <view hidden='{{wkClockHidden}}' class='sign-d-box'>
@@ -40,7 +40,7 @@
           </view>
         </view>
       </picker>
-      <picker mode="multiSelector" data-type='offWk' name="onWkTimeRange" value="{{offWkRangeTimeIndex}}" range="{{timeRange}}" bindchange='bindRangeChange' bindcolumnchange="bindRangeColumnChange">
+      <picker mode="multiSelector" data-type='offWk' name="offWkTimeRange" value="{{offWkRangeTimeIndex}}" range="{{timeRange}}" bindchange='bindRangeChange' bindcolumnchange="bindRangeColumnChange">
         <view class='sdb'>
           <view class='sdb-desc sdb-range'>下班打卡有效范围</view>
           <view class='sdb-text sdb-text-range'>
@@ -56,7 +56,7 @@
       </view>
       <view style='width:100%;height:60px;background:#fff;'>
         <checkbox-group name="wkWeekdays" class="group" bindchange="wkCheckboxChange">
-          <block wx:for="{{wkCheckboxItems}}" wx:key="*this">
+          <block wx:for="{{wkCheckboxItems}}" wx:key="key">
             <label class='label-1' style="">
               <checkbox hidden value="{{item.name}}" checked="{{item.checked}}"></checkbox>
               <view class="label-1__icon">
@@ -70,13 +70,13 @@
       </view>
     </view>
     <view class='sign-box box-mg'>
-      <view class='sb-desc  pd-5'>加班打卡</view>
+      <view class='sb-desc  pd-5'>工作加班打卡</view>
       <view class='sb-opt'>
-        <switch color="#00abff" name="ovActive" checked bindchange="switchOvChange"></switch>
+        <switch color="#00abff" name="ovActive" checked="{{!ovClockHidden}}" bindchange="switchOvChange"></switch>
       </view>
     </view>
     <view hidden='{{ovClockHidden}}' class='sign-d-box'>
-      <picker mode="time" name="offOvTime" value="{{onOvTime}}" start="06:00" bindchange='changeOnOvTime'>
+      <picker mode="time" name="onOvTime" value="{{onOvTime}}" start="06:00" bindchange='changeOnOvTime'>
         <view class='sdb'>
           <view class='sdb-desc pd-10'>上班时间</view>
           <view class='sdb-text'>
@@ -98,7 +98,7 @@
           </view>
         </view>
       </picker>
-      <picker mode="multiSelector" data-type='onOv' name="onWkTimeRange" value="{{onOvRangeTimeIndex}}" range="{{timeRange}}" bindchange='bindRangeChange' bindcolumnchange="bindRangeColumnChange">
+      <picker mode="multiSelector" data-type='onOv' name="onOvWkTimeRange" value="{{onOvRangeTimeIndex}}" range="{{timeRange}}" bindchange='bindRangeChange' bindcolumnchange="bindRangeColumnChange">
         <view class='sdb'>
           <view class='sdb-desc sdb-range'>上班打卡有效范围</view>
           <view class='sdb-text sdb-text-range'>
@@ -109,7 +109,7 @@
           </view>
         </view>
       </picker>
-      <picker mode="multiSelector" data-type='offOv' name="onWkTimeRange" value="{{offOvRangeTimeIndex}}" range="{{timeRange}}" bindchange='bindRangeChange' bindcolumnchange="bindRangeColumnChange">
+      <picker mode="multiSelector" data-type='offOv' name="offOvWkTimeRange" value="{{offOvRangeTimeIndex}}" range="{{timeRange}}" bindchange='bindRangeChange' bindcolumnchange="bindRangeColumnChange">
         <view class='sdb'>
           <view class='sdb-desc sdb-range'>下班打卡有效范围</view>
           <view class='sdb-text sdb-text-range'>
@@ -125,7 +125,76 @@
       </view>
       <view style='width:100%;height:60px;background:#fff;'>
         <checkbox-group name="ovWeekdays" class="group" bindchange="ovCheckboxChange">
-          <block wx:for="{{ovCheckboxItems}}" wx:key="*this">
+          <block wx:for="{{ovCheckboxItems}}" wx:key="key">
+            <label class='label-1' style="">
+              <checkbox hidden value="{{item.name}}" checked="{{item.checked}}"></checkbox>
+              <view class="label-1__icon">
+                <!-- <view class="label-1__icon-checked" style="opacity:{{item.checked ? 1: 0}}"></view> -->
+                <view class="label-1__icon-unchecked {{item.checked ? 'checked': ''}}"></view>
+              </view>
+              <text class="label-1__text">{{item.value}}</text>
+            </label>
+          </block>
+        </checkbox-group>
+      </view>
+    </view>
+    <view class='sign-box box-mg'>
+      <view class='sb-desc  pd-5'>双休日加班打卡</view>
+      <view class='sb-opt'>
+        <switch color="#00abff" name="ovWeekendActive"  checked="{{!ovWeekendClockHidden}}" bindchange="switchOvWeekedChange"></switch>
+      </view>
+    </view>
+    <view hidden='{{ovWeekendClockHidden}}' class='sign-d-box'>
+      <picker mode="time" name="onOvWeekendTime" value="{{onOvWeekendTime}}" start="06:00" bindchange='changeOnOvWeekendTime'>
+        <view class='sdb'>
+          <view class='sdb-desc pd-10'>上班时间</view>
+          <view class='sdb-text'>
+            <text>{{onOvWeekendTime}}</text>
+          </view>
+          <view class='gt'>
+            <text>></text>
+          </view>
+        </view>
+      </picker>
+      <picker mode="time" name="offOvWeekendTime" value="{{offOvWeekendTime}}" start="06:00" bindchange='changeOffOvWeekendTime'>
+        <view class='sdb'>
+          <view class='sdb-desc pd-10'>下班时间</view>
+          <view class='sdb-text'>
+            <text>{{offOvWeekendTime}}</text>
+          </view>
+          <view class='gt'>
+            <text>></text>
+          </view>
+        </view>
+      </picker>
+      <picker mode="multiSelector" data-type='onOvWd' name="onOvWeekendTimeRange" value="{{onOvWeekendRangeTimeIndex}}" range="{{timeRange}}" bindchange='bindRangeChange' bindcolumnchange="bindRangeColumnChange">
+        <view class='sdb'>
+          <view class='sdb-desc sdb-range'>上班打卡有效范围</view>
+          <view class='sdb-text sdb-text-range'>
+            <text>{{onOvWeekendRangeTime}}</text>
+          </view>
+          <view class='gt'>
+            <text>></text>
+          </view>
+        </view>
+      </picker>
+      <picker mode="multiSelector" data-type='offOvWd' name="offOvWeekendTimeRange" value="{{offOvWeekendRangeTimeIndex}}" range="{{timeRange}}" bindchange='bindRangeChange' bindcolumnchange="bindRangeColumnChange">
+        <view class='sdb'>
+          <view class='sdb-desc sdb-range'>下班打卡有效范围</view>
+          <view class='sdb-text sdb-text-range'>
+            <text>{{offOvWeekendRangeTime}}</text>
+          </view>
+          <view class='gt'>
+            <text>></text>
+          </view>
+        </view>
+      </picker>
+      <view class='sdb' style='border-bottom: 0px #f6f6f6 solid;'>
+        <view class='sdb-desc pd-10'>打卡日期</view>
+      </view>
+      <view style='width:100%;height:60px;background:#fff;'>
+        <checkbox-group name="ovWeekendWeekdays" class="group" bindchange="ovWeekendCheckboxChange">
+          <block wx:for="{{ovWeekendCheckboxItems}}" wx:key="key">
             <label class='label-1' style="">
               <checkbox hidden value="{{item.name}}" checked="{{item.checked}}"></checkbox>
               <view class="label-1__icon">

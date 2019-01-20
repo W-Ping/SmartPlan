@@ -28,16 +28,9 @@ Component({
       });
     },
     hideInput: function(e) {
-      var inputShowed = false;
-      if (e && !e.autoHideInput){
-        inputShowed=true;
-      }
       this.setData({
         keyword: "",
-        inputShowed: inputShowed
-      });
-      this.triggerEvent("hideInput", {
-        composed: true
+        inputShowed: false
       });
     },
     clearInput: function() {

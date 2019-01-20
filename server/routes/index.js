@@ -60,5 +60,10 @@ router.get('/user/info/get/:keyword', controllers.userinfo.getUserByKeyword)
 router.get('/user/detail/relation/get', controllers.userinfo.getRelationUserDetail)
 router.get('/user/share/relation/check', controllers.share.checkUserRelation)
 
+router.post('/clock/rule/save', controllers.clock.saveClockRuleInfo)
+router.get('/clock/rule/get', controllers.clock.getClockRuleInfo)
+router.post('/clock/save', controllers.clock.save)
+router.get('/clock/get', controllers.clock.get)
+
 
 module.exports = router

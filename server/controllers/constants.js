@@ -5,6 +5,8 @@ CNF = {
         'plan_detail_info': 'plan_detail_info',
         'plan_user_ref_info': 'plan_user_ref_info',
         'user_relation_info': 'user_relation_info',
+        'clock_rule_info': 'clock_rule_info',
+        'clock_record_info': 'clock_record_info',
     },
     OPT_STATE: {
         SUCCESS_CODE: 1,

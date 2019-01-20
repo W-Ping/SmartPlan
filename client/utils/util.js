@@ -22,6 +22,20 @@ const nowTime = (joinSymbol) => {
 const getNowTime = () => {
     return formatTime(new Date()).substr(10).substr(0, 6).trim();
 }
+/**
+ *  时间格式 17:20:00 转 17:20
+ * @param timeStr
+ * @returns {*}
+ */
+const getDateTime = (timeStr) => {
+    if (timeStr && timeStr.indexOf(":")) {
+        var timeArr = timeStr.split(":");
+        if (timeArr.length == 3) {
+            timeStr = timeArr[0] + ":" + timeArr[1];
+        }
+    }
+    return timeStr;
+}
 const formatUnixTime = (date, format) => {
     if (!date) return '';
     format = format ? format : 'Y-M-D'
@@ -111,25 +125,37 @@ function dateDiff(bigDateStr, smallDateStr, diffType) {
     return diff;
 }
 
+function convertTimeToArr(timeStr1, timeStr2) {
+    var timeStr1Arr = timeStr1.split(":");
+    var timeStr2Arr = timeStr2.split(":");
+    var result = [];
+    result[0] = parseInt(timeStr1Arr[0]);
+    result[1] = parseInt(timeStr1Arr[1]);
+    result[2] = parseInt(timeStr2Arr[0]);
+    result[3] = parseInt(timeStr2Arr[1]);
+    console.log(result);
+    return result;
+
+}
+
 /**
  * 比较两个时间大小【格式 时:分:秒 或 时间:分】
  *
  */
 function compareTime(timeStr1, timeStr2) {
-    var bagin_ = timeStr1.split(":");
+    var begin_ = timeStr1.split(":");
     var end_ = timeStr2.split(":");
-    var bagin_time = bagin_[0] * 3600 + bagin_[1] * 60
-    if (bagin_.size == 3) {
-        bagin_time += (bagin_[2] * 1);
+    var begin_time = begin_[0] * 3600 + begin_[1] * 60
+    if (begin_.size == 3) {
+        begin_time += (begin_[2] * 1);
     }
     var end_time = end_[0] * 3600 + end_[1] * 60;
     if (end_.size == 3) {
         end_time += (end_[2] * 1);
     }
-    if (bagin_time >= end_time) {
-        return true;
-    }
-    return false;
+    var result = begin_time >= end_time;
+    console.log("timeStr1", timeStr1, "timeStr2", timeStr2, "result", result);
+    return result;
 }
 
 /**
@@ -178,7 +204,7 @@ var showModel = (title, content) => {
 
     wx.showModal({
         title,
-        content: content?JSON.stringify(content):'',
+        content: content ? content : '',
         showCancel: false
     })
 }
@@ -198,7 +224,10 @@ var showConfirm = (title, content, ok_cb, no_cb) => {
         }
     })
 }
-
+var showNone = text => wx.showToast({
+    title: text,
+    icon: 'none'
+})
 
 module.exports = {
     nowDateAdd,
@@ -206,6 +235,8 @@ module.exports = {
     formatUnixTime,
     nowTime,
     getNowTime,
+    getDateTime,
+    convertTimeToArr,
     getWeek,
     compareTime,
     dateIncrease,
@@ -214,5 +245,6 @@ module.exports = {
     showBusy,
     showSuccess,
     showModel,
-    showConfirm
+    showConfirm,
+    showNone
 }

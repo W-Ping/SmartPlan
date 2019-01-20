@@ -53,6 +53,10 @@ var config = {
     getRelationUserDetail: `${host}/weapp/user/detail/relation/get`,
     checkUserRelation: `${host}/weapp/user/share/relation/check`,
     getUserByKeyword: `${host}/weapp/user/info/get`,
+    saveClockRecord: `${host}/weapp/clock/save`,
+    getClockRecord: `${host}/weapp/clock/get`,
+    getClockRuleInfo: `${host}/weapp/clock/rule/get`,
+    saveClockRuleInfo: `${host}/weapp/clock/rule/save`,
   }
 };
 

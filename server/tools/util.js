@@ -19,6 +19,10 @@ const formatNumber = n => {
 const nowTime = (joinSymbol) => {
     return formatTime(new Date(), joinSymbol).trim();
 };
+/**
+ *  获取当前时间 15:30
+ * @returns {string}
+ */
 const getNowTime = () => {
     return formatTime(new Date()).substr(10).substr(0, 6).trim();
 }
@@ -183,4 +187,4 @@ function generateNo(prefix, lastNo, incr) {
     return prefix + rand  + lastNo;
 }
 
-module.exports = {formatTime, formatUnixTime, nowTime, nowDateAdd,dateDiff, dateUnit, generateUid, generateNo};
+module.exports = {formatTime, formatUnixTime,getWeek, nowTime, nowDateAdd,dateDiff, dateUnit, generateUid, generateNo};
