@@ -11,22 +11,25 @@
     <view class='cs-date'>{{sEndDate}}</view>
   </picker>
   <view class='cs-btn'>
-    <button class="{{currentTab==1?'ov-btn':'wk-btn'}}" size='mini'>查询</button>
+    <button class="{{currentTab==1?'ov-btn':'wk-btn'}}" size='mini' bindtap='onSearch' >查询</button>
   </view>
 </view>
 <scroll-view scroll-y class='clock-box'>
   <block wx:for="{{clockdList}}" wx:for-index="index" wx:key="*this">
     <view class="clock-item  {{currentTab==1?'overtime-b-color':''}}">
-      <view class='clock-date'>{{item.clockDate}}</view>
+      <view class='clock-date'>{{item.date_version}}</view>
       <view class="clock-desc">
-        <view class='clock-time' style="width:{{item.status==2?'100%':'70%'}}">
-          {{item.startTime}}~{{item.endTime}}
+        <view class='clock-time' style="width:{{item.clock_on_time && item.clock_off_time?'100%':'70%'}}">
+          {{item.clock_on_time}}~{{item.clock_off_time}}
         </view>
-        <view hidden='{{item.status==2}}' class='clock-operation'>
+        <view hidden='{{item.clock_on_time && item.clock_off_time}}' data-index='{{index}}' bindtap='onClock' class='clock-operation'>
           <text style="{{currentTab==1?'border-bottom: 1px solid rgb(241, 156, 44);':''}}">补卡</text>
         </view>
       </view>
-
     </view>
   </block>
+    <block wx:if="{{!clockdList||clockdList.length<=0}}">
+        <view class='clock-warn-text'>没有打卡记录~~~</view>
+    </block>
 </scroll-view>
+<clockModal id="clockModal" bind:confirmDelete="confirmDelete"></clockModal>

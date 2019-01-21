@@ -367,6 +367,9 @@
         </view>
       </view>
     </view>
+    <view wx:if='{{wkHidden && otHidden}}' class='sign-warn-text' >
+      <text>还没有配置打卡规则~~~</text>
+    </view>
   </view>
   <view class='wx-c'>
     <view class='wx-r' bindtap='navigateToRule'>

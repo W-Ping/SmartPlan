@@ -64,6 +64,7 @@ router.post('/clock/rule/save', controllers.clock.saveClockRuleInfo)
 router.get('/clock/rule/get', controllers.clock.getClockRuleInfo)
 router.post('/clock/save', controllers.clock.save)
 router.get('/clock/get', controllers.clock.get)
+router.post('/clock/record/get', controllers.clock.getClockRuleRecord)
 
 
 module.exports = router

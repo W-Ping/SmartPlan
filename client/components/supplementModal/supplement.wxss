@@ -1,0 +1,51 @@
+.clock-mask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: #000;
+  opacity: 0.5;
+  overflow: hidden;
+}
+
+.clock-modal {
+  z-index: 3000;
+  width: 80%;
+  height: 300px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.clock-title {
+  width: 100%;
+  text-align: center;
+  line-height: 40px;
+  height: 40px;
+  border: 2px #f6f6f6 solid;
+}
+
+.clock-box {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.clock-box-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.clock-btn {
+  height: 60px;
+}

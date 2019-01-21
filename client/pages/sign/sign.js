@@ -39,8 +39,21 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        var dateVersion = util.formatUnixTime(new Date(), "Y-M-D");
-        request.getReq(config.service.getClockRecord, "dv=" + dateVersion, res => {
+
+    },
+
+    /**
+     * 生命周期函数--监听页面初次渲染完成
+     */
+    onReady: function () {
+
+    },
+
+    /**
+     * 生命周期函数--监听页面显示
+     */
+    onShow: function () {
+        request.getReq(config.service.getClockRecord, null, res => {
             if (res.code == 1) {
                 var init = {};
                 var workClockRuleInfo = res.data.workClockRuleInfo;
@@ -93,20 +106,6 @@ Page({
                 this.setData(init);
             }
         })
-    },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-
     },
 
     /**

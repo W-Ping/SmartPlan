@@ -125,16 +125,25 @@ function dateDiff(bigDateStr, smallDateStr, diffType) {
     return diff;
 }
 
+/**
+ *  时间转换数组
+ *
+ * @param timeStr1  19:30
+ * @param timeStr2  20:50
+ * @returns {*} [19,30,20,50]
+ */
 function convertTimeToArr(timeStr1, timeStr2) {
-    var timeStr1Arr = timeStr1.split(":");
-    var timeStr2Arr = timeStr2.split(":");
-    var result = [];
-    result[0] = parseInt(timeStr1Arr[0]);
-    result[1] = parseInt(timeStr1Arr[1]);
-    result[2] = parseInt(timeStr2Arr[0]);
-    result[3] = parseInt(timeStr2Arr[1]);
-    console.log(result);
-    return result;
+    if (timeStr1 && timeStr1.indexOf(":") != -1 && timeStr2 && timeStr2.indexOf(":") != -1) {
+        var timeStr1Arr = timeStr1.split(":");
+        var timeStr2Arr = timeStr2.split(":");
+        var result = [];
+        result[0] = parseInt(timeStr1Arr[0]);
+        result[1] = parseInt(timeStr1Arr[1]);
+        result[2] = parseInt(timeStr2Arr[0]);
+        result[3] = parseInt(timeStr2Arr[1]);
+        return result;
+    }
+    return null;
 
 }
 
@@ -156,6 +165,29 @@ function compareTime(timeStr1, timeStr2) {
     var result = begin_time >= end_time;
     console.log("timeStr1", timeStr1, "timeStr2", timeStr2, "result", result);
     return result;
+}
+
+function monthFirstDay(month) {
+    var date = new Date();
+    month = month ? month : date.getMonth() + 1;
+    if (month < 1 || month > 12) {
+        throw new Error("month is error");
+    }
+    var y = date.getFullYear();
+    date = new Date(y, month - 1, 1);
+    return [date.getFullYear(), date.getMonth() + 1, date.getDate()].map(formatNumber).join('-');
+}
+
+function monthLastDay(month) {
+    var date = new Date();
+    month = month ? month : date.getMonth() + 1;
+    if (month < 1 || month > 12) {
+        throw new Error("month is error");
+    }
+    var y = date.getFullYear();
+    date = new Date(y, month, 0);
+    return [date.getFullYear(), date.getMonth() + 1, date.getDate()].map(formatNumber).join('-');
+
 }
 
 /**
@@ -233,6 +265,8 @@ module.exports = {
     nowDateAdd,
     formatTime,
     formatUnixTime,
+    monthFirstDay,
+    monthLastDay,
     nowTime,
     getNowTime,
     getDateTime,

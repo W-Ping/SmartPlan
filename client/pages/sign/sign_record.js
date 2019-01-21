@@ -1,98 +1,138 @@
-// client/pages/sign/sign_record.js
+const util = require("../../utils/util");
+const request = require("../../utils/request")
+const config = require('../../config')
 Page({
 
-  /**
-   * 页面的初始数据
-   */
-  data: {
-    currentTab: 0,
-    sStartDate: '2018-12-01',
-    sEndDate: '2018-12-31',
-    clockdList: [],
-  },
+    /**
+     * 页面的初始数据
+     */
+    data: {
+        currentTab: 0,
+        sStartDate: util.monthFirstDay(),
+        sEndDate: util.monthLastDay(),
+        clockdList: [],
+    },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {
-    var that = this;
-    for (var i = 0; i < 12; i++) {
-      that.data.clockdList.push({
-        id: "ID" + i,
-        clockDate: '2018.12.10',
-        startTime: '09:19',
-        endTime: '19:40',
-        clockType: 0,
-        status: Math.ceil(Math.random() * 2), //0:未打卡;1：上班打卡;2:下班打卡
-      })
-    }
-    this.setData({
-      clockdList: this.data.clockdList
-    })
-  },
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function (options) {
+        util.showBusy("查询...")
+        request.postReq(config.service.getClockRuleRecord, {
+            startTime: this.data.sStartDate,
+            endTime: this.data.sEndDate,
+            clock_type: this.data.currentTab
+        }, res => {
+            if (res.code == 1) {
+                this.setData({
+                    clockdList: res.data
+                })
+            }
+        }, null, function () {
+            wx.hideToast();
+        })
+    },
+    /**
+     * 生命周期函数--监听页面初次渲染完成
+     */
+    onReady: function () {
+      this.clockModal = this.selectComponent("#clockModal");
+    },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
+    /**
+     * 生命周期函数--监听页面显示
+     */
+    onShow: function () {
 
-  },
+    },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
+    /**
+     * 生命周期函数--监听页面隐藏
+     */
+    onHide: function () {
 
-  },
+    },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
+    /**
+     * 生命周期函数--监听页面卸载
+     */
+    onUnload: function () {
 
-  },
+    },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
+    /**
+     * 页面相关事件处理函数--监听用户下拉动作
+     */
+    onPullDownRefresh: function () {
 
-  },
+    },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
+    /**
+     * 页面上拉触底事件的处理函数
+     */
+    onReachBottom: function () {
 
-  },
+    },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
+    /**
+     * 用户点击右上角分享
+     */
+    onShareAppMessage: function () {
 
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
-  },
-  swichTab: function(e) {
-    var currentTab = e.currentTarget.dataset.currenttab;
-    this.setData({
-      currentTab: currentTab
-    })
-  },
-  changeStartDate: function(e) {
-    this.setData({
-      sStartDate:e.detail.value
-    })
-  },
-  changeEndDate: function(e) {
-    this.setData({
-      sEndDate: e.detail.value
-    })
-  },
+    },
+    swichTab: function (e) {
+        var currentTab = e.currentTarget.dataset.currenttab;
+        this.setData({
+            currentTab: currentTab
+        })
+        util.showBusy("查询...")
+        request.postReq(config.service.getClockRuleRecord, {
+            startTime: this.data.sStartDate,
+            endTime: this.data.sEndDate,
+            clock_type: currentTab
+        }, res => {
+            if (res.code == 1) {
+                this.setData({
+                    clockdList: res.data
+                })
+            }
+        }, null, function () {
+            wx.hideToast();
+        })
+    },
+    changeStartDate: function (e) {
+        this.setData({
+            sStartDate: e.detail.value
+        })
+    },
+    changeEndDate: function (e) {
+        this.setData({
+            sEndDate: e.detail.value
+        })
+    },
+    onSearch: function (e) {
+        util.showBusy("查询...")
+        request.postReq(config.service.getClockRuleRecord, {
+            startTime: this.data.sStartDate,
+            endTime: this.data.sEndDate,
+            clock_type: this.data.currentTab
+        }, res => {
+            if (res.code == 1) {
+                this.setData({
+                    clockdList: res.data
+                })
+            }
+        }, null, function () {
+            wx.hideToast();
+        })
+    },
+  onClock:function(e){
+    var index = e.currentTarget.dataset.index;
+    var clockInfo = this.data.clockdList[index];
+    var info = {};
+    info.date = clockInfo.date_version;
+    info.onClockTime = clockInfo.clock_on_time;
+    info.offClockTime = clockInfo.clock_off_time;
+    this.clockModal.onShow(e, info);
+  }
 })

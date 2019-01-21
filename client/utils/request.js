@@ -4,7 +4,7 @@ const util = require('../utils/util')
 /**
  * get 请求
  */
-function getReq(url, params, callback, fail) {
+function getReq(url, params, callback, fail, complete) {
     var url = url + (params ? "?" + params : '');
     var session = qcloud.Session.get();
     console.log('get request：' + url);
@@ -27,6 +27,10 @@ function getReq(url, params, callback, fail) {
             } else {
                 util.showModel('请求失败', error);
             }
+        }, complete(res) {
+            if (complete && typeof(complete) == 'function') {
+                complete(res);
+            }
         }
     }
     wx.request(options)
@@ -35,13 +39,12 @@ function getReq(url, params, callback, fail) {
 /**
  * Post 请求
  */
-const postReq = (url, params, callback, fail) => {
+const postReq = (url, params, callback, fail, complete) => {
     params = params ? params : {};
     console.info("post request url：", url);
     console.info("post request params：", params);
     var session = qcloud.Session.get();
     if (session == null) return
-    console.log("post req session", session);
     var options = {
         header: {
             'X-WX-SKEY': session.skey
@@ -61,6 +64,10 @@ const postReq = (url, params, callback, fail) => {
                 fail(error);
             } else {
                 util.showModel('请求失败', error);
+            }
+        }, complete(res) {
+            if (complete && typeof(complete) == 'function') {
+                complete(res);
             }
         }
     };

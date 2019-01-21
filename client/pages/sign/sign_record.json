@@ -1,1 +1,6 @@
-{}
+{
+  "navigationBarTitleText": "打开记录",
+  "usingComponents": {
+    "clockModal": "/components/supplementModal/supplement"
+  }
+}

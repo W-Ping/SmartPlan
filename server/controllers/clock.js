@@ -61,11 +61,32 @@ async function save(ctx, next) {
 
 }
 
+/**
+ *
+ * @param ctx
+ * @param next
+ * @returns {Promise<void>}
+ */
+async function getClockRuleRecord(ctx, next) {
+    let userInfo = ctx.state.$sysInfo.userinfo;
+    let params = ctx.request.body;
+    let clockType = params.clock_type ? params.clock_type : 0;
+    await mysql(CNF.DB_TABLE.clock_record_info).select("*").where({
+        uid: userInfo.uid,
+        clock_type: clockType
+    }).andWhere(function () {
+        if (params.startTime && params.endTime) {
+            this.whereBetween('date_version', [params.startTime, params.endTime])
+        }
+    }).then(res => {
+        SUCCESS(ctx, res);
+    })
+}
+
 async function get(ctx, next) {
     let userInfo = ctx.state.$sysInfo.userinfo;
     let week = new Date().getDay();
     let today = util.formatUnixTime(new Date(), 'Y-M-D');
-    console.log("week", week, "today", today, "userInfo", userInfo);
     await mysql(CNF.DB_TABLE.clock_rule_info).select("*").where({uid: userInfo.uid, status: 0}).then(async res => {
         let result = {
             workClockRuleInfo: {},
@@ -238,4 +259,4 @@ async function getClockRuleInfo(ctx, next) {
     })
 }
 
-module.exports = {save, get, saveClockRuleInfo, getClockRuleInfo}
+module.exports = {save, get, getClockRuleRecord, saveClockRuleInfo, getClockRuleInfo}

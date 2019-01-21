@@ -25,63 +25,37 @@ Page({
      * 页面的初始数据
      */
     data: {
-        onOvTime: '',
-        offOvTime: '',
-        onOvWeekendTime: '',
-        offOvWeekendTime: '',
-        onWkTime: '',
-        offWkTime: '',
-        onWkRangeTime: '',
-        offWkRangeTime: '',
-        onOvRangeTime: '',
-        offOvRangeTime: '',
-        onOvWeekendRangeTime: '',
-        offOvWeekendRangeTime: '',
         wkClockHidden: false,
         ovClockHidden: false,
         ovWeekendClockHidden: false,
-        onWkRangeTimeIndex: [6, 30, 23, 0],
-        offWkRangeTimeIndex: [16, 30, 23, 0],
-        onOvRangeTimeIndex: [6, 30, 23, 0],
-        offOvRangeTimeIndex: [10, 20, 12, 1],
-        onOvWeekendRangeTimeIndex: [6, 30, 23, 0],
-        offOvWeekendRangeTimeIndex: [13, 35, 21, 0],
+        onOvTime: '20:00',//加班上班时间
+        offOvTime: '23:00',//加班下班时间
+        onOvWeekendTime: '09:30',//双休日加班上班时间
+        offOvWeekendTime: '18:30',//双休日加班下班时间
+        onWkTime: '09:00',//上班时间
+        offWkTime: '18:00',//下班时间
+        onWkRangeTime: '06:00~10:00',//上班打卡有效范围
+        offWkRangeTime: '15:30~20:00',//下班打开有效范围
+        onOvRangeTime: '20:00~21:00',//加班上班打开有效范围
+        offOvRangeTime: '21:00~23:30',//加班下班打开有效范围
+        onOvWeekendRangeTime: '06:00~11:00',//双休日加班上班打开有效范围
+        offOvWeekendRangeTime: '15:00~23:30',//双休日加班下班打开有效范围
+        onWkRangeTimeIndex: [9, 0, 10, 0],
+        offWkRangeTimeIndex: [16, 30, 19, 0],
+        onOvRangeTimeIndex: [20, 0, 21, 0],
+        offOvRangeTimeIndex: [21, 0, 23, 30],
+        onOvWeekendRangeTimeIndex: [9, 0, 11, 0],
+        offOvWeekendRangeTimeIndex: [15, 0, 19, 0],
         timeRange: [hours, minutes, hours, minutes],
         wkCheckboxItems: [{
             name: '1',
             value: '星期一',
-            checked: false
+            checked: true
         },
             {
                 name: '2',
                 value: '星期二',
-                checked: false
-            },
-            {
-                name: '3',
-                value: '星期三',
-                checked: false
-            },
-            {
-                name: '4',
-                value: '星期四',
-                checked: false
-            },
-            {
-                name: '5',
-                value: '星期五',
-                checked: false
-            },
-        ],
-        ovCheckboxItems: [{
-            name: '1',
-            value: '星期一',
-            checked: false
-        },
-            {
-                name: '2',
-                value: '星期二',
-                checked: false
+                checked: true
             },
             {
                 name: '3',
@@ -91,23 +65,49 @@ Page({
             {
                 name: '4',
                 value: '星期四',
-                checked: false
+                checked: true
             },
             {
                 name: '5',
                 value: '星期五',
-                checked: false
+                checked: true
+            },
+        ],
+        ovCheckboxItems: [{
+            name: '1',
+            value: '星期一',
+            checked: true
+        },
+            {
+                name: '2',
+                value: '星期二',
+                checked: true
+            },
+            {
+                name: '3',
+                value: '星期三',
+                checked: true
+            },
+            {
+                name: '4',
+                value: '星期四',
+                checked: true
+            },
+            {
+                name: '5',
+                value: '星期五',
+                checked: true
             },
         ],
         ovWeekendCheckboxItems: [{
             name: '0',
             value: '星期日',
-            checked: false
+            checked: true
         },
             {
                 name: '6',
                 value: '星期六',
-                checked: false
+                checked: true
             }
         ]
     },
@@ -117,67 +117,69 @@ Page({
      */
     onLoad: function (options) {
         request.getReq(config.service.getClockRuleInfo, null, res => {
-            if (res.code == 1) {
+            if (res.code == 1 && res.data) {
                 var workClockRuleInfo = res.data.workClockRuleInfo;
                 var overtimeWorkClockRuleInfo = res.data.overtimeWorkClockRuleInfo;
                 var overtimeWeekendClockRuleInfo = res.data.overtimeWeekendClockRuleInfo;
                 var init = {};
-                init.onWkTime = util.getDateTime(workClockRuleInfo.clock_on_time);
-                init.offWkTime = util.getDateTime(workClockRuleInfo.clock_off_time);
-                init.onWkRangeTime = util.getDateTime(workClockRuleInfo.clock_on_min_time) + "~" + util.getDateTime(workClockRuleInfo.clock_on_max_time);
-                init.offWkRangeTime = util.getDateTime(workClockRuleInfo.clock_off_min_time) + "~" + util.getDateTime(workClockRuleInfo.clock_off_max_time);
-                init.onWkRangeTimeIndex = util.convertTimeToArr(workClockRuleInfo.clock_on_min_time, workClockRuleInfo.clock_on_max_time);
-                init.offWkRangeTimeIndex = util.convertTimeToArr(workClockRuleInfo.clock_off_min_time, workClockRuleInfo.clock_off_max_time);
-                init.wkClockHidden = workClockRuleInfo.status == 0 ? false : true;
-
-
-                init.onOvTime = util.getDateTime(overtimeWorkClockRuleInfo.clock_on_time);
-                init.offOvTime = util.getDateTime(overtimeWorkClockRuleInfo.clock_off_time);
-                init.onOvRangeTime = util.getDateTime(overtimeWorkClockRuleInfo.clock_on_min_time) + "~" + util.getDateTime(overtimeWorkClockRuleInfo.clock_on_max_time);
-                init.offOvRangeTime = util.getDateTime(overtimeWorkClockRuleInfo.clock_off_min_time) + "~" + util.getDateTime(overtimeWorkClockRuleInfo.clock_off_max_time);
-                init.onOvRangeTimeIndex = util.convertTimeToArr(overtimeWorkClockRuleInfo.clock_on_min_time, overtimeWorkClockRuleInfo.clock_on_max_time);
-                init.offOvRangeTimeIndex = util.convertTimeToArr(overtimeWorkClockRuleInfo.clock_off_min_time, overtimeWorkClockRuleInfo.clock_off_max_time);
-                init.ovClockHidden = overtimeWorkClockRuleInfo.status == 0 ? false : true;
-
-                init.onOvWeekendTime = util.getDateTime(overtimeWeekendClockRuleInfo.clock_on_time);
-                init.offOvWeekendTime = util.getDateTime(overtimeWeekendClockRuleInfo.clock_off_time);
-                init.onOvWeekendRangeTime = util.getDateTime(overtimeWeekendClockRuleInfo.clock_on_min_time) + "~" + util.getDateTime(overtimeWeekendClockRuleInfo.clock_on_max_time);
-                init.offOvWeekendRangeTime = util.getDateTime(overtimeWeekendClockRuleInfo.clock_off_min_time) + "~" + util.getDateTime(overtimeWeekendClockRuleInfo.clock_off_max_time);
-                init.onOvWeekendRangeTimeIndex = util.convertTimeToArr(overtimeWeekendClockRuleInfo.clock_on_min_time, overtimeWeekendClockRuleInfo.clock_on_max_time);
-                init.offOvWeekendRangeTimeIndex = util.convertTimeToArr(overtimeWeekendClockRuleInfo.clock_off_min_time, overtimeWeekendClockRuleInfo.clock_off_max_time);
-                init.ovWeekendClockHidden = overtimeWeekendClockRuleInfo.status == 0 ? false : true;
-                var workClockValidWeek = workClockRuleInfo.clock_valid_week;
-                var ovWorkClockValidWeek = overtimeWorkClockRuleInfo.clock_valid_week;
-                var ovWeekendClockValidWeek = overtimeWeekendClockRuleInfo.clock_valid_week;
-                console.log("workClockValidWeek", workClockValidWeek, "ovWorkClockValidWeek", ovWorkClockValidWeek, "ovWeekendClockValidWeek", ovWeekendClockValidWeek);
-                var wkCheckboxItems = this.data.wkCheckboxItems;
-                for (var i = 0; i < wkCheckboxItems.length; i++) {
-                    if (workClockValidWeek.indexOf(wkCheckboxItems[i].name) != -1) {
-                        wkCheckboxItems[i].checked = true;
-                    } else {
-                        wkCheckboxItems[i].checked = false;
+                if (Object.keys(workClockRuleInfo).length > 0) {
+                    init.onWkTime = util.getDateTime(workClockRuleInfo.clock_on_time);
+                    init.offWkTime = util.getDateTime(workClockRuleInfo.clock_off_time);
+                    init.onWkRangeTime = util.getDateTime(workClockRuleInfo.clock_on_min_time) + "~" + util.getDateTime(workClockRuleInfo.clock_on_max_time);
+                    init.offWkRangeTime = util.getDateTime(workClockRuleInfo.clock_off_min_time) + "~" + util.getDateTime(workClockRuleInfo.clock_off_max_time);
+                    init.onWkRangeTimeIndex = util.convertTimeToArr(workClockRuleInfo.clock_on_min_time, workClockRuleInfo.clock_on_max_time);
+                    init.offWkRangeTimeIndex = util.convertTimeToArr(workClockRuleInfo.clock_off_min_time, workClockRuleInfo.clock_off_max_time);
+                    init.wkClockHidden = workClockRuleInfo.status == 0 ? false : true;
+                    var workClockValidWeek = workClockRuleInfo.clock_valid_week;
+                    var wkCheckboxItems = this.data.wkCheckboxItems;
+                    for (var i = 0; i < wkCheckboxItems.length; i++) {
+                        if (workClockValidWeek && workClockValidWeek.indexOf(wkCheckboxItems[i].name) != -1) {
+                            wkCheckboxItems[i].checked = true;
+                        } else {
+                            wkCheckboxItems[i].checked = false;
+                        }
                     }
+                    init.wkCheckboxItems = wkCheckboxItems;
                 }
-                init.wkCheckboxItems = wkCheckboxItems;
-                var ovCheckboxItems = this.data.ovCheckboxItems;
-                for (var i = 0; i < ovCheckboxItems.length; i++) {
-                    if (ovWorkClockValidWeek.indexOf(ovCheckboxItems[i].name) != -1) {
-                        ovCheckboxItems[i].checked = true;
-                    } else {
-                        ovCheckboxItems[i].checked = false;
+                if (Object.keys(overtimeWorkClockRuleInfo).length > 0) {
+                    init.onOvTime = util.getDateTime(overtimeWorkClockRuleInfo.clock_on_time);
+                    init.offOvTime = util.getDateTime(overtimeWorkClockRuleInfo.clock_off_time);
+                    init.onOvRangeTime = util.getDateTime(overtimeWorkClockRuleInfo.clock_on_min_time) + "~" + util.getDateTime(overtimeWorkClockRuleInfo.clock_on_max_time);
+                    init.offOvRangeTime = util.getDateTime(overtimeWorkClockRuleInfo.clock_off_min_time) + "~" + util.getDateTime(overtimeWorkClockRuleInfo.clock_off_max_time);
+                    init.onOvRangeTimeIndex = util.convertTimeToArr(overtimeWorkClockRuleInfo.clock_on_min_time, overtimeWorkClockRuleInfo.clock_on_max_time);
+                    init.offOvRangeTimeIndex = util.convertTimeToArr(overtimeWorkClockRuleInfo.clock_off_min_time, overtimeWorkClockRuleInfo.clock_off_max_time);
+                    init.ovClockHidden = overtimeWorkClockRuleInfo.status == 0 ? false : true;
+                    var ovWorkClockValidWeek = overtimeWorkClockRuleInfo.clock_valid_week;
+                    var ovCheckboxItems = this.data.ovCheckboxItems;
+                    for (var i = 0; i < ovCheckboxItems.length; i++) {
+                        if (ovWorkClockValidWeek && ovWorkClockValidWeek.indexOf(ovCheckboxItems[i].name) != -1) {
+                            ovCheckboxItems[i].checked = true;
+                        } else {
+                            ovCheckboxItems[i].checked = false;
+                        }
                     }
+                    init.ovCheckboxItems = ovCheckboxItems;
                 }
-                init.ovCheckboxItems = ovCheckboxItems;
-                var ovWeekendCheckboxItems = this.data.ovWeekendCheckboxItems;
-                for (var i = 0; i < ovWeekendCheckboxItems.length; i++) {
-                    if (ovWeekendClockValidWeek.indexOf(ovWeekendCheckboxItems[i].name) != -1) {
-                        ovWeekendCheckboxItems[i].checked = true;
-                    } else {
-                        ovWeekendCheckboxItems[i].checked = false;
+                if (Object.keys(overtimeWeekendClockRuleInfo).length > 0) {
+                    init.onOvWeekendTime = util.getDateTime(overtimeWeekendClockRuleInfo.clock_on_time);
+                    init.offOvWeekendTime = util.getDateTime(overtimeWeekendClockRuleInfo.clock_off_time);
+                    init.onOvWeekendRangeTime = util.getDateTime(overtimeWeekendClockRuleInfo.clock_on_min_time) + "~" + util.getDateTime(overtimeWeekendClockRuleInfo.clock_on_max_time);
+                    init.offOvWeekendRangeTime = util.getDateTime(overtimeWeekendClockRuleInfo.clock_off_min_time) + "~" + util.getDateTime(overtimeWeekendClockRuleInfo.clock_off_max_time);
+                    init.onOvWeekendRangeTimeIndex = util.convertTimeToArr(overtimeWeekendClockRuleInfo.clock_on_min_time, overtimeWeekendClockRuleInfo.clock_on_max_time);
+                    init.offOvWeekendRangeTimeIndex = util.convertTimeToArr(overtimeWeekendClockRuleInfo.clock_off_min_time, overtimeWeekendClockRuleInfo.clock_off_max_time);
+                    init.ovWeekendClockHidden = overtimeWeekendClockRuleInfo.status == 0 ? false : true;
+                    var ovWeekendClockValidWeek = overtimeWeekendClockRuleInfo.clock_valid_week;
+                    var ovWeekendCheckboxItems = this.data.ovWeekendCheckboxItems;
+                    for (var i = 0; i < ovWeekendCheckboxItems.length; i++) {
+                        if (ovWeekendClockValidWeek && ovWeekendClockValidWeek.indexOf(ovWeekendCheckboxItems[i].name) != -1) {
+                            ovWeekendCheckboxItems[i].checked = true;
+                        } else {
+                            ovWeekendCheckboxItems[i].checked = false;
+                        }
                     }
+                    init.ovWeekendCheckboxItems = ovWeekendCheckboxItems;
                 }
-                console.log(ovWeekendCheckboxItems)
-                init.ovWeekendCheckboxItems = ovWeekendCheckboxItems;
+
                 this.setData(init)
             }
         })

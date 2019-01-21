@@ -31,8 +31,8 @@ CREATE TABLE `cappinfo` (
 -- ----------------------------
 -- Table structure for csessioninfoS
 -- ----------------------------
-DROP TABLE IF EXISTS `cessioninfo`;
-CREATE TABLE `csessioninfo` (
+DROP TABLE IF EXISTS `cSessionInfo`;
+CREATE TABLE `cSessionInfo` (
   `open_id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `uuid` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `skey` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,

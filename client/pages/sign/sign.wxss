@@ -220,3 +220,11 @@
 .fill-circle {
   background: inherit;
 }
+.sign-warn-text{
+  margin: 20rpx auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight:800; 
+}

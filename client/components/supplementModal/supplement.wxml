@@ -1,0 +1,22 @@
+<view hidden='{{modalShowed}}'>
+  <view class='clock-mask' bindtap='onCancel'></view>
+  <view class='clock-modal'>
+    <view class='clock-title'>
+      <text>{{date}}</text>
+    </view>
+    <view class='clock-box'>
+      <view class='clock-box-item'>
+        <view>上班</view>
+        <view>{{onClockTime}}</view>
+      </view>
+      <view class='clock-box-item'>
+        <view>下班</view>
+        <view>{{offClockTime}}</view>
+      </view>
+    </view>
+    <view class='clock-btn'>
+      <view class='btn cancel' bindtap='onCancel'>取 消</view>
+      <view class='btn confirm' bindtap='onConfirm'>确 定</view>
+    </view>
+  </view>
+</view>
