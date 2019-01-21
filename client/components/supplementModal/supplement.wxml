@@ -4,14 +4,29 @@
     <view class='clock-title'>
       <text>{{date}}</text>
     </view>
+
     <view class='clock-box'>
+      <!-- <view class='clock-warn'>
+        <text>补全后不能更改</text>
+      </view> -->
       <view class='clock-box-item'>
-        <view>上班</view>
-        <view>{{onClockTime}}</view>
+        <view class='clock-desc'>上班打卡：</view>
+        <!-- <view>{{onClockTime}}</view> -->
+        <picker mode="time" disabled="{{onClockPic}}" end="{{offClockPic?offClockPic:'23:59'}}" start="06:00" value='{{onClockTime}}' bindchange='onChangeClockOnWkTime'>
+          <view class='clock-value'>
+            <text wx:if="{{onClockTime}}">{{onClockTime}}</text>
+            <text class='select-text' wx:else>选择时间</text>
+          </view>
+        </picker>
       </view>
       <view class='clock-box-item'>
-        <view>下班</view>
-        <view>{{offClockTime}}</view>
+        <view class='clock-desc'>下班打卡：</view>
+        <picker mode="time" disabled="{{offClockPic}}" start="{{onClockTime?onClockTime:'06:00'}}" value='{{offClockTime}}' bindchange='onChangeClockOffWkTime'>
+          <view class='clock-value'>
+            <text wx:if="{{offClockTime}}">{{offClockTime}}</text>
+            <text class='select-text' wx:else>选择时间</text>
+          </view>
+        </picker>
       </view>
     </view>
     <view class='clock-btn'>

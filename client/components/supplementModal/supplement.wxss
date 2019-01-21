@@ -44,8 +44,52 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  min-width: 400rpx;
+  margin: 10rpx auto;
+  font-size: 15px;
+}
+
+.clock-desc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200rpx;
+}
+
+.clock-value {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200rpx;
 }
 
 .clock-btn {
   height: 60px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.select-text {
+  color: #ccc;
+}
+
+.btn {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1rpx solid #ccc;
+}
+
+.confirm {
+  color: rgb(60, 197, 31);
+  border-left: 1rpx solid #ccc;
+}
+.clock-warn{
+  margin: 20rpx auto;
+  font-size: 14px;
+  color: yellowgreen;
 }

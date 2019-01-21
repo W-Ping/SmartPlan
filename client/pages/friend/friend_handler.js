@@ -22,6 +22,7 @@ Page({
     var pages = getCurrentPages();
     var previousPage = pages[pages.length - 2];
     var followUidList = previousPage.data.followUidList
+      request.postReq(config.service.getRelationUserList,)
     var that = this;
     for (var i = 0; i < 22; i++) {
       that.data.friendList.push({

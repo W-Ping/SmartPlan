@@ -11,34 +11,51 @@ Component({
    * 组件的初始数据
    */
   data: {
-    modalShowed: false,
-    date:'',
+    index: -1,
+    onClockPic: true,
+    offClockPic: true,
+    modalShowed: true,
+    selectedid: '',
+    date: '',
     onClockTime: '',
-    offClockTime: '',
-    type: 0,
-    typeName: ''
+    offClockTime: ''
   },
 
   /**
    * 组件的方法列表
    */
   methods: {
-    onShow: function() {
+    onShow: function(params) {
       this.setData({
-        modalShowed: true
+        modalShowed: false,
+        index: params.index,
+        id: params.id,
+        date: params.date,
+        onClockTime: params.onClockTime,
+        offClockTime: params.offClockTime,
+        onClockPic: params.onClockTime,
+        offClockPic: params.offClockTime
       });
     },
     onCancel: function(e) {
       this.setData({
-        modalShowed: false
+        modalShowed: true
       });
     },
     onConfirm: function(e) {
-      var selectedid = e.currentTarget.dataset.selectedid;
-      this.setData({
-        selectedId: selectedid
-      })
       this.triggerEvent("onConfirm");
+    },
+    onChangeClockOnWkTime: function(e) {
+      this.setData({
+        onClockTime: e.detail.value
+      })
+      // this.triggerEvent("onChangeClockOnWkTime");
+    },
+    onChangeClockOffWkTime: function(e) {
+      this.setData({
+        offClockTime: e.detail.value
+      })
+      // this.triggerEvent("onChangeClockOffWkTime");
     }
   }
 })

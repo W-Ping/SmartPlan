@@ -58,6 +58,7 @@ var config = {
         getClockRuleInfo: `${host}/weapp/clock/rule/get`,
         saveClockRuleInfo: `${host}/weapp/clock/rule/save`,
         getClockRuleRecord: `${host}/weapp/clock/record/get`,
+        supplementClockRecord: `${host}/weapp/clock/record/supplement`,
     }
 };
 

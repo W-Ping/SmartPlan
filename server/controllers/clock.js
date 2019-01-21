@@ -78,7 +78,7 @@ async function getClockRuleRecord(ctx, next) {
         if (params.startTime && params.endTime) {
             this.whereBetween('date_version', [params.startTime, params.endTime])
         }
-    }).then(res => {
+    }).orderByRaw('date_version desc').then(res => {
         SUCCESS(ctx, res);
     })
 }
@@ -128,6 +128,32 @@ async function get(ctx, next) {
         SUCCESS(ctx, result);
     })
 
+}
+
+async function supplementClockRecord(ctx, next) {
+    let params = ctx.request.body;
+    if (!params || !params.id) throw new Error("id is null");
+    let nowTime = util.nowTime();
+    let updateInfo = {}
+    if (params.clock_on_time) {
+        updateInfo.clock_on_time = params.clock_on_time;
+        updateInfo.on_supplementary_time = nowTime;
+    }
+    if (params.clock_off_time) {
+        updateInfo.clock_off_time = params.clock_off_time;
+        updateInfo.off_supplementary_time = nowTime;
+    }
+    updateInfo.update_time = nowTime
+    let userInfo = ctx.state.$sysInfo.userinfo;
+    await mysql(CNF.DB_TABLE.clock_record_info).update(updateInfo).where({
+        'id': params.id,
+        uid: userInfo.uid
+    }).then(res => {
+        SUCCESS(ctx, res);
+    }).catch(e => {
+        debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_UPDATE_TO_DB, e)
+        throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_UPDATE_TO_DB}\n${e}`)
+    });
 }
 
 /**
@@ -180,8 +206,6 @@ async function saveClockRuleInfo(ctx, next) {
     wkOvWeekendClockRuleInfo.clock_valid_week = params.ovWeekendWeekdays.join(",");
     wkOvWeekendClockRuleInfo.status = params.ovWeekendActive ? 0 : 1;
     wkOvWeekendClockRuleInfo.uid = userInfo.uid;
-    console.log(params);
-    console.log(wkClockRuleInfo, wkOvClockRuleInfo, wkOvWeekendClockRuleInfo);
     await mysql(CNF.DB_TABLE.clock_rule_info).select("*").where({uid: userInfo.uid}).then(async res => {
         if (res && res.length > 0) {
             let updateWkClockRuleInfo = null;
@@ -259,4 +283,4 @@ async function getClockRuleInfo(ctx, next) {
     })
 }
 
-module.exports = {save, get, getClockRuleRecord, saveClockRuleInfo, getClockRuleInfo}
+module.exports = {save, get, getClockRuleRecord, saveClockRuleInfo, supplementClockRecord, getClockRuleInfo}
