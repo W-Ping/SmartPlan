@@ -9,9 +9,6 @@ function getReq(url, params, callback, fail, complete) {
     var session = qcloud.Session.get();
     console.log('get request：' + url);
     var options = {
-        header: {
-            'X-WX-SKEY': session.skey
-        },
         url: url,
         method: 'GET',
         success(res) {
@@ -32,6 +29,9 @@ function getReq(url, params, callback, fail, complete) {
                 complete(res);
             }
         }
+    }
+    if (session) {
+        options.header = {'X-WX-SKEY': session.skey};
     }
     wx.request(options)
 }

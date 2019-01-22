@@ -5,10 +5,11 @@
 // 此处主机域名修改成腾讯云解决方案分配的域名
 
 // var host = 'https://taflgi5t.qcloud.la';
-var host = 'http://127.0.0.1:5757';
+var host = 'http://745390919.smalldiary.club';
+// var host = 'http://127.0.0.1:5757';
 var config = {
   default_page: '../discovery/discovery',
-  boot_page: './pages/boot/boot',
+  boot_page: '../boot/boot',
 
   // 下面的地址配合云端 Demo 工作
   service: {
