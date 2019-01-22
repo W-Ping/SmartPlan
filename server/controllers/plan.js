@@ -285,17 +285,23 @@ async function saveOrUpdatePlanInfo(ctx, next) {
  * @returns {Promise<void>}
  */
 async function queryPlanInfo(ctx, next) {
-    let condition = ctx.request.body;
+    let params = ctx.request.body;
     let userInfo = ctx.state.$sysInfo.userinfo;
     let uid = userInfo.uid;
-    console.log(condition);
-    if (condition && condition.type == 1) {
+    let authTypeArr = [0];
+    if (params && params.auth_type) {
+        if (Array.isArray(params.auth_type)) {
+            authTypeArr = params.auth_type;
+        } else {
+            authTypeArr[0] = params.auth_type;
+        }
+    }
+    if (params && params.type == 1) {//查询好友目标
         await getAuthorizationPlanNo(uid).then(async res => {
             let planNoList = res.planNoList;
             await mysql(CNF.DB_TABLE.plan_info).select("*").where(builder => {
-                builder.whereIn("plan_no", planNoList).andWhere("auth_type", 0).andWhereNot("creator_uid", uid)
+                builder.whereIn("plan_no", planNoList).whereIn('auth_type', authTypeArr).andWhereNot("creator_uid", uid)
             }).then(res => {
-                console.log(res);
                 SUCCESS(ctx, res);
             }).catch(e => {
                 debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
@@ -303,8 +309,9 @@ async function queryPlanInfo(ctx, next) {
             });
         })
     } else {
+        //查询自己目标
         await  mysql(CNF.DB_TABLE.plan_info).select("*").where(builder => {
-            builder.where("creator_uid", uid).andWhere("auth_type", 0)
+            builder.where("creator_uid", uid).whereIn("auth_type", authTypeArr)
         }).then(res => {
             SUCCESS(ctx, res);
         }).catch(e => {
@@ -523,6 +530,25 @@ async function startPlanDetailInfo(ctx, next) {
 
 }
 
+/**
+ *
+ * @param ctx
+ * @param next
+ * @returns {Promise<void>}
+ */
+async function getPlanInfoStat(ctx, next) {
+    let userInfo = ctx.state.$sysInfo.userinfo;
+    await  mysql(CNF.DB_TABLE.plan_info).select("*").joinRaw(" as pi inner join " +
+        "(select plan_no,count(1) as count_sum,sum(if(status = 0, 1, 0)) as todo_count,sum(if(status = 1, 1, 0)) " +
+        "as doing_count,sum(if(status = 2, 1, 0)) as done_count from " + CNF.DB_TABLE.plan_detail_info + " group by  plan_no)" +
+        " pdi on pi.plan_no = pdi.plan_no").where("pi.creator_uid", userInfo.uid).orderBy("start_time","desc").then(res => {
+        SUCCESS(ctx, res);
+    }).catch(e => {
+        debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
+        throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB}\n${e}`)
+    })
+}
+
 // function deletePlanInfo(condition){
 //     mysql.transaction(function (t) {
 //         return mysql(table)
@@ -552,6 +578,7 @@ module.exports = {
     save,
     saveOrUpdatePlanInfo,
     queryPlanInfo,
+    getPlanInfoStat,
     getPlanInfo,
     getLastPlanInfo,
     startPlanDetailInfo,

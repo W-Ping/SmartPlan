@@ -103,7 +103,7 @@
       </view>
       <view class='done-detail-item'>
         <view class='done-item-desc'>
-          <text>完成人</text>
+          <text>目标创建人</text>
         </view>
         <view class='done-item-val'>
           <image src="{{avatarUrl}}"></image> {{creator_name}}

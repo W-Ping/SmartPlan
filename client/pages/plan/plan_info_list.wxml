@@ -1,0 +1,9 @@
+<block wx:for="{{planDetailInfoList}}" wx:for-item="item" wx:for-index="index" wx:key="*this">
+  <view class="pi-content" data-pdno="{{item.plan_detail_no}}" data-status='{{item.status}}' bindtap='navigatorToDetail'>
+    <view class='pi-title'>{{item.plan_detail_name}}</view>
+    <view class='pi-other'>
+      <text class='pi-status'>{{item.status_desc}}</text>
+      <text>{{item.plan_start_time}}~{{item.plan_end_time}}</text>
+    </view>
+  </view>
+</block>

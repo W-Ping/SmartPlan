@@ -50,7 +50,9 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-      this.queryPlanList("myselfPlanList");
+        this.queryPlanList("myselfPlanList", {
+            auth_type: [0, 1]
+        });
     },
     /**
      * 页面相关事件处理函数--监听用户下拉动作
@@ -70,7 +72,7 @@ Page({
      * 用户点击右上角分享
      */
     onShareAppMessage: function () {
-      
+
     },
     swtichBar: function (e) {
         var id = e.currentTarget.id;
@@ -79,9 +81,11 @@ Page({
             activeIndex: id
         });
         if (id == 0) {
-            this.queryPlanList("myselfPlanList");
+            this.queryPlanList("myselfPlanList", {auth_type: [0, 1]});
         } else if (id == 1) {
-            this.queryPlanList("friendPlanList", {type: 1});
+            this.queryPlanList("friendPlanList", {
+                type: 1
+            });
         }
     },
     onClickPlan: function (e) {

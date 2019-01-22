@@ -83,8 +83,7 @@ Page({
 
     },
     updateUserInfo: function (e) {
-        console.log("更新用户信息，类型", this.data.opt);
-        console.log("更新用户信息，值", e.detail.value);
+
         var condition = e.detail.value;
         request.postReq(config.service.updateUserInfo, condition, res => {
             //设置上一个页面值

@@ -84,3 +84,13 @@ page {
   width: 30px;
 }
 
+.stat-none-warn {
+  margin: 10rpx auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #00abff;
+  font-weight: 700;
+  font-size: 20px;
+  overflow: hidden;
+}
