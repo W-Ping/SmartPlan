@@ -1,4 +1,4 @@
-<!--client/pages/plan/plan.wxml-->
+<!--新建目标-->
 <view class='plan-continer'>
   <view class='plan-box'>
     <!-- <view class='plan-box'>

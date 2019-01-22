@@ -19,7 +19,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- Table structure for cappinfo
 -- ----------------------------
 DROP TABLE IF EXISTS `cAppinfo`;
-CREATE TABLE `cappinfo` (
+CREATE TABLE `cAppinfo` (
   `appid` char(36) DEFAULT NULL,
   `secret` char(64) DEFAULT NULL,
   `ip` char(20) DEFAULT NULL,

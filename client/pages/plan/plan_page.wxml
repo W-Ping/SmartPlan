@@ -1,4 +1,4 @@
-<!--client/pages/plan/plan_page.wxml-->
+<!--目标信息：待办 进行中 已完成-->
 <view class='dis-head'>
   <view class='dis-navbar'>
     <block wx:for="{{tabs}}" wx:for-index="index" wx:key="*this">
@@ -13,17 +13,26 @@
 <scroll-view scroll-y class='dis-content'>
   <view hidden="{{activeIndex != 0}}">
     <block wx:for="{{todoPlanInfoList}}" wx:for-item="item" wx:for-index="index" wx:key="key">
-      <template  is="{{templateType==1?'follow-plan':'todo-plan'}}"  data="{{...item,index}}" />
+      <template is="{{templateType==1?'follow-plan':'todo-plan'}}" data="{{...item,index}}" />
     </block>
+    <view hidden='{{todoPlanInfoList && todoPlanInfoList.length>0}}' class="data-none-warn">
+      <text>没有待办的目标~~~</text>
+    </view>
   </view>
   <view hidden="{{activeIndex != 1}}">
     <block wx:for="{{doingPlanInfoList}}" wx:for-item="item" wx:for-index="index" wx:key="key">
-        <template is="{{templateType==1?'follow-doing-plan':'doing-plan'}}" data="{{...item,index}}" />
+      <template is="{{templateType==1?'follow-doing-plan':'doing-plan'}}" data="{{...item,index}}" />
     </block>
+    <view hidden='{{doingPlanInfoList && doingPlanInfoList.length>0}}' class="data-none-warn">
+      <text>没有进行中的目标~~~</text>
+    </view>
   </view>
   <view hidden="{{activeIndex != 2}}">
     <block wx:for="{{donePlanInfoList}}" wx:for-item="item" wx:for-index="index" wx:key="key">
-      <template is="done-plan"  data="{{...item,index}}" />
+      <template is="done-plan" data="{{...item,index}}" />
     </block>
+    <view hidden='{{donePlanInfoList && donePlanInfoList.length>0}}' class="data-none-warn">
+      <text>没有已完成的目标~~~</text>
+    </view>
   </view>
 </scroll-view>

@@ -93,13 +93,13 @@
         <view class='done-item-desc'>
           <text>预计时间</text>
         </view>
-        <view class='done-item-val'>{{plan_start_time}}~{{plan_start_time}}</view>
+        <view class='done-item-val'>{{plan_start_time}}~{{plan_end_time}}</view>
       </view>
       <view class='done-detail-item'>
         <view class='done-item-desc'>
           <text>实际时间</text>
         </view>
-        <view class='done-item-val'>{{plan_actual_start_time}}~{{plan_actual_start_time}}</view>
+        <view class='done-item-val'>{{plan_actual_start_time}}~{{plan_actual_end_time}}</view>
       </view>
       <view class='done-detail-item'>
         <view class='done-item-desc'>
@@ -122,7 +122,7 @@
     <input hidden name="status" value='{{status?status:0}}' />
     <input hidden name="plan_detail_no" value='{{plan_detail_no}}' />
     <view class='p-box'>
-      <textarea class='p-textarea' maxlength='150' focus name="plan_detail_name" value='{{plan_detail_name}}' placeholder='输入你的目标（最多150字）'></textarea>
+      <textarea class='p-textarea' maxlength='80' focus name="plan_detail_name" value='{{plan_detail_name}}' placeholder='输入目标内容（最多80字）'></textarea>
     </view>
     <picker mode="date" bindchange="changePlanStartTime" start="{{minTime}}" end="{{maxTime}}" name="plan_start_time" value="{{planStartTime}}">
       <view class='p-item'>
@@ -177,7 +177,7 @@
       </block>
     </view>
     <view class='p-remark-box'>
-      <textarea class='p-reamrk-textarea' maxlength='150' name="remark" value='{{remark}}' placeholder='输入备注（最多150字）'></textarea>
+      <textarea class='p-reamrk-textarea' maxlength='120' name="remark" value='{{remark}}' placeholder='输入备注（最多120字）'></textarea>
     </view>
   </view>
 </template>

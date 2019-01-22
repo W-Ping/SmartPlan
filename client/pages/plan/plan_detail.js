@@ -19,25 +19,22 @@ Page({
     var pdNo = options.pdNo;
     request.getReq(config.service.getPlanDetailInfo, "pdNo=" + pdNo, res => {
       if (res.code == 1) {
-        var planDetailInfo = res.data;
-        planDetailInfo.plan_start_time = util.formatUnixTime(planDetailInfo.plan_start_time, "Y.M.D");
-        planDetailInfo.plan_end_time = util.formatUnixTime(planDetailInfo.plan_end_time, "Y.M.D");
-        planDetailInfo.plan_actual_start_time = util.formatUnixTime(planDetailInfo.plan_actual_start_time, "Y.M.D");
-        planDetailInfo.plan_actual_end_time = util.formatUnixTime(planDetailInfo.plan_actual_end_time, "Y.M.D");
+        var pdInfo = res.data.planDetailInfo;
+        var planDetailInfo = {};
+        planDetailInfo.plan_detail_name = pdInfo.plan_detail_name;
+        planDetailInfo.avatarUrl = pdInfo.avatarUrl;
+        planDetailInfo.plan_start_time = util.formatUnixTime(pdInfo.plan_start_time, "Y.M.D");
+        planDetailInfo.plan_end_time = util.formatUnixTime(pdInfo.plan_end_time, "Y.M.D");
+        planDetailInfo.plan_actual_start_time = util.formatUnixTime(pdInfo.plan_actual_start_time, "Y.M.D");
+        planDetailInfo.plan_actual_end_time = util.formatUnixTime(pdInfo.plan_actual_end_time, "Y.M.D");
+        planDetailInfo.remark = pdInfo.remark;
+        planDetailInfo.creator_name = pdInfo.creator_name;
         this.setData({
           planDetailInfo: planDetailInfo
-        })
+        });
       }
     })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
   /**
    * 生命周期函数--监听页面显示
    */
@@ -45,38 +42,4 @@ Page({
 
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
-  }
 })

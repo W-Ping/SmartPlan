@@ -2,6 +2,7 @@
 
 .clock-tab {
   position: fixed;
+  z-index: 1000;
   top: 0;
   left: 0;
   right: 0;
@@ -29,6 +30,7 @@
 
 .clock-search {
   position: fixed;
+  z-index: 1000;
   top: 45px;
   left: 0;
   right: 0;
@@ -40,6 +42,7 @@
   align-items: center;
   justify-content: center;
   color: #00abff;
+  border-bottom: 1rpx solid #f6f6f6;
 }
 
 .clock-box {
@@ -87,22 +90,24 @@
   text-align: center;
   width: 30%;
 }
-.clock-operation text{
+
+.clock-operation text {
   padding: 5px;
   border-bottom: 1px solid #2aadeede;
 }
+
 .overtime-color {
   color: rgb(241, 156, 44);
 }
 
 .wk-btn {
-  overflow:visible;
+  overflow: visible;
   color: #2aadeede;
   border: 1px solid #2aadeede;
 }
 
 .ov-btn {
-  overflow:visible;
+  overflow: visible;
   color: rgb(241, 156, 44);
   border: 1px solid rgb(241, 156, 44);
 }
@@ -112,13 +117,5 @@
 }
 
 .cs-btn {
-  margin-left:10px; 
-}
-.clock-warn-text{
-  margin: 20rpx auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-weight:800; 
+  margin-left: 10px;
 }

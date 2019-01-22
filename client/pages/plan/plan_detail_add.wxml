@@ -1,4 +1,4 @@
-
+<!--新增目标-->
 <form bindsubmit="submitPlanInfo">
   <import src="../template/plan.wxml" />
   <template is="plan-edit" data="{{...planDetailInfo,followNames,roleOpen,roleItems,planStartTime,planEndTime,minTime,maxTime}}" />

@@ -1,0 +1,11 @@
+<view class='container'>
+  <image class='containert-img' src='{{imageUrl}}' mode='aspectFill'></image>
+  <view>
+    <button open-type="getUserInfo" class='opt-btn' lang="zh_CN" bindgetuserinfo="loginGotUserInfo">
+      <text class='journey'>进入小程序</text>
+    </button>
+    <button class='opt-btn un' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="unLoginGotUserInfo">
+      <text class='journey'>免登录</text>
+    </button>
+  </view>
+</view>

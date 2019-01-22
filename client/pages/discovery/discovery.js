@@ -23,7 +23,6 @@ Page({
      */
     onLoad: function (options) {
         var phoneInfo = app.globalData.phoneInfo;
-        console.log("phoneInfo", phoneInfo);
         if (!phoneInfo) {
             wx.getSystemInfo({
                 success: res => {
@@ -32,7 +31,6 @@ Page({
                 }
             });
         }
-        this.queryPlanList("myselfPlanList")
         this.setData({
             sliderLeft: (phoneInfo.windowWidth / this.data.tabs.length - sliderWidth) / 2,
             sliderOffset: phoneInfo.windowWidth / this.data.tabs.length * this.data.activeIndex
@@ -52,23 +50,8 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+      this.queryPlanList("myselfPlanList");
     },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-
-    },
-
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
@@ -87,27 +70,7 @@ Page({
      * 用户点击右上角分享
      */
     onShareAppMessage: function () {
-        return {
-            title: (app.globalData.userInfo.nickName || '我') + '的火星计划',
-            path: 'pages/discovery/discovery?openid=999999999',
-            // imageUrl: this.data.imageUrl,
-            success: function(res) {
-                // 转发成功
-                console.log("转发成功", res);
-                wx.showToast({
-                    title: '分享成功',
-                })
-                wx.showShareMenu({
-                    // 要求小程序返回分享目标信息
-                    withShareTicket: true
-                });
-            },
-            fail: function(res) {
-                // 转发失败
-                console.log("转发失败", res);
-            }
-        }
-
+      
     },
     swtichBar: function (e) {
         var id = e.currentTarget.id;
@@ -128,7 +91,6 @@ Page({
         })
     },
     queryPlanList: function (queryType, condition) {
-        console.log(queryType)
         request.postReq(config.service.queryPlanInfo, condition, res => {
             if (res.code == 1 && res.data) {
                 res.data.forEach(function (item, i) {

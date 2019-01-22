@@ -34,7 +34,7 @@
     </view>
   </block>
   <block wx:if="{{!clockdList||clockdList.length<=0}}">
-    <view class='clock-warn-text'>没有打卡记录~~~</view>
+    <view class="data-none-warn {{currentTab==1?'overtime-color':''}} ">没有打卡记录~~~</view>
   </block>
 </scroll-view>
 <clockModal id="clockModal" bind:onConfirm="onClockConfirm"></clockModal>

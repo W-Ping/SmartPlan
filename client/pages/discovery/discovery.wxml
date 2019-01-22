@@ -10,14 +10,20 @@
 </view>
 <import src="../template/plan.wxml" />
 <scroll-view scroll-y class='dis-content'>
-  <view  hidden="{{activeIndex != 0}}">
-    <block  wx:for="{{myselfPlanList}}" wx:for-item="item" wx:for-index="index" wx:key="key">
+  <view hidden="{{activeIndex != 0}}">
+    <block wx:for="{{myselfPlanList}}" wx:for-item="item" wx:for-index="index" wx:key="key">
       <template is="myselfPlanTemplate" data="{{...item,index}}" />
     </block>
+    <view hidden='{{myselfPlanList && myselfPlanList.length>0}}' class="data-none-warn">
+      <text>没有我的目标~~~</text>
+    </view>
   </view>
-  <view  hidden="{{activeIndex != 1}}">
-    <block  wx:for="{{friendPlanList}}" wx:for-item="item" wx:for-index="index" wx:key="key">
+  <view hidden="{{activeIndex != 1}}">
+    <block wx:for="{{friendPlanList}}" wx:for-item="item" wx:for-index="index" wx:key="key">
       <template is="fdPlanTemplate" data="{{...item,index}}" />
     </block>
+    <view hidden='{{friendPlanList && friendPlanList.length>0}}' class="data-none-warn">
+      <text>没有好友的目标~~~</text>
+    </view>
   </view>
 </scroll-view>
