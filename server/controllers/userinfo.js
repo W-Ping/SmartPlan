@@ -115,17 +115,33 @@ function getUserByOpenId(open_id) {
     return mysql(CNF.DB_TABLE.user_info).select("*").where({open_id, status: 0}).first();
 }
 
+/**
+ *
+ * @param uid
+ * @param relation_uid
+ * @param updateInfo
+ * @returns {*|Promise<any>|PromiseLike<T>|Promise<T>}
+ */
 function saveOrUpdateBindUser(uid, relation_uid, updateInfo) {
     let nowTime = util.nowTime();
     return mysql(CNF.DB_TABLE.user_relation_info).select("id").where({
         uid: uid,
-        relation_uid: relation_uid,
-        status: 0
+        relation_uid: relation_uid
     }).first().then(res => {
         if (res && res.id) {
             if (updateInfo) {
-                updateInfo.update_time = nowTime;
-                return mysql(CNF.DB_TABLE.user_relation_info).update(updateInfo).where('id', res.id).then(res => {
+                let up = {};
+                if (updateInfo.relation_lable) {
+                    up.relation_lable = updateInfo.relation_lable;
+                }
+                if (updateInfo.relation_phone) {
+                    up.relation_phone = updateInfo.relation_lable;
+                }
+                if (updateInfo.status && (updateInfo.status == 1 || updateInfo.status == 0)) {
+                    up.status = updateInfo.status
+                }
+                up.update_time = nowTime;
+                return mysql(CNF.DB_TABLE.user_relation_info).update(up).where('id', res.id).then(res => {
                     console.log("update userRelationInfo", res);
                     return Promise.resolve({code: 1, msg: '用户关系更新成功'});
                 }).catch(e => {
@@ -137,20 +153,41 @@ function saveOrUpdateBindUser(uid, relation_uid, updateInfo) {
                 return Promise.resolve({code: 1, msg: '用户关系已经绑定'});
             }
         } else {
-            let userRelationInfo = {};
-            userRelationInfo.id = uuidGenerator().replace(/-/g, '');
-            userRelationInfo.status = 0;
-            userRelationInfo.relation_uid = relation_uid;
-            userRelationInfo.uid = uid;
-            userRelationInfo.relation_lable = '朋友';
-            userRelationInfo.create_time = nowTime;
-            userRelationInfo.update_time = nowTime;
-            return mysql(CNF.DB_TABLE.user_relation_info).insert(userRelationInfo).then(res => {
-                console.log("insert userRelationInfo", res);
-                return Promise.resolve({code: 1, msg: '用户关系绑定成功'});
-            }).catch(e => {
-                debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_INSERT_TO_DB, e)
-                throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_INSERT_TO_DB}\n${e}`)
+            return mysql(CNF.DB_TABLE.user_relation_info).select("id").first().where({
+                uid: relation_uid,
+                relation_uid: uid
+            }).then(res => {
+                let userRelationInfoArr = [];
+                if (!res || !res.id) {
+                    let userRelationInfo1 = {};
+                    userRelationInfo1.id = uuidGenerator().replace(/-/g, '');
+                    userRelationInfo1.status = 0;
+                    userRelationInfo1.relation_uid = uid;
+                    userRelationInfo1.uid = relation_uid
+                    userRelationInfo1.relation_lable = CNF.USER_RELATION.Friend;
+                    userRelationInfo1.create_time = nowTime;
+                    userRelationInfo1.update_time = nowTime;
+                    userRelationInfo1.inviter_uid = relation_uid;
+                    userRelationInfoArr.push(userRelationInfo1)
+                }
+                let userRelationInfo2 = {};
+                userRelationInfo2.id = uuidGenerator().replace(/-/g, '');
+                userRelationInfo2.status = 0;
+                userRelationInfo2.relation_uid = relation_uid;
+                userRelationInfo2.uid = uid;
+                userRelationInfo2.relation_lable = CNF.USER_RELATION.Friend;
+                userRelationInfo2.create_time = nowTime;
+                userRelationInfo2.update_time = nowTime;
+                userRelationInfo2.inviter_uid = relation_uid;
+                userRelationInfo2.relation_phone = updateInfo && updateInfo.mobile_phone ? updateInfo.mobile_phone : '';
+                userRelationInfoArr.push(userRelationInfo2)
+                return mysql(CNF.DB_TABLE.user_relation_info).insert(userRelationInfoArr).then(res => {
+                    console.log("insert userRelationInfo", res);
+                    return Promise.resolve({code: 1, msg: '用户关系绑定成功'});
+                }).catch(e => {
+                    debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_INSERT_TO_DB, e)
+                    throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_INSERT_TO_DB}\n${e}`)
+                })
             })
         }
     })

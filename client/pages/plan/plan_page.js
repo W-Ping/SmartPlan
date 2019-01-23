@@ -40,7 +40,12 @@ Page({
                 }
             });
         }
-        this.queryPlanDetailInfo("todoPlanInfoList", planNo, 0);
+        let auth_type = [0, 1];
+        //好友查询
+        if (tp == 1) {
+            auth_type = [0];
+        }
+        this.queryPlanDetailInfo("todoPlanInfoList", planNo, 0, auth_type);
         this.setData({
             templateType: tp,
             planNo: planNo,
@@ -107,19 +112,25 @@ Page({
             sliderOffset: e.currentTarget.offsetLeft,
             activeIndex: id
         });
+        let auth_type = [0, 1];
+        //好友查询
+        if (this.data.templateType == 1) {
+            auth_type = [0];
+        }
         if (id == 0) {
-            this.queryPlanDetailInfo("todoPlanInfoList", this.data.planNo, 0)
+            this.queryPlanDetailInfo("todoPlanInfoList", this.data.planNo, 0, auth_type)
         } else if (id == 1) {
-            this.queryPlanDetailInfo("doingPlanInfoList", this.data.planNo, 1);
+            this.queryPlanDetailInfo("doingPlanInfoList", this.data.planNo, 1, auth_type);
         } else if (id == 2) {
-            this.queryPlanDetailInfo("donePlanInfoList", this.data.planNo, 2);
+            this.queryPlanDetailInfo("donePlanInfoList", this.data.planNo, 2, auth_type);
         }
     },
-    queryPlanDetailInfo: function (queryType, plan_no, status) {
+    queryPlanDetailInfo: function (queryType, plan_no, status, auth_type) {
         console.log(queryType)
         request.postReq(config.service.queryPlanDetailInfo, {
             status: status,
-            plan_no: plan_no
+            plan_no: plan_no,
+            auth_type: auth_type
         }, res => {
             if (res.code == 1 && res.data) {
                 res.data.forEach(function (item, i) {
@@ -214,6 +225,7 @@ Page({
                 content: '确定已完成当前任务',
                 success(res) {
                     if (res.confirm) {
+                        wx.vibrateLong();
                         that.data.doingPlanInfoList[index].progress = newProgress;
                         doingPlanInfo.progress = newProgress;
                         //新增进度
@@ -233,6 +245,7 @@ Page({
                 }
             })
         } else {
+            wx.vibrateLong();
             this.data.doingPlanInfoList[index].progress = newProgress;
             request.postReq(config.service.addPlanProgress, {
                 progress: newProgress,
@@ -249,7 +262,10 @@ Page({
         var index = e.currentTarget.dataset.index;
         var pdNo = e.currentTarget.dataset.pdno;
         var pNo = e.currentTarget.dataset.pno;
-        request.postReq(config.service.startPlanDetailInfo, {pNo: pNo, pdNo: pdNo}, res => {
+        request.postReq(config.service.startPlanDetailInfo, {
+            pNo: pNo,
+            pdNo: pdNo
+        }, res => {
             if (res.code == 1) {
                 this.data.todoPlanInfoList.splice(index, 1);
                 this.setData({
@@ -260,8 +276,8 @@ Page({
     },
     onDeletePlan: function (e) {
         var pdNo = e.currentTarget.dataset.pdno;
-        var pNo =  e.currentTarget.dataset.pno;
-        var opt =  e.currentTarget.dataset.opt;
+        var pNo = e.currentTarget.dataset.pno;
+        var opt = e.currentTarget.dataset.opt;
         request.deleteReq(config.service.delPlanDetailInfo, "pdNo=" + pdNo + "&pNo=" + pNo, res => {
             if (res.code == 1) {
                 if (opt == 0) {
@@ -272,23 +288,22 @@ Page({
             }
         })
     },
-  onToTop: function (e) {
-    var index = e.currentTarget.dataset.index;
-    var pdNo = e.currentTarget.dataset.pdno;
-    var planDetailInfo = this.data.doingPlanInfoList[index];
-    console.log("plan top ....", planDetailInfo.priority);
-    if (planDetailInfo.priority != 1) {
-      request.postReq(config.service.topIndex, {
-        pdNo: pdNo,
-        priority: 1
-      }, res => {
-        if (res.code == 1) {
-          this.data.doingPlanInfoList = commonUtil.toArrayTop(this.data.doingPlanInfoList, index);
-          this.setData({
-            doingPlanInfoList: this.data.doingPlanInfoList
-          })
+    onToTop: function (e) {
+        var index = e.currentTarget.dataset.index;
+        var pdNo = e.currentTarget.dataset.pdno;
+        var planDetailInfo = this.data.doingPlanInfoList[index];
+        if (planDetailInfo.priority != 1) {
+            request.postReq(config.service.topIndex, {
+                pdNo: pdNo,
+                priority: 1
+            }, res => {
+                if (res.code == 1) {
+                    this.data.doingPlanInfoList = commonUtil.toArrayTop(this.data.doingPlanInfoList, index);
+                    this.setData({
+                        doingPlanInfoList: this.data.doingPlanInfoList
+                    })
+                }
+            })
         }
-      })
-    }
-  },
+    },
 })

@@ -1,9 +1,9 @@
 <form bindsubmit='submitNote'>
   <view class='note-box'>
-    <input name="note_title" maxlength='20' focus placeholder='输入标题(最多20字)'></input>
+    <input name="note_title" maxlength='20' focus placeholder='输入记事标题(最多20字)'></input>
   </view>
   <view class='note-box note-content'>
-    <textarea name="note_content" maxlength='120' placeholder='输入内容(最多120)'></textarea>
+    <textarea name="note_content" maxlength='120' placeholder='输入记事内容(最多120)'></textarea>
   </view>
   <view class='note-box'>
     <view class='note-desc'>提醒设置</view>
@@ -11,8 +11,8 @@
       <switch color="#00abff" checked="{{!noteRemindHidden}}" bindchange="switchRemindChange"></switch>
     </view>
   </view>
-  <view hidden='{{noteRemindHidden}}' style="height: 250px;">
-    <picker-view indicator-style="height: 50px;" style="margin: 5rpx auto;width: 98%; height: inherit;" value="{{value}}" bindchange="changeRemindTime">
+  <view hidden='{{noteRemindHidden}}' class='note-remind' style="height: 250px;">
+    <picker-view indicator-style="height: 50px;" style="width: 100%; height: inherit;" value="{{value}}" bindchange="changeRemindTime">
       <picker-view-column>
         <view wx:for="{{years}}" wx:key="key" style="line-height: 50px">{{item}}年</view>
       </picker-view-column>
@@ -24,7 +24,7 @@
       </picker-view-column>
     </picker-view>
   </view>
-  <view class='save-btn'>
+  <view class='save-btn note-btn'>
     <button form-type="submit">保存</button>
   </view>
 </form>

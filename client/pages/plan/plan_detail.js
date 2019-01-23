@@ -28,6 +28,7 @@ Page({
         planDetailInfo.plan_actual_start_time = util.formatUnixTime(pdInfo.plan_actual_start_time, "Y.M.D");
         planDetailInfo.plan_actual_end_time = util.formatUnixTime(pdInfo.plan_actual_end_time, "Y.M.D");
         planDetailInfo.remark = pdInfo.remark;
+        planDetailInfo.progress = pdInfo.progress;
         planDetailInfo.creator_name = pdInfo.creator_name;
         this.setData({
           planDetailInfo: planDetailInfo

@@ -49,6 +49,9 @@ const formatUnixTime = (date, format) => {
         date = new Date(Date.parse(date.replace(/-/g, "/")));
     }
     format = format ? format : 'Y-M-D'
+    if (typeof date=='string' && date.constructor == String) {
+        date=new Date(date.replace(/-/g,"/"));
+    }
     var formatArr = ["Y", "M", "D", "h", "m", "s"];
     var returnArr = [];
     returnArr.push(date.getFullYear());
@@ -189,7 +192,6 @@ function compareTime(timeStr1, timeStr2) {
         end_time += (end_[2] * 1);
     }
     var result = begin_time >= end_time;
-    console.log("timeStr1", timeStr1, "timeStr2", timeStr2, "result", result);
     return result;
 }
 

@@ -50,8 +50,8 @@
       </view>
     </view>
     <view class='plan-posit'>
-      <view class='pp-opt priority-btn' bindtap="onToTop" data-pdno="{{plan_detail_no}}"  data-index="{{index}}">优 先</view>
-      <view class='pp-opt delete-btn'   bindtap="onDeletePlan" data-opt='1' data-pno='{{plan_no}}' data-pdno="{{plan_detail_no}}" data-index="{{index}}">删 除</view>
+      <view class='pp-opt priority-btn' bindtap="onToTop" data-pdno="{{plan_detail_no}}" data-index="{{index}}">优 先</view>
+      <view class='pp-opt delete-btn' bindtap="onDeletePlan" data-opt='1' data-pno='{{plan_no}}' data-pdno="{{plan_detail_no}}" data-index="{{index}}">删 除</view>
     </view>
   </view>
 </template>
@@ -100,6 +100,12 @@
           <text>实际时间</text>
         </view>
         <view class='done-item-val'>{{plan_actual_start_time}}~{{plan_actual_end_time}}</view>
+      </view>
+      <view class='done-detail-item'>
+        <view class='done-item-desc'>
+          <text>目标进度</text>
+        </view>
+        <view class='done-item-val'>{{progress}}%</view>
       </view>
       <view class='done-detail-item'>
         <view class='done-item-desc'>

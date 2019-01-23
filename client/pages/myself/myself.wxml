@@ -78,6 +78,6 @@
     <template is="statistics-plan" data="{{item,index,url:'plan_edit'}}" />
   </block>
   <view hidden='{{statPlanList && statPlanList.length>0}}' class="stat-none-warn">
-    <text>没有你的目标记录~~~</text>
+    <text>没有您的目标记录~~~</text>
   </view>
 </view>

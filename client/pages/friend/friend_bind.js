@@ -14,6 +14,7 @@ Page({
     nickName: '',
     realName: '',
     loginFlag: false,
+    authLoginFlag: true,
     relationFlag: 'N',
     realtionDesc: ["可以相互查看公开的小目标", "可以相互提醒各自目标进展"]
   },
@@ -23,6 +24,10 @@ Page({
    */
   onLoad: function(options) {
     console.log("friend_bind", options)
+    const session = qcloud.Session.get()
+    this.setData({
+      authLoginFlag: !session
+    })
     request.getReq(config.service.getShareInfoByUid + "/" + options.uid, null, res => {
       if (res.code == 1 && res.data) {
         var data = res.data;
@@ -42,8 +47,8 @@ Page({
               relationFlag: res.data
             })
           })
-        }else{
-          
+        } else {
+
         }
         this.setData({
           uid: data.uid,
@@ -127,20 +132,28 @@ Page({
         }
       })
     } else {
-      console.log("首次登录。。。。")
-      qcloud.login({
-        success: res => {
-          app.globalData.userInfo = res;
-          app.globalData.logged = true;
-          if (typeof(callback) === "function") {
-            callback(res)
+      if (this.data.authLoginFlag) {
+        this.setData({
+          authLoginFlag: false
+        })
+      } else {
+        console.log("首次登录。。。。")
+        qcloud.login({
+          success: res => {
+            app.globalData.userInfo = res;
+            app.globalData.logged = true;
+            if (typeof(callback) === "function") {
+              callback(res)
+            }
+          },
+          fail: err => {
+            console.error(err)
+            util.showModel('登录错误', err.message)
           }
-        },
-        fail: err => {
-          console.error(err)
-          util.showModel('登录错误', err.message)
-        }
-      })
+        })
+      }
+
+
     }
   },
 })

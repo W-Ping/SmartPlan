@@ -49,6 +49,7 @@ const postReq = (url, params, callback, fail, complete) => {
         header: {
             'X-WX-SKEY': session.skey
         },
+        'Content-Type':"application/json; charset=utf-8",
         url: url,
         data: params ? params : {},
         method: 'POST',

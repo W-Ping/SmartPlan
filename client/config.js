@@ -4,9 +4,9 @@
 
 // 此处主机域名修改成腾讯云解决方案分配的域名
 
-var host = 'https://taflgi5t.qcloud.la';
-// var host = 'http://745390919.smalldiary.club';
-// var host = 'http://127.0.0.1:5757';
+// var host = 'https://taflgi5t.qcloud.la';
+// var host = 'https://745390919.smalldiary.club';
+var host = 'http://127.0.0.1:5757';
 var config = {
     default_page: '../discovery/discovery',
     boot_page: './pages/boot/boot',
@@ -46,7 +46,7 @@ var config = {
         delPlanDetailInfo: `${host}/weapp/plan/detail/del`,
         queryPlanDetailInfo: `${host}/weapp/plan/detail/query`,
         queryPlanInfo: `${host}/weapp/plan/query`,
-        getPlanInfoStat: `${host}/weapp/plan/stat/get`,
+        getPlanInfoStat: `${host}/weapp/plan/list/query`,
         startPlanDetailInfo: `${host}/weapp/plan/detail/start`,
         addPlanProgress: `${host}/weapp/plan/detail/progress/add`,
         getShareInfo: `${host}/weapp/share/user/get`,

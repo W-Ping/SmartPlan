@@ -7,6 +7,9 @@
       <view class='not-bottom'>{{item.create_time}}</view>
     </view>
   </block>
+  <view hidden='{{notpadList && notpadList.length>0}}' class="data-none-warn">
+    <text>还没有您的笔记~~~</text>
+  </view>
 </scroll-view>
 <view class='not-option' bindtap='navigateToAdd'>
   <text>【+】点击添加</text>

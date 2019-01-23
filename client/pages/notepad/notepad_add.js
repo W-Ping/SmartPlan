@@ -36,11 +36,11 @@ Page({
     submitNote: function (e) {
         var noteInfo = e.detail.value;
         if (!noteInfo.note_title) {
-            util.showNone("标题不能为空");
+          util.showNone("请输入记事标题");
             return
         }
         if (!noteInfo.note_content) {
-            util.showNone("内容不能为空");
+          util.showNone("请输入记事内容");
             return
         }
         if (!this.data.noteRemindHidden) {

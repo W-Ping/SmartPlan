@@ -87,7 +87,7 @@ Page({
     submitEditPlanInfo: function (e) {
         var planDetailInfo = e.detail.value;
         if (!planDetailInfo.plan_detail_name) {
-            util.showNone("目标信息不能为空");
+          util.showNone("请输入目标内容");
             return
         }
         planDetailInfo.followUidList = this.data.followUidList;

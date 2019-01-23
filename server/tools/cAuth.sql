@@ -165,7 +165,7 @@ CREATE TABLE `clock_record_info` (
   `clock_on_time` time DEFAULT NULL,
   `clock_off_time` time DEFAULT NULL,
   `clock_type` int(11) NOT NULL DEFAULT '0' COMMENT '0:正常上班打卡;1:加班打卡',
-  `date_version` date DEFAULT NULL,
+  `date_version` varchar(255)NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)

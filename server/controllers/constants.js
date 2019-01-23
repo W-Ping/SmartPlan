@@ -1,4 +1,9 @@
 CNF = {
+    USER_RELATION: {
+        'Friend': '朋友',
+        'Colleague': '同事',
+        'Family': '亲人',
+    },
     DB_TABLE: {
         'user_info': 'user_info',
         'plan_info': 'plan_info',

@@ -43,7 +43,7 @@
         <button style='background:gold;' open-type="getUserInfo" bindtap='onRefuse' type='primary'> 暂不添加</button>
       </view>
       <view class='btn-item'>
-        <button style='background:#00abff;' open-type="getUserInfo" bindtap='onAgree' class='cancel-agree' type='primary'>同意添加</button>
+        <button style='background:#00abff;' open-type="getUserInfo" bindtap='onAgree' class='cancel-agree' type='primary'>{{authLoginFlag?'授权添加':'同意添加'}}</button>
       </view>
     </view>
   </view>

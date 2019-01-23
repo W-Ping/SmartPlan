@@ -1,11 +1,12 @@
-const {auth: {validation,getUserInfoBySKey}} = require('../qcloud')
+const {auth: {validation, getUserInfoBySKey}} = require('../qcloud')
 const {getUserByOpenId} = require('../controllers/userinfo')
-const debug = require('debug');
+// const debug = require('debug')('koa-weapp-demo')
 /**
  * 响应处理模块
  */
 module.exports = async function (ctx, next) {
     try {
+        console.log(ctx)
         // 调用下一个 middleware
         const {'x-wx-skey': skey} = ctx.req.headers
         if (skey !== null && skey !== undefined) {
@@ -25,16 +26,7 @@ module.exports = async function (ctx, next) {
         }
         await next()
     } catch (e) {
-        // catch 住全局的错误信息
-        debug('Catch Error: %o', e)
         console.log(e)
-        // 设置状态码为 200 - 服务端错误
-        ctx.status = 200
-
-        // 输出详细的错误信息
-        ctx.body = {
-            code: -1,
-            error: e && e.message ? e.message : e.toString()
-        }
+        throw new Error("validationMiddleware【" + `${e}`+"】")
     }
 }

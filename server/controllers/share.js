@@ -30,8 +30,11 @@ async function getShareInfoByUid(ctx, next) {
 
 async function bindShareUser(ctx, next) {
     let parmas = ctx.request.body;
+    let userInfo = ctx.state.$sysInfo.userinfo;
+    console.log("绑定好友参数 ", parmas);
+    if (!parmas) throw new Error("bind user params is null");
     console.log(parmas);
-    await userinfo.saveOrUpdateBindUser(parmas.uid, parmas.relation_uid).then(res => {
+    await userinfo.saveOrUpdateBindUser(parmas.uid, parmas.relation_uid, userInfo).then(res => {
         if (res && res.code == 1) {
             SUCCESS(ctx, res.msg);
         } else {
@@ -40,13 +43,15 @@ async function bindShareUser(ctx, next) {
     })
 }
 
+/**
+ *
+ * @param ctx
+ * @param next
+ * @returns {Promise<void>}
+ */
 async function checkUserRelation(ctx, next) {
     let {uid, refUid} = ctx.query;
-    await  mysql(CNF.DB_TABLE.user_relation_info).select("id").where("status", 0).andWhere(function () {
-        this.whereIn("uid", [uid, refUid]).andWhere(function () {
-            this.whereIn("relation_uid", [uid, refUid])
-        })
-    }).then(res => {
+    await  mysql(CNF.DB_TABLE.user_relation_info).select("id").where({uid: uid, relation_uid: refUid}).then(res => {
         if (res && res.length > 0) {
             SUCCESS(ctx, "Y");
         } else {

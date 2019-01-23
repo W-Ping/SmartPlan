@@ -12,7 +12,16 @@ const util = require('../tools/util')
  */
 async function query(ctx, next) {
     let condition = ctx.request.body;
-    await mysql(CNF.DB_TABLE.plan_detail_info).select('*').where(condition).orderByRaw('priority desc').then(res => {
+    let auth_type = [0, 1];
+    if (condition && condition.auth_type) {
+        auth_type = condition.auth_type;
+        delete condition.auth_type;
+    }
+    await mysql(CNF.DB_TABLE.plan_detail_info).select('*').whereIn('auth_type', auth_type).andWhere(function () {
+        if (condition) {
+            this.where(condition)
+        }
+    }).orderByRaw('priority desc').then(res => {
         SUCCESS(ctx, res);
     }).catch(e => {
         debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
@@ -207,6 +216,29 @@ function getAuthorizationPlanNo(uid) {
 }
 
 /**
+ * 获取授权的好友
+ * @param uid
+ * @returns {Promise<any>}
+ */
+function getAuthorizationUid(uid) {
+    return mysql(CNF.DB_TABLE.user_relation_info).distinct("relation_uid").select().where({
+        uid: uid,
+        status: 0
+    }).then(res => {
+        let relUidArr = [];
+        if (res && res.length > 0) {
+            res.forEach(function (item) {
+                relUidArr.push(item.relation_uid)
+            })
+        }
+        return Promise.resolve(relUidArr);
+    }).catch(e => {
+        debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
+        throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB}\n${e}`)
+    })
+}
+
+/**
  * 初始化计划主表
  * @param planInfo
  * @returns {*}
@@ -297,16 +329,19 @@ async function queryPlanInfo(ctx, next) {
         }
     }
     if (params && params.type == 1) {//查询好友目标
-        await getAuthorizationPlanNo(uid).then(async res => {
-            let planNoList = res.planNoList;
-            await mysql(CNF.DB_TABLE.plan_info).select("*").where(builder => {
-                builder.whereIn("plan_no", planNoList).whereIn('auth_type', authTypeArr).andWhereNot("creator_uid", uid)
-            }).then(res => {
+        await getAuthorizationUid(uid).then(async relationUidArr => {
+            if (relationUidArr && relationUidArr.length > 0) {
+                await mysql(CNF.DB_TABLE.plan_info).select("*").where(builder => {
+                    builder.whereIn("creator_uid", relationUidArr).whereIn('auth_type', authTypeArr).andWhereNot("creator_uid", uid)
+                }).then(res => {
+                    SUCCESS(ctx, res);
+                }).catch(e => {
+                    debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
+                    throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB}\n${e}`)
+                });
+            } else {
                 SUCCESS(ctx, res);
-            }).catch(e => {
-                debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
-                throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB}\n${e}`)
-            });
+            }
         })
     } else {
         //查询自己目标
@@ -538,10 +573,10 @@ async function startPlanDetailInfo(ctx, next) {
  */
 async function getPlanInfoStat(ctx, next) {
     let userInfo = ctx.state.$sysInfo.userinfo;
-    await  mysql(CNF.DB_TABLE.plan_info).select("*").joinRaw(" as pi inner join " +
+    await mysql(CNF.DB_TABLE.plan_info).select("*").joinRaw(" as pi inner join " +
         "(select plan_no,count(1) as count_sum,sum(if(status = 0, 1, 0)) as todo_count,sum(if(status = 1, 1, 0)) " +
         "as doing_count,sum(if(status = 2, 1, 0)) as done_count from " + CNF.DB_TABLE.plan_detail_info + " group by  plan_no)" +
-        " pdi on pi.plan_no = pdi.plan_no").where("pi.creator_uid", userInfo.uid).orderBy("start_time","desc").then(res => {
+        " pdi on pi.plan_no = pdi.plan_no").where("pi.creator_uid", userInfo.uid).orderBy("start_time", "desc").then(res => {
         SUCCESS(ctx, res);
     }).catch(e => {
         debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
