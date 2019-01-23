@@ -242,3 +242,39 @@ CREATE TABLE `note_info` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost
+Source Server Version : 50722
+Source Host           : localhost:3306
+Source Database       : cauth
+
+Target Server Type    : MYSQL
+Target Server Version : 50722
+File Encoding         : 65001
+
+Date: 2019-01-24 00:46:13
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for user_relation_info
+-- ----------------------------
+DROP TABLE IF EXISTS `user_relation_info`;
+CREATE TABLE `user_relation_info` (
+  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `relation_uid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `inviter_uid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `relation_lable` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `relation_phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT '0' COMMENT '状态[0:正常;1:隐藏]',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
