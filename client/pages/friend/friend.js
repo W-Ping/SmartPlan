@@ -93,7 +93,7 @@ Page({
     }
     return {
       title: (app.globalData.userInfo.nickName || '我') + ' 请您来做他的目标监督人',
-      path: 'pages/friend_bind/friend_bind',
+      path: 'pages/friend/friend_bind?uid=' + this.data.userInfo.uid,
       imageUrl: this.data.imageUrl,
       success: function(res) {
         // 转发成功
