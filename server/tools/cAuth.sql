@@ -209,9 +209,36 @@ CREATE TABLE `clock_rule_info` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost
+Source Server Version : 80011
+Source Host           : 127.0.0.1:3306
+Source Database       : cauth
+
+Target Server Type    : MYSQL
+Target Server Version : 80011
+File Encoding         : 65001
+
+Date: 2019-01-23 18:43:02
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
 -- ----------------------------
--- Records of clock_rule_info
+-- Table structure for note_info
 -- ----------------------------
-INSERT INTO `clock_rule_info` VALUES ('1', 'U5072730', '09:30:00', '18:10:00', '0', '06:00:00', '09:35:00', '18:30:00', '20:30:00', '1,4,5,2,3', '0', '2019-01-20 16:25:30', '2019-01-21 00:56:42');
-INSERT INTO `clock_rule_info` VALUES ('2', 'U5072730', '20:00:00', '23:59:00', '1', '20:40:00', '23:59:00', '21:00:00', '23:00:00', '3,1,5', '0', '2019-01-20 16:25:30', '2019-01-21 00:56:42');
-INSERT INTO `clock_rule_info` VALUES ('3', 'U5072730', '09:30:00', '18:30:00', '2', '06:30:00', '11:00:00', '16:30:00', '19:30:00', '0,6', '0', '2019-01-20 16:25:30', '2019-01-21 00:56:42');
+DROP TABLE IF EXISTS `note_info`;
+CREATE TABLE `note_info` (
+  `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nickName` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '用户昵称',
+  `note_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `note_content` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` int(11) DEFAULT '0' COMMENT '0：不用提醒；1：需要提醒',
+  `remind_time` timestamp NULL DEFAULT NULL COMMENT '提醒时间',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
