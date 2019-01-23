@@ -1,5 +1,5 @@
 .dis-head {
-  position: absolute;
+  position: fixed;
   top: 0;
   height: 100rpx;
   width: 100%;
@@ -9,7 +9,7 @@
   display: flex;
   display: -webkit-box;
   display: -webkit-flex;
-  position: absolute;
+  position: fixed;
   z-index: 500;
   top: 0;
   width: 100%;

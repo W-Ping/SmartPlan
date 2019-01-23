@@ -30,7 +30,7 @@ page {
   justify-content: center;
   width: 100%;
   background: #fff;
-  height: 40px;
+  height: 60px;
   border-bottom: 2px #f8f8f8 solid;
 }
 

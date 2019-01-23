@@ -2,5 +2,5 @@
   "usingComponents": {
     "search": "/components/searchbar/search"
   },
-  "navigationBarTitleText": "好友"
+  "navigationBarTitleText": "好友监督"
 }

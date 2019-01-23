@@ -18,7 +18,7 @@
 <scroll-view scroll-y class='plan-detail-box'>
   <block wx:for="{{planDetailInfoList}}" wx:for-item="item" wx:for-index="index" wx:key="*this">
     <view wx:if="{{item.status!=2}}">
-      <view class="plan-item {{item.isTouchMove ? 'touch-move-active' : ''}}" data-planNo="{{item.planNo}}" data-status='{{item.status}}' bindlongtap='planDetailToEdit' bindtouchstart="planTouchstart" bindtouchmove="planTouchmove" bindtouchend="planTouchend"
+      <view class="plan-item {{item.isTouchMove ? 'touch-move-active' : ''}}" data-planNo="{{item.planNo}}" data-status='{{item.status}}' data-pdno="{{item.plan_detail_no}}"  bindlongtap='navigatorToDetail' bindtouchstart="planTouchstart" bindtouchmove="planTouchmove" bindtouchend="planTouchend"
         data-index="{{index}}">
         <view class="pi-content">
           <view class='pi-title'>{{item.plan_detail_name}}</view>
@@ -34,7 +34,7 @@
       </view>
     </view>
     <view wx:else>
-      <view class="plan-item" data-planNo="{{item.planNo}}" data-status='{{item.status}}' bindlongtap='planDetailToEdit' data-index="{{index}}">
+      <view class="plan-item" data-pdno="{{item.plan_detail_no}}" data-status='{{item.status}}' bindtap='navigatorToDetail' data-index="{{index}}">
         <view class="pi-content">
           <view class='pi-title'>{{item.plan_detail_name}}</view>
           <view class='pi-other'>

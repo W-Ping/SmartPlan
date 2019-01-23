@@ -111,7 +111,7 @@
     </view>
   </view>
 </view>
-<view class='sc-desc'>
+<!-- <view class='sc-desc'>
   <text>计划权限</text>
 </view>
 <view class='sp-container'>
@@ -147,4 +147,4 @@
       </view>
     </view>
   </view>
-</view>
+</view> -->

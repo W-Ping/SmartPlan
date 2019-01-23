@@ -14,7 +14,7 @@
     </view>
   </view>
   <view class='setting-box' bindtap='navigatorToSetting' data-uid='{{userinfo.uid}}'>
-    <text>编辑</text>
+    <text >编辑</text>
     <text space="nbsp"> ></text>
   </view>
 </view>
@@ -25,7 +25,7 @@
         <image class='image' src='../../images/friend.png'></image>
       </view>
       <view class='menu-text'>
-        <text>监督人</text>
+        <text>好友监督</text>
       </view>
     </view>
     <view class='menu-item' bindtap='navigatorToSign'>

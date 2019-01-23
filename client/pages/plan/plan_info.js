@@ -98,8 +98,11 @@ Page({
   planTouchend: function(e) {
     console.log("doing touch end....");
   },
-  planDetailToEdit: function(e) {
-
+  navigatorToDetail: function(e) {
+    var pdNo = e.currentTarget.dataset.pdno;
+    wx.navigateTo({
+      url: './plan_detail?pdNo=' + pdNo,
+    })
   },
   onToTop: function(e) {
     var index = e.currentTarget.dataset.index;

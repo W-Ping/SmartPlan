@@ -38,6 +38,7 @@ page {
   flex-direction: row;
   width: 20%;
   font-size: 18px;
+  opacity: 0.8;
 }
 
 .menu-continar {

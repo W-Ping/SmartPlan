@@ -29,7 +29,7 @@
           <image style='width: 20px;height: 20px;' src='../../images/share_f.png'></image>
         </view>
         <view>
-          <text>邀请朋友</text>
+          <text>邀请好友</text>
         </view>
       </view>
     </view>
