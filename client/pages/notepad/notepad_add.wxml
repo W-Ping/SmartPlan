@@ -11,8 +11,8 @@
       <switch color="#00abff" checked="{{!noteRemindHidden}}" bindchange="switchRemindChange"></switch>
     </view>
   </view>
-  <view hidden='{{noteRemindHidden}}'>
-    <picker-view indicator-style="height: 50px;" style="margin: 5rpx auto;width: 98%; height: 250px;" value="{{value}}" bindchange="changeRemindTime">
+  <view hidden='{{noteRemindHidden}}' style="height: 250px;">
+    <picker-view indicator-style="height: 50px;" style="margin: 5rpx auto;width: 98%; height: inherit;" value="{{value}}" bindchange="changeRemindTime">
       <picker-view-column>
         <view wx:for="{{years}}" wx:key="key" style="line-height: 50px">{{item}}年</view>
       </picker-view-column>

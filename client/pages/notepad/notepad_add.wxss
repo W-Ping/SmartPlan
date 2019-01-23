@@ -9,6 +9,7 @@
   width: 100%;
   height: 45px;
   padding-left: 10rpx;
+
 }
 
 .note-box input {
