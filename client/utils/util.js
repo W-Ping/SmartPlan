@@ -36,24 +36,29 @@ const getDateTime = (timeStr) => {
     }
     return timeStr;
 }
+/**
+ *  时间格式转换
+ *
+ * @param date
+ * @param format
+ * @returns {*}
+ */
 const formatUnixTime = (date, format) => {
     if (!date) return '';
-    format = format ? format : 'Y-M-D'
-    var formateArr = ["Y", "M", "D", "h", "m", "s"];
-    var returnArr = [];
-    if (date.constructor == String) {
-        date = new Date(date);
+    if (typeof date == 'string' && date.constructor == String) {
+        date = new Date(Date.parse(date.replace(/-/g, "/")));
     }
+    format = format ? format : 'Y-M-D'
+    var formatArr = ["Y", "M", "D", "h", "m", "s"];
+    var returnArr = [];
     returnArr.push(date.getFullYear());
     returnArr.push(formatNumber(date.getMonth() + 1));
     returnArr.push(formatNumber(date.getDate()));
-
     returnArr.push(formatNumber(date.getHours()));
     returnArr.push(formatNumber(date.getMinutes()));
     returnArr.push(formatNumber(date.getSeconds()));
-
     for (var i in returnArr) {
-        format = format.replace(formateArr[i], returnArr[i]);
+        format = format.replace(formatArr[i], returnArr[i]);
     }
     return format;
 };
@@ -82,6 +87,27 @@ function getWeek(day) {
     return week[day];
 }
 
+/**
+ * 获取月份天数 默认当月
+ * @param date
+ * @returns {number}
+ */
+function getMonthDays(date) {
+    date = date ? date : new Date();
+    if (typeof date == 'string' && date.constructor == String) {
+        date = new Date(Date.parse(date.replace(/-/g, "/")));
+    }
+    date.setMonth(date.getMonth() + 1);
+    date.setDate(0);
+    var days = date.getDate();
+    return days;
+}
+
+/**
+ * 新增天数
+ * @param day
+ * @returns {*}
+ */
 function nowDateAdd(day) {
     day = day || 7;
     var nowDate = new Date(formatUnixTime(new Date(), "Y-M-D"));
@@ -216,7 +242,6 @@ function dateUnit(unit) {
     return unit;
 }
 
-
 // 显示繁忙提示
 var showBusy = text => wx.showToast({
     title: text,
@@ -269,8 +294,10 @@ module.exports = {
     nowTime,
     getNowTime,
     getDateTime,
+    formatNumber,
     convertTimeToArr,
     getWeek,
+    getMonthDays,
     compareTime,
     dateIncrease,
     dateDiff,

@@ -1,9 +1,36 @@
 /* client/pages/notepad/notepad_add.wxss */
 
-.save-title {
+.note-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   background: #fff;
-  /* height: 50px; */
-  margin: 5px auto;
-  padding: 5px;
-  border-radius: 5px;
+  margin: 5rpx auto;
+  width: 100%;
+  height: 45px;
+  padding-left: 10rpx;
+}
+
+.note-box input {
+  height: 90%;
+  width: 98%;
+  /* border-bottom: 1px solid #ccc; */
+}
+
+.note-content {
+  height: 90px;
+}
+
+.note-box textarea {
+  height: 90%;
+  width: 98%;
+}
+
+.note-desc {
+  width: 40%;
+}
+
+.note-opt {
+  text-align: right;
+  width: 60%;
 }

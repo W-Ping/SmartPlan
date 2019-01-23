@@ -1,13 +1,30 @@
-<form bindsubmit='addNotepad'>
-  <view class='save-container'>
-    <view class='save-title'>
-      <input name="title" focus placeholder='输入标题'></input>
+<form bindsubmit='submitNote'>
+  <view class='note-box'>
+    <input name="note_title" maxlength='20' focus placeholder='输入标题(最多20字)'></input>
+  </view>
+  <view class='note-box note-content'>
+    <textarea name="note_content" maxlength='120' placeholder='输入内容(最多120)'></textarea>
+  </view>
+  <view class='note-box'>
+    <view class='note-desc'>提醒设置</view>
+    <view class='note-opt'>
+      <switch color="#00abff" checked="{{!noteRemindHidden}}" bindchange="switchRemindChange"></switch>
     </view>
-    <view class='save-content'>
-      <textarea name="content" placeholder='输入内容'></textarea>
-    </view>
-    <view class='save-btn'>
-      <button form-type="submit">保存</button>
-    </view>
+  </view>
+  <view hidden='{{noteRemindHidden}}'>
+    <picker-view indicator-style="height: 50px;" style="margin: 5rpx auto;width: 98%; height: 250px;" value="{{value}}" bindchange="changeRemindTime">
+      <picker-view-column>
+        <view wx:for="{{years}}" wx:key="key" style="line-height: 50px">{{item}}年</view>
+      </picker-view-column>
+      <picker-view-column>
+        <view wx:for="{{months}}" wx:key="key" style="line-height: 50px">{{item}}月</view>
+      </picker-view-column>
+      <picker-view-column>
+        <view wx:for="{{days}}" wx:key="key" style="line-height: 50px">{{item}}日</view>
+      </picker-view-column>
+    </picker-view>
+  </view>
+  <view class='save-btn'>
+    <button form-type="submit">保存</button>
   </view>
 </form>

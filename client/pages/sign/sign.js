@@ -255,7 +255,7 @@ Page({
                 util.showModel("", offWkOvMinTime + "后才能打卡下班哦？")
             }
         } else {
-            util.showNone("下班已经成功")
+            util.showNone("下班已经打卡成功")
         }
     },
     navigateToRule: function () {

@@ -210,23 +210,3 @@
     </view>
   </view>
 </template>
-
-<!--可编辑任务-->
-<template name="list-plan">
-  <view class="todo-plan {{item.isTouchMove ? 'touch-move-active' : ''}}" data-planNo="{{item.planNo}}" data-status='{{item.status}}' bindlongtap='planDetailToEdit' bindtouchstart="planTouchstart" bindtouchmove="planTouchmove" bindtouchend="planTouchend"
-    data-index="{{index}}">
-    <view class='conent'>
-      <view class="tt-level level-{{item.level}}">
-        <view class="level-type">{{item.level}}级</view>
-      </view>
-      <view class='tt-title title-level-{{item.level}}'>
-        <text>{{item.content}}</text>
-      </view>
-      <view class='tt-auther'>{{item.auther}}</view>
-    </view>
-    <view class='posit'>
-      <view class='p-opt priority' catchtap="planDetailToEdit" data-planNo="{{item.planNo}}" data-index="{{index}}">编 辑</view>
-      <view class='p-opt delete' catchtap="deletePlan" data-planNo="{{item.planNo}}" data-index="{{index}}">删 除</view>
-    </view>
-  </view>
-</template>

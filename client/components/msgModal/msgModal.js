@@ -26,7 +26,6 @@ Component({
    */
   methods: {
     showModal: function(e, info) {
-      console.log(info);
       this.setData({
         isHidden: false,
         delHidden: true,

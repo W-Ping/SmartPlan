@@ -30,22 +30,20 @@ App({
                     this.globalData.userInfo = res;
                     this.globalData.logged = true;
                     console.log("scene", scene)
-                    if ("pages/friend/friend_bind"!==options.path) {
-                        wx.reLaunch({
-                            url: config.boot_page,
-                        })
-                    }
+                    // if ("pages/friend/friend_bind"!==options.path) {
+                    //     wx.reLaunch({
+                    //         url: config.boot_page,
+                    //     })
+                    // }
                 },
                 fail: err => {
                     console.error(err)
                 }
             })
         }else{
-          if ("pages/friend/friend_bind"!==options.path) {
-              wx.reLaunch({
-                  url: config.boot_page,
-              })
-          }
+          wx.reLaunch({
+            url: config.boot_page,
+          })
         }
     },
     globalData: {

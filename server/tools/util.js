@@ -26,19 +26,28 @@ const nowTime = (joinSymbol) => {
 const getNowTime = () => {
     return formatTime(new Date()).substr(10).substr(0, 6).trim();
 }
+/**
+ *  时间格式转换
+ *
+ * @param date
+ * @param format
+ * @returns {*}
+ */
 const formatUnixTime = (date, format) => {
-    var formateArr = ["Y", "M", "D", "h", "m", "s"];
+    if (!date) return '';
+    if (typeof date == 'string' && date.constructor == String) {
+        date = new Date(Date.parse(date.replace(/-/g, "/")));
+    }
+    var formatArr = ["Y", "M", "D", "h", "m", "s"];
     var returnArr = [];
     returnArr.push(date.getFullYear());
     returnArr.push(formatNumber(date.getMonth() + 1));
     returnArr.push(formatNumber(date.getDate()));
-
     returnArr.push(formatNumber(date.getHours()));
     returnArr.push(formatNumber(date.getMinutes()));
     returnArr.push(formatNumber(date.getSeconds()));
-
     for (var i in returnArr) {
-        format = format.replace(formateArr[i], returnArr[i]);
+        format = format.replace(formatArr[i], returnArr[i]);
     }
     return format;
 };
@@ -66,11 +75,21 @@ function getWeek(day) {
     day = day || new Date().getDay();
     return week[day];
 }
-function nowDateAdd(day) {
+
+/**
+ *
+ * @param day
+ * @param nowDate new Date()
+ * @returns {*}
+ */
+function nowDateAdd(day, nowDate) {
     day = day || 7;
-    var nowDate = new Date(formatUnixTime(new Date(), "Y-M-D"));
-    return nowDate = formatUnixTime(new Date(nowDate.getTime() + day * 24 * 60 * 60 * 1000),"Y-M-D");
+    if (!nowDate) {
+        nowDate = new Date(formatUnixTime(new Date(), "Y-M-D"));
+    }
+    return nowDate = formatUnixTime(new Date(nowDate.getTime() + day * 24 * 60 * 60 * 1000), "Y-M-D");
 }
+
 /**
  *   计算两时间之差
  *
@@ -181,10 +200,20 @@ function generateNo(prefix, lastNo, incr) {
     var rand = Math.ceil(Math.random() * 99);
     rand = rand < 10 ? "0" + rand : rand;
     if (String(lastNo).indexOf(prefix) != -1) {
-        lastNo = lastNo.substr(prefix.length+ 2);
+        lastNo = lastNo.substr(prefix.length + 2);
     }
     lastNo = String(Number(lastNo) + incr);
-    return prefix + rand  + lastNo;
+    return prefix + rand + lastNo;
 }
 
-module.exports = {formatTime, formatUnixTime,getWeek, nowTime, nowDateAdd,dateDiff, dateUnit, generateUid, generateNo};
+module.exports = {
+    formatTime,
+    formatUnixTime,
+    getWeek,
+    nowTime,
+    nowDateAdd,
+    dateDiff,
+    dateUnit,
+    generateUid,
+    generateNo
+};

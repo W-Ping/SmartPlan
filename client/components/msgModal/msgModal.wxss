@@ -48,28 +48,25 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  border-top: 1rpx solid #ccc;
 }
 
 .btn-left, .btn-right {
   width: 50%;
   height: 100%;
+  border-left: 1rpx solid #ccc;
 }
-
 
 .btn {
   width: inhrit;
   height: inherit;
-  color: #fff;
+  color: #000;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ccc;
+  /* background: #ccc; */
 }
 
 .del {
-  background: red;
-}
-
-.cancel {
-  background: #888;
+  color: red;
 }

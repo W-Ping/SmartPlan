@@ -53,9 +53,11 @@ router.delete('/plan/detail/del', controllers.plan.del)
 router.post('/plan/detail/topIndex', controllers.plan.topIndex)
 router.post('/plan/detail/progress/add', controllers.plan.addProgress)
 router.post('/plan/detail/start', controllers.plan.startPlanDetailInfo)
+
 router.post('/share/user/get', controllers.share.getShareInfo)
 router.get('/share/user/get/:uid', controllers.share.getShareInfoByUid)
 router.post('/share/user/bind', controllers.share.bindShareUser)
+
 router.post('/user/relation/get', controllers.userinfo.getRelationUserList)
 router.get('/user/info/get/:keyword', controllers.userinfo.getUserByKeyword)
 router.get('/user/detail/relation/get', controllers.userinfo.getRelationUserDetail)
@@ -67,6 +69,15 @@ router.post('/clock/save', controllers.clock.save)
 router.get('/clock/get', controllers.clock.get)
 router.post('/clock/record/get', controllers.clock.getClockRuleRecord)
 router.post('/clock/record/supplement', controllers.clock.supplementClockRecord)
+
+
+router.post('/note/update', controllers.note.update)
+router.post('/note/save', controllers.note.save)
+router.post('/note/query', controllers.note.query)
+router.get('/note/get', controllers.note.get)
+router.delete('/note/del', controllers.note.deleteNote)
+router.get('/note/remind/count', controllers.note.getRemindNoteCount)
+router.get('/note/remind/query', controllers.note.getRemindNoteList)
 
 
 module.exports = router

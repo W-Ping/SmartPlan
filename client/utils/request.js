@@ -116,9 +116,43 @@ const deleteReq = (url, params, callback, fail) => {
         }
     })
 };
-
+/**
+ * delete 请求
+ */
+const deleteNoConfirmReq = (url, params, callback, fail) => {
+    if (!params) {
+        util.showModel('删除失败', "参数不能为空");
+    }
+    var session = qcloud.Session.get();
+    console.log(session);
+    url = url + (params ? "?" + params : '');
+    console.info("delete request url：" + url);
+    var options = {
+        header: {
+            'X-WX-SKEY': session.skey
+        },
+        url: url,
+        method: 'DELETE',
+        success(result) {
+            console.log(result);
+            if (callback && typeof(callback) == 'function') {
+                callback(result.data);
+            }
+        },
+        fail(error) {
+            console.log('delete request fail', error);
+            if (fail && typeof(fail) == 'function') {
+                fail(error);
+            } else {
+                util.showModel('请求失败', error);
+            }
+        }
+    }
+    wx.request(options)
+};
 module.exports = {
     getReq,
     postReq,
-    deleteReq
+    deleteReq,
+    deleteNoConfirmReq
 };

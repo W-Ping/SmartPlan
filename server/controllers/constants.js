@@ -7,6 +7,7 @@ CNF = {
         'user_relation_info': 'user_relation_info',
         'clock_rule_info': 'clock_rule_info',
         'clock_record_info': 'clock_record_info',
+        'note_info': 'note_info',
     },
     OPT_STATE: {
         SUCCESS_CODE: 1,
