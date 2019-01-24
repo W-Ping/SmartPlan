@@ -222,7 +222,7 @@ Page({
             var that = this;
             wx.showModal({
                 title: '确定完成',
-                content: '确定已完成当前任务',
+                content: '目标完成不可更改！！！',
                 success(res) {
                     if (res.confirm) {
                         wx.vibrateLong();

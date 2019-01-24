@@ -1,12 +1,12 @@
 <!--client/pages/friend/friend_detail.wxml-->
 <view class='fi-container'>
   <view class='fi fi-box'>
-    <view class='fi-image pd-5' data-avatar='{{friendInfo.avatarUrl}}'  bindtap='previewImage'>
-      <image  src='{{friendInfo.avatarUrl}}'></image>
+    <view class='fi-image pd-5' data-avatar='{{friendInfo.avatarUrl}}' bindtap='previewImage'>
+      <image src='{{friendInfo.avatarUrl}}'></image>
     </view>
     <view class='fi-info'>
       <view class='fii-nickName'>
-        <text >{{friendInfo.nickName}}{{friendInfo.realName?'('+friendInfo.realName+')':''}}</text>
+        <text>{{friendInfo.nickName}}{{friendInfo.realName?'('+friendInfo.realName+')':''}}</text>
       </view>
       <view class='fii-uid'>
         <text>编号:{{friendInfo.uid}}</text>
@@ -25,8 +25,8 @@
     </view>
   </view>
   <view class='fi fi-mp'>
-    <view class='fim-desc'> 
-      <text class='pd-5'>电话</text>
+    <view class='fim-desc'>
+      <text class='pd-5'>电话号码</text>
     </view>
     <view class='fim-phone'>
       <view class='fim-phone-input'>
@@ -35,9 +35,20 @@
       <view hidden="{{hidden}}" class='fim-phone-btn' bindtap='addFriendMobilePhone'>确定</view>
     </view>
   </view>
+ <view class='fi fi-mp'>
+    <view class='fim-desc'>
+      <text class='pd-5'>联系邮件</text>
+    </view>
+    <view class='fim-phone'>
+      <view class='fim-phone-input'>
+        <input  value='{{friendInfo.relation_mail}}' bindblur='blurMail' bindfocus='focusMail' bindinput='inputMail' placeholder='添加联系邮件'></input>
+      </view>
+      <view hidden="{{mailHidden}}" class='fim-phone-btn' bindtap='addFriendMail'>确定</view>
+    </view>
+  </view>
   <view class='fi-plan'>
     <view class='fi-plan-desc'>
-      <text class='pd-5' >最近的任务</text>
+      <text class='pd-5'>最近的任务</text>
     </view>
     <view class='line'></view>
     <block wx:for="{{planInfoList}}" wx:for-item="item" wx:for-index="index" wx:key="*this">

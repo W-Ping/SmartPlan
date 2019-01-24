@@ -242,6 +242,9 @@ async function updateUserRelation(ctx, next) {
     if (params.relation_lable) {
         updateInfo.relation_lable = params.relation_lable;
     }
+    if (params.relation_mail) {
+        updateInfo.relation_mail = params.relation_mail;
+    }
     if (params.status) {
         updateInfo.status = params.status;
     }
@@ -259,7 +262,7 @@ async function updateUserRelation(ctx, next) {
 
 async function getRelationUserDetail(ctx, next) {
     const {uid} = ctx.query;
-    await mysql(CNF.DB_TABLE.user_info).select(CNF.DB_TABLE.user_info + ".*", CNF.DB_TABLE.user_relation_info + ".relation_lable",CNF.DB_TABLE.user_relation_info + ".relation_phone").innerJoin(CNF.DB_TABLE.user_relation_info, function () {
+    await mysql(CNF.DB_TABLE.user_info).select(CNF.DB_TABLE.user_info + ".*", CNF.DB_TABLE.user_relation_info + ".relation_lable",CNF.DB_TABLE.user_relation_info + ".relation_phone",CNF.DB_TABLE.user_relation_info + ".relation_mail").innerJoin(CNF.DB_TABLE.user_relation_info, function () {
         this.on(CNF.DB_TABLE.user_info + '.uid', '=', CNF.DB_TABLE.user_relation_info + '.relation_uid')
     }).andWhere(CNF.DB_TABLE.user_relation_info + ".relation_uid", uid).andWhere(CNF.DB_TABLE.user_relation_info + ".status", 0).first().then(res => {
         SUCCESS(ctx, res)

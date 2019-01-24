@@ -12,7 +12,9 @@ Page({
     friendInfo: {},
     planInfoList: [],
     hidden: true,
-    mobilePhone: ''
+    mailHidden: true,
+    mobilePhone: '',
+    mail: '',
   },
 
   /**
@@ -22,10 +24,11 @@ Page({
     var uid = options.uid;
     request.getReq(config.service.getRelationUserDetail, "uid=" + uid, res => {
       if (res && res.code == 1) {
-        var friendInfo=res.data;
+        var friendInfo = res.data;
         this.setData({
           friendInfo: friendInfo,
-          mobilePhone: friendInfo.relation_phone ? friendInfo.relation_phone:''
+          mobilePhone: friendInfo.relation_phone ? friendInfo.relation_phone : '',
+          mail: friendInfo.relation_mail ? friendInfo.relation_mail : ''
         })
       }
     })
@@ -92,11 +95,34 @@ Page({
       mobilePhone: e.detail.value
     })
   },
+  inputMail: function(e) {
+    this.setData({
+      mail: e.detail.value
+    })
+  },
+  focusMail: function(e) {
+    this.setData({
+      mailHidden: false,
+    })
+  },
+  blurMail: function(e) {
+    this.setData({
+      mailHidden: true,
+    })
+  },
+  inputMail: function(e) {
+    this.setData({
+      mail: e.detail.value
+    })
+  },
   addFriendMobilePhone: function(e) {
     var mobilePhone = this.data.mobilePhone;
+    if (!mobilePhone) {
+      util.showNone("填写电话号码");
+      return;
+    }
     var friendInfo = this.data.friendInfo;
-    console.log("添加好友手机号码", mobilePhone, friendInfo.uid);
-    friendInfo.mobilePhone = mobilePhone;
+    friendInfo.relation_phone = mobilePhone;
     request.postReq(config.service.updateUserRelation, {
       relation_uid: friendInfo.uid,
       relation_phone: mobilePhone
@@ -112,12 +138,39 @@ Page({
         util.showNone("添加电话失败")
       }
     })
-
+  },
+  addFriendMail: function(e) {
+    var mail = this.data.mail;
+    if (!mail) {
+      util.showNone("填写联系邮件");
+      return;
+    }
+    var friendInfo = this.data.friendInfo;
+    friendInfo.relation_mail = mail;
+    request.postReq(config.service.updateUserRelation, {
+      relation_uid: friendInfo.uid,
+      relation_mail: mail
+    }, res => {
+      if (res.code == 1) {
+        util.showSuccess("添加邮件成功")
+        this.setData({
+          mail: mail,
+          friendInfo: friendInfo,
+          mailHidden: true
+        });
+      } else {
+        util.showNone("添加联系邮件失败")
+      }
+    })
   },
   clickAddPhone: function(e) {
-    console.log("点击添加好友手机号码");
     this.setData({
       hidden: !this.data.hidden
+    })
+  },
+  clickAddMail: function(e) {
+    this.setData({
+      mailHidden: !this.data.mailHidden
     })
   },
   callingMobilePhone: function(e) {
@@ -143,7 +196,7 @@ Page({
   navigatorToRelation: function(e) {
     util.showNone("暂不支持")
   },
-  deleteRealtionUser:function(e){
+  deleteRealtionUser: function(e) {
     util.showNone("暂不支持")
   }
 })
