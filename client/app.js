@@ -33,17 +33,13 @@ App({
           if ("pages/friend/friend_bind" !== options.path) {
 
           }
-          // if ("pages/friend/friend_bind"!==options.path) {
-          //     wx.reLaunch({
-          //         url: config.boot_page,
-          //     })
-          // }
         },
         fail: err => {
           console.error(err)
         }
       })
     } else {
+      //邀请好友
       if ("pages/friend/friend_bind" !== options.path) {
         wx.reLaunch({
           url: config.boot_page,

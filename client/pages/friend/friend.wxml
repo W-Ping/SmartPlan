@@ -20,6 +20,9 @@
       </view>
     </view>
   </block>
+  <view hidden='{{relationUserList && relationUserList.length>0}}' class="data-none-warn">
+    <text>您还没有好友~~~</text>
+  </view>
 </scroll-view>
 <view>
   <button open-type="share">

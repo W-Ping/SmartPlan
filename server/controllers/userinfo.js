@@ -179,7 +179,9 @@ function saveOrUpdateBindUser(uid, relation_uid, updateInfo) {
                 userRelationInfo2.create_time = nowTime;
                 userRelationInfo2.update_time = nowTime;
                 userRelationInfo2.inviter_uid = relation_uid;
-                userRelationInfo2.relation_phone = updateInfo && updateInfo.mobile_phone ? updateInfo.mobile_phone : '';
+                if (updateInfo && updateInfo.mobile_phone) {
+                    userRelationInfo2.relation_phone = updateInfo.mobile_phone;
+                }
                 userRelationInfoArr.push(userRelationInfo2)
                 return mysql(CNF.DB_TABLE.user_relation_info).insert(userRelationInfoArr).then(res => {
                     console.log("insert userRelationInfo", res);
@@ -193,25 +195,71 @@ function saveOrUpdateBindUser(uid, relation_uid, updateInfo) {
     })
 }
 
+/**
+ *
+ * @param ctx
+ * @param next
+ * @returns {*|Promise<any>|PromiseLike<T>|Promise<T>}
+ */
 function getRelationUserList(ctx, next) {
-    let params = ctx.request.body;
+    let params = ctx.request.body;//params 是查询好友参数
+    let status = params && params.status || 0;
     let userInfo = ctx.state.$sysInfo.userinfo;
-    return mysql(CNF.DB_TABLE.user_info).select(CNF.DB_TABLE.user_info + ".uid", "avatarUrl", "nickName", "realName", CNF.DB_TABLE.user_relation_info + ".relation_lable").innerJoin(CNF.DB_TABLE.user_relation_info, function () {
+    return mysql(CNF.DB_TABLE.user_info).distinct(CNF.DB_TABLE.user_info + ".uid", "avatarUrl", "nickName", "realName", CNF.DB_TABLE.user_relation_info + ".relation_lable").select().innerJoin(CNF.DB_TABLE.user_relation_info, function () {
         this.on(CNF.DB_TABLE.user_info + '.uid', '=', CNF.DB_TABLE.user_relation_info + '.relation_uid')
-    }).andWhere(CNF.DB_TABLE.user_relation_info + ".uid", userInfo.uid).andWhere(CNF.DB_TABLE.user_relation_info + ".status", 0).andWhere(function () {
+    }).andWhere(CNF.DB_TABLE.user_relation_info + ".uid", userInfo.uid).andWhere(CNF.DB_TABLE.user_relation_info + ".status", status).andWhere(function () {
         if (params && params.uid) {
             this.where(CNF.DB_TABLE.user_info + ".uid", params.uid)
         }
     }).then(res => {
         SUCCESS(ctx, res)
         // return Promise.resolve({code: 1, data: res});
+    }).catch(e => {
+        debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
+        throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB}\n${e}`)
     })
 
 }
 
+/**
+ *  更新好友新
+ * @param ctx
+ * @param next
+ * @returns {Promise<void>}
+ */
+async function updateUserRelation(ctx, next) {
+    let params = ctx.request.body;
+    if (!params || !params.relation_uid) {
+        FAILED(ctx, 'relation_uid is null');
+        return
+    }
+    let relation_uid = params.relation_uid;
+    let userInfo = ctx.state.$sysInfo.userinfo;
+    let updateInfo = {};
+    if (params.relation_phone) {
+        updateInfo.relation_phone = params.relation_phone;
+    }
+    if (params.relation_lable) {
+        updateInfo.relation_lable = params.relation_lable;
+    }
+    if (params.status) {
+        updateInfo.status = params.status;
+    }
+    updateInfo.update_time = util.nowTime();
+    await mysql(CNF.DB_TABLE.user_relation_info).update(updateInfo).where({
+        uid: userInfo.uid,
+        relation_uid: relation_uid
+    }).then(res => {
+        SUCCESS(ctx, res);
+    }).catch(e => {
+        debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_UPDATE_TO_DB, e)
+        throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_UPDATE_TO_DB}\n${e}`)
+    })
+}
+
 async function getRelationUserDetail(ctx, next) {
     const {uid} = ctx.query;
-    await mysql(CNF.DB_TABLE.user_info).select(CNF.DB_TABLE.user_info + ".*", CNF.DB_TABLE.user_relation_info + ".relation_lable").innerJoin(CNF.DB_TABLE.user_relation_info, function () {
+    await mysql(CNF.DB_TABLE.user_info).select(CNF.DB_TABLE.user_info + ".*", CNF.DB_TABLE.user_relation_info + ".relation_lable",CNF.DB_TABLE.user_relation_info + ".relation_phone").innerJoin(CNF.DB_TABLE.user_relation_info, function () {
         this.on(CNF.DB_TABLE.user_info + '.uid', '=', CNF.DB_TABLE.user_relation_info + '.relation_uid')
     }).andWhere(CNF.DB_TABLE.user_relation_info + ".relation_uid", uid).andWhere(CNF.DB_TABLE.user_relation_info + ".status", 0).first().then(res => {
         SUCCESS(ctx, res)
@@ -231,5 +279,6 @@ module.exports = {
     saveOrUpdateBindUser,
     getRelationUserList,
     getRelationUserDetail,
+    updateUserRelation,
     getUserByKeyword,
 }

@@ -6,7 +6,7 @@
     </view>
     <view class='fi-info'>
       <view class='fii-nickName'>
-        <text>{{friendInfo.nickName}}{{friendInfo.realName?'('+friendInfo.realName+')':''}}</text>
+        <text >{{friendInfo.nickName}}{{friendInfo.realName?'('+friendInfo.realName+')':''}}</text>
       </view>
       <view class='fii-uid'>
         <text>编号:{{friendInfo.uid}}</text>
@@ -16,35 +16,35 @@
       <text>{{friendInfo.relation_lable}}</text>
     </view>
   </view>
-  <view class='fi fi-setting'>
-    <view class='pd-5'>
-      <text>设置备注和标签</text>
+  <view class='fi fi-setting' bindtap='navigatorToRelation'>
+    <view>
+      <text class='pd-5'>设置备注和标签</text>
     </view>
     <view class='gt'>
       <text>></text>
     </view>
   </view>
   <view class='fi fi-mp'>
-    <view class='fim-desc pd-5'> 
-      <text>电话</text>
+    <view class='fim-desc'> 
+      <text class='pd-5'>电话</text>
     </view>
     <view class='fim-phone'>
       <view class='fim-phone-input'>
-        <input type='number' maxlength='11' value='{{friendInfo.mobile_phone}}' bindblur='blurPhone' bindfocus='focusPhone' bindinput='inputPhone' placeholder='添加电话号码'></input>
+        <input type='number' maxlength='11' value='{{friendInfo.relation_phone}}' bindblur='blurPhone' bindfocus='focusPhone' bindinput='inputPhone' placeholder='添加电话号码'></input>
       </view>
       <view hidden="{{hidden}}" class='fim-phone-btn' bindtap='addFriendMobilePhone'>确定</view>
     </view>
   </view>
   <view class='fi-plan'>
-    <view class='fi-plan-desc pd-5'>
-      <text>最近的任务</text>
+    <view class='fi-plan-desc'>
+      <text class='pd-5' >最近的任务</text>
     </view>
     <view class='line'></view>
-    <block wx:for="{{friendInfo.planInfoList}}" wx:for-item="item" wx:for-index="index" wx:key="*this">
+    <block wx:for="{{planInfoList}}" wx:for-item="item" wx:for-index="index" wx:key="*this">
       <view class='fi-plan-detail'>
-        <text>{{item.content}}</text>
+        <text>{{item.plan_detail_name}}</text>
       </view>
-      <view class='p-line' wx:if="{{friendInfo.planInfoList.length-1!=index}}"></view>
+      <view class='p-line' wx:if="{{planInfoList.length-1!=index}}"></view>
     </block>
     <view class='line'></view>
     <view class='fi-plan-more'>
@@ -58,6 +58,6 @@
   </view>
   <view class='fi-call'>
     <button type='primary' style='background:#00abff' data-mobilephone='{{friendInfo.mobilePhone}}' bindtap='callingMobilePhone'>拨打电话</button>
-    <button type='default' style='margin-top:10rpx;' data-uid="{{friendInfo.uid}}" bindtap='callingMobilePhone'>删除</button>
+    <button type='default' style='margin-top:10rpx;color:red;' data-uid="{{friendInfo.uid}}" bindtap='deleteRealtionUser'>删除</button>
   </view>
 </view>

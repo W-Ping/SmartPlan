@@ -10,7 +10,7 @@
         </view>
         <view hidden='{{otHidden}}' class='circle-box wxc-overtime-bg'>
         </view>
-        <text> 打卡</text>
+        <text> 打 卡</text>
       </view>
     </view>
     <view hidden='{{wkHidden}}' style='width:100%;background: #fff'>
@@ -50,7 +50,7 @@
           <view class='wxc-box'>
             <view class='wxc-desc-box'>
               <view class='wxc-text wk-time-text wxc-work-bg'>
-                <text>上班</text>
+                <text>上 班</text>
               </view>
               <view class='wxc-sub wk-time-sub wxc-work-bg'>
                 <text></text>
@@ -227,7 +227,7 @@
           <view class='wxc-box'>
             <view class='wxc-desc-box'>
               <view class='wxc-text wk-time-text wxc-overtime-bg'>
-                <text>上班</text>
+                <text>上 班</text>
               </view>
               <view class='wxc-sub wk-time-sub wxc-overtime-bg'>
                 <text></text>

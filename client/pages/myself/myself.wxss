@@ -90,7 +90,7 @@ page {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #00abff;
+  color: #00aaff48;
   font-weight: 700;
   font-size: 20px;
   overflow: hidden;

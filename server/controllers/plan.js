@@ -340,7 +340,7 @@ async function queryPlanInfo(ctx, next) {
                     throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB}\n${e}`)
                 });
             } else {
-                SUCCESS(ctx, res);
+                SUCCESS(ctx, relationUidArr);
             }
         })
     } else {
@@ -584,6 +584,32 @@ async function getPlanInfoStat(ctx, next) {
     })
 }
 
+async function getRelationPlanDetail(ctx, next) {
+    let params = ctx.query;
+    if (!params && !params.rUid) {
+        FAILED(ctx, "rUid is null");
+        return;
+    }
+    let pageNum = 0;
+    let pageSize = 3;
+    if (params.pNum) {
+        pageNum = parseInt(params.pNum);
+    }
+    if (params.pSize) {
+        pageSize = parseInt(params.pSize);
+    }
+    await mysql(CNF.DB_TABLE.plan_detail_info).select("*").where({
+        creator_uid: params.rUid,
+        auth_type: 0
+    }).orderByRaw(" update_time desc").limit(pageSize).offset(pageNum).then(res => {
+        SUCCESS(ctx, res);
+    }).catch(e => {
+        debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
+        throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB}\n${e}`)
+    })
+
+}
+
 // function deletePlanInfo(condition){
 //     mysql.transaction(function (t) {
 //         return mysql(table)
@@ -614,6 +640,7 @@ module.exports = {
     saveOrUpdatePlanInfo,
     queryPlanInfo,
     getPlanInfoStat,
+    getRelationPlanDetail,
     getPlanInfo,
     getLastPlanInfo,
     startPlanDetailInfo,

@@ -1,9 +1,9 @@
-<view class='fd-handle'>
+<view  class='fd-handle'>
   <view class='fd-cancel' bindtap='selecedFdCancel'>取消</view>
   <view class='fd-confirm' bindtap='selecedFdConfirm'>确定</view>
 </view>
 <scroll-view class='fd-container' scroll-y>
-  <block wx:for="{{friendList}}" wx:for-item="item" wx:for-index="index" wx:key="*this">
+  <block wx:for="{{friendList}}" wx:for-item="item" wx:for-index="index" wx:key="id">
     <view class='fd-box' data-uid='{{item.uid}}' data-index='{{index}}' bindtap='selecedFdItem'>
       <view class="fd radio">
         <view class="fd-radio {{item.selected==true?'radio-selected':''}}"></view>
@@ -12,13 +12,16 @@
         <image src='{{item.avatarUrl}}'></image>
       </view>
       <view class='fd userName'>
-        <text>{{item.nickName}}</text>
+        <text>{{item.nickName}}{{item.realName?'（'+item.realName+'）':''}}</text>
       </view>
       <view class='fd userLabel'>
         <view>
-          <text>{{item.userLabel}}</text>
+          <text>{{item.relation_lable}}</text>
         </view>
       </view>
     </view>
   </block>
+  <view hidden='{{friendList && friendList.length>0}}' class="data-none-warn fd-warn">
+    <text>没有好友可以选择~~~</text>
+  </view>
 </scroll-view>

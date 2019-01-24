@@ -61,20 +61,26 @@
   margin: 20rpx auto;
   padding: 15rpx;
 }
-.fbd-title{
+
+.fbd-title {
   font-size: 15px;
   font-weight: 600;
+  margin: 10px auto;
+  color: #000;
 }
+
 .user-desc-text {
   font-size: 15px;
   font-weight: 600;
   color: #000;
 }
-.fdb-desc{
+
+.fdb-desc {
   display: flex;
   align-items: center;
   overflow-wrap: break-word;
 }
+
 .desc-index {
   display: inline-block;
   width: 10rpx;

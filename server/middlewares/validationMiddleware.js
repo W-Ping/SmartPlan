@@ -26,7 +26,6 @@ module.exports = async function (ctx, next) {
         }
         await next()
     } catch (e) {
-        console.log(e)
         throw new Error("validationMiddleware【" + `${e}`+"】")
     }
 }

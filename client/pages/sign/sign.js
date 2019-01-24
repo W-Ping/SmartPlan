@@ -171,7 +171,7 @@ Page({
             }
             return
         } else if (!onWkMinFlag) {
-            util.showModel("", onWkMinTime + "后才能打卡上班哦？")
+            util.showModel("", onWkMinTime + "后才能打卡上班哦~~~")
             return
         }
         //下班打卡
@@ -195,7 +195,7 @@ Page({
                     }
                 })
             } else if (!offWkMinFlag) {
-                util.showModel("", offWkMinTime + "后才能打卡下班哦？")
+                util.showModel("", offWkMinTime + "后才能打卡下班哦~~~")
             }
         } else {
             util.showNone("下班已经打卡成功")
@@ -229,7 +229,7 @@ Page({
             }
             return
         } else if (!onWkOvMinFlag) {
-            util.showModel("", onWkOvMinTime + "后才能打卡上班哦？")
+            util.showModel("", onWkOvMinTime + "后才能打卡上班哦~~~")
             return
         }
         var offActualWkOverTime = this.data.offActualWkOverTime;
@@ -252,7 +252,7 @@ Page({
                     }
                 })
             } else if (!offWkOvMinFlag) {
-                util.showModel("", offWkOvMinTime + "后才能打卡下班哦？")
+                util.showModel("", offWkOvMinTime + "后才能打卡下班哦~~~")
             }
         } else {
             util.showNone("下班已经打卡成功")

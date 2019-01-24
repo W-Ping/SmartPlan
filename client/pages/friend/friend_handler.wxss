@@ -76,3 +76,6 @@
   left: 0;
   top: 999999rpx;
 }
+.fd-warn{
+  background: #f6f6f6;
+}

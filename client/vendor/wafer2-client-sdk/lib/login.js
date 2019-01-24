@@ -60,8 +60,6 @@ function login(opts) {
     if (!opts.loginUrl) {
         return opts.fail(new Error('登录错误：缺少登录地址，请通过 setLoginUrl() 方法设置登录地址'))
     }
-    console.log("【login】首次登录地址：", opts.loginUrl);
-
     getWxLoginResult((err, loginResult) => {
         if (err) {
             return opts.fail(err)
@@ -88,7 +86,6 @@ function login(opts) {
                 if (!res || !res.userinfo) {
                     return opts.fail(new Error(`登录失败(${data.error})：${data.message}`))
                 }
-                console.log("【Session.set】首次结果", res)
                 // 成功地响应会话信息
                 Session.set(res)
                 opts.success(res.userinfo)
@@ -120,7 +117,6 @@ function loginWithCode(opts) {
     if (!opts.loginUrl) {
         return opts.fail(new Error('登录错误：缺少登录地址，请通过 setLoginUrl() 方法设置登录地址'))
     }
-    console.log("登录地址：", opts.loginUrl);
     wx.login({
         success(loginResult) {
             // 构造请求头，包含 code、encryptedData 和 iv
@@ -135,7 +131,7 @@ function loginWithCode(opts) {
                 success(result) {
                     const data = result.data;
                     if (!data || data.code !== 0 || !data.data || !data.data.skey) {
-                      Session.clear();
+                        Session.clear();
                         return opts.fail(new Error(`用户未登录过，请先使用 login() 登录`))
                     }
 
@@ -144,7 +140,6 @@ function loginWithCode(opts) {
                     if (!res || !res.userinfo) {
                         return opts.fail(new Error(`登录失败(${data.error})：${data.message}`))
                     }
-                    console.log("【Session.set】结果", res)
                     // 成功地响应会话信息
                     Session.set(res)
                     opts.success(res.userinfo)

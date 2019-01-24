@@ -1,8 +1,15 @@
+.dis-head {
+  position: fixed;
+  top: 0;
+  height: 100rpx;
+  width: 100%;
+}
+
 .dis-navbar {
   display: flex;
   display: -webkit-box;
   display: -webkit-flex;
-  position: absolute;
+  position: fixed;
   z-index: 500;
   top: 0;
   width: 100%;
@@ -58,5 +65,3 @@
   right: 0;
   bottom: 5rpx;
 }
-
-

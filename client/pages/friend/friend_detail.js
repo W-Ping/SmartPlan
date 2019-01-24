@@ -1,6 +1,7 @@
 // client/pages/friend/friend_detail.js
 const request = require("../../utils/request.js")
 var config = require('../../config')
+const util = require('../../utils/util')
 var app = new getApp();
 Page({
 
@@ -9,6 +10,7 @@ Page({
    */
   data: {
     friendInfo: {},
+    planInfoList: [],
     hidden: true,
     mobilePhone: ''
   },
@@ -17,26 +19,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    var uid=options.uid;
-      request.getReq(config.service.getRelationUserDetail,"uid="+uid,res=>{
-          if(res && res.code==1){
-            this.setData({
-              friendInfo:res.data
-            })
-          }
-      })
-    var planInfoList = [];
-    for (var i = 0; i < 2; i++) {
-      planInfoList.push({
-        id: "ID" + i,
-        planNo: "PLAN-" + i,
-        auther: "欧阳林",
-        level: Math.ceil(Math.random() * 3),
-        status: 0,
-        content: i + "我的任务就是测试这个DEMO是不是可以如果可以就用这个模板来测试",
-      })
-    }
-    console.log(planInfoList);
+    var uid = options.uid;
+    request.getReq(config.service.getRelationUserDetail, "uid=" + uid, res => {
+      if (res && res.code == 1) {
+        var friendInfo=res.data;
+        this.setData({
+          friendInfo: friendInfo,
+          mobilePhone: friendInfo.relation_phone ? friendInfo.relation_phone:''
+        })
+      }
+    })
+    request.getReq(config.service.getRelationPlanDetail, "rUid=" + uid + "&pNum=" + 0 + "&pSize=" + 3, res => {
+      if (res && res.code == 1) {
+        this.setData({
+          planInfoList: res.data
+        })
+      }
+    })
   },
 
   /**
@@ -98,11 +97,22 @@ Page({
     var friendInfo = this.data.friendInfo;
     console.log("添加好友手机号码", mobilePhone, friendInfo.uid);
     friendInfo.mobilePhone = mobilePhone;
-    //TODO 
-    this.setData({
-      friendInfo: friendInfo,
-      hidden: true
-    });
+    request.postReq(config.service.updateUserRelation, {
+      relation_uid: friendInfo.uid,
+      relation_phone: mobilePhone
+    }, res => {
+      if (res.code == 1) {
+        util.showSuccess("添加电话成功")
+        this.setData({
+          mobilePhone: mobilePhone,
+          friendInfo: friendInfo,
+          hidden: true
+        });
+      } else {
+        util.showNone("添加电话失败")
+      }
+    })
+
   },
   clickAddPhone: function(e) {
     console.log("点击添加好友手机号码");
@@ -129,5 +139,11 @@ Page({
         }
       })
     }
+  },
+  navigatorToRelation: function(e) {
+    util.showNone("暂不支持")
+  },
+  deleteRealtionUser:function(e){
+    util.showNone("暂不支持")
   }
 })

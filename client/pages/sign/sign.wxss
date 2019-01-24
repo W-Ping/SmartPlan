@@ -130,15 +130,15 @@
 }
 
 .wxc-work-bg {
-  background: #2aadeede;
+  background: #00abff;
 }
 
 .wxc-work-border {
-  border: 1px #2aadeede solid;
+  border: 1px #00abff solid;
 }
 
 .wxc-work-color {
-  color: #2aadeede;
+  color: #00abff;
 }
 
 .wxc-overtime-bg {
@@ -156,7 +156,7 @@
 .wk-time-text {
   height: 20px;
   line-height: 20px;
-  /* background: #2aadeede; */
+  /* background: #00abff; */
   color: #fff;
   font-weight: 700;
 }
@@ -166,13 +166,13 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  /* height: 10px; *//* color: #2aadeede; */
+  /* height: 10px; *//* color: #00abff; */
 }
 
 .wk-time-sub {
   height: 25px;
   width: 3px;
-  /* background: #2aadeede; */
+  /* background: #00abff; */
 }
 
 .wxc-time-box {
@@ -197,7 +197,7 @@
   max-width: 15px;
   height: 15px;
   border-radius: 15px;
-  /* background: #2aadeede; */
+  /* background: #00abff; */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -214,7 +214,7 @@
 .wxc-line {
   height: 5px;
   width: 40%;
-  /* background: #2aadeede; */
+  /* background: #00abff; */
 }
 
 .fill-circle {

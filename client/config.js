@@ -1,7 +1,3 @@
-/**
- * 小程序配置文件
- */
-
 // 此处主机域名修改成腾讯云解决方案分配的域名
 
 // var host = 'https://taflgi5t.qcloud.la';
@@ -54,7 +50,9 @@ var config = {
         bindShareUser: `${host}/weapp/share/user/bind`,
         getRelationUserList: `${host}/weapp/user/relation/get`,
         getRelationUserDetail: `${host}/weapp/user/detail/relation/get`,
+        getRelationPlanDetail: `${host}/weapp/plan/relation/get`,
         checkUserRelation: `${host}/weapp/user/share/relation/check`,
+        updateUserRelation: `${host}/weapp/user/relation/update`,
         getUserByKeyword: `${host}/weapp/user/info/get`,
         saveClockRecord: `${host}/weapp/clock/save`,
         getClockRecord: `${host}/weapp/clock/get`,

@@ -1,6 +1,3 @@
-// client/pages/friend/friend_handler.js
-const app = getApp();
-
 const request = require("../../utils/request")
 const config = require('../../config')
 const util = require('../../utils/util')
@@ -19,56 +16,37 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    var pages = getCurrentPages();
-    var previousPage = pages[pages.length - 2];
-    var followUidList = previousPage.data.followUidList
-      request.postReq(config.service.getRelationUserList,)
-    var that = this;
-    for (var i = 0; i < 22; i++) {
-      that.data.friendList.push({
-        id: "ID" + i,
-        uid: "UID" + i,
-        avatarUrl: '../../images/default_avatar.png',
-        nickName: "小布小布" + i,
-        realName: "王宇",
-        userLabel: "朋友",
-        status: 0,
-        content: i + "我的任务就是测试这个DEMO是不是可以如果可以就用这个模板来测试",
-        selected: false //默认隐藏删除
-      })
-    }
-    that.setData({
-      friendList: that.data.friendList,
-      userInfo: app.globalData.userInfo,
-      windowHeight: app.globalData.phoneInfo.windowHeight
+    // var pages = getCurrentPages();
+    // var previousPage = pages[pages.length - 2];
+    // var followUidList = previousPage.data.followUidList
+    // var that = this;
+    // for (var i = 0; i < 22; i++) {
+    //     that.data.friendList.push({
+    //         id: "ID" + i,
+    //         uid: "UID" + i,
+    //         avatarUrl: '../../images/default_avatar.png',
+    //         nickName: "小布小布" + i,
+    //         realName: "王宇",
+    //         userLabel: "朋友",
+    //         status: 0,
+    //         content: i + "我的任务就是测试这个DEMO是不是可以如果可以就用这个模板来测试",
+    //         selected: false //默认隐藏删除
+    //     })
+    // }
+    request.postReq(config.service.getRelationUserList, {
+      status: 0
+    }, res => {
+      if (res.code == 1 && res.data.length > 0) {
+        let friendList = [];
+        res.data.forEach(function(item, i) {
+          item.selected = false //默认隐藏删除
+          friendList.push(item);
+        })
+        this.setData({
+          friendList: friendList,
+        })
+      }
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
 
   },
 
@@ -83,13 +61,6 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
 
   },
   selecedFdItem: function(e) {
@@ -122,7 +93,7 @@ Page({
   },
   selecedFdConfirm: function(e) {
     var selectedList = this.data.selectedList;
-    if (selectedList.length >=1) {
+    if (selectedList.length >= 1) {
       var followNames = "";
       var followUidList = [];
       selectedList.forEach(function(v, i) {
@@ -136,11 +107,11 @@ Page({
           followNames: followNames.substring(0, followNames.lastIndexOf(",")),
           followUidList: followUidList
         })
-      } 
+      }
     } else {
       wx.showToast({
         icon: 'none',
-        title: '请选择经办人',
+        title: this.data.friendList.length <= 0 ? '您还没有好友~~~' : '请选择您的监督人~~~',
       })
       return;
     }

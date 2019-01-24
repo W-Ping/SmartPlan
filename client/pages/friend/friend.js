@@ -91,8 +91,9 @@ Page({
       // 来自页面内转发按钮
       console.log(res.target)
     }
+    var nickName = this.data.userInfo.realName ? this.data.userInfo.nickName + '(' + this.data.userInfo.realName + ')' : this.data.userInfo.nickName
     return {
-      title: (app.globalData.userInfo.nickName || '我') + ' 请您来做他的目标监督人',
+      title: nickName + ' 邀请您关注他的小目标~~~',
       path: 'pages/friend/friend_bind?uid=' + this.data.userInfo.uid,
       imageUrl: this.data.imageUrl,
       success: function(res) {
@@ -109,47 +110,55 @@ Page({
     }
   },
   downloadFile: function() {
+
     var that = this;
-    var url = app.globalData.userInfo.avatarUrl;
-    console.log("头像地址", url);
-    wx.downloadFile({
-      url: url,
-      success: function(res1) {
-        console.log(res1);
-        //缓存头像图片
-        that.setData({
-          portrait_temp: res1.tempFilePath
-        })
-        //缓存canvas绘制小程序二维码
-        wx.downloadFile({
-          url: config.service.getwxacodeunlimit + "?uid=999",
-          success: function(res2) {
-            console.log('二维码：' + res2.tempFilePath)
-            //缓存二维码
-            that.setData({
-              qrcode_temp: res2.tempFilePath
-            })
-            console.log('开始绘制图片')
-            that.drawImage();
-            wx.hideLoading();
-            setTimeout(function() {
-              that.canvasToImage()
-            }, 200)
-          }
-        })
-      }
-    })
+    that.drawImage();
+    wx.hideLoading();
+    setTimeout(function() {
+      that.canvasToImage()
+    }, 200)
+    // var url = app.globalData.userInfo.avatarUrl;
+    // console.log("头像地址", url);
+    // wx.downloadFile({
+    //   url: url,
+    //   success: function(res1) {
+    //     console.log(res1);
+    //     //缓存头像图片
+    //     if (!this.data.portrait_temp) {
+    //       that.setData({
+    //         portrait_temp: res1.tempFilePath
+    //       })
+    //     }
+    //     //缓存canvas绘制小程序二维码
+    //     wx.downloadFile({
+    //       url: config.service.getwxacodeunlimit + "?uid=999",
+    //       success: function(res2) {
+    //         console.log('二维码：' + res2.tempFilePath)
+    //         //缓存二维码
+    //         that.setData({
+    //           qrcode_temp: res2.tempFilePath
+    //         })
+    //         console.log('开始绘制图片')
+    //         that.drawImage();
+    //         wx.hideLoading();
+    //         setTimeout(function() {
+    //           that.canvasToImage()
+    //         }, 200)
+    //       }
+    //     })
+    //   }
+    // })
   },
   drawImage: function() {
     //绘制canvas图片
     var that = this
     const ctx = wx.createCanvasContext('myCanvas')
-    var bgPath = '../../images/背景.png';
+    var bgPath = '../../images/share_0.jpg';
     // var bgPath = '../../images/背景.png';
-    var portraitPath = that.data.portrait_temp; //头像
-    var hostNickname = app.globalData.userInfo.nickName //昵称
+    // var portraitPath = that.data.portrait_temp; //头像
+    // var hostNickname = app.globalData.userInfo.nickName //昵称
 
-    var qrPath = that.data.qrcode_temp; //二维码
+    // var qrPath = that.data.qrcode_temp; //二维码
     var windowWidth = app.globalData.phoneInfo.windowWidth; //手机屏幕宽度
     that.setData({
       scale: 1.6
@@ -157,22 +166,22 @@ Page({
     //绘制背景图片
     ctx.drawImage(bgPath, 0, 0, windowWidth, that.data.scale * windowWidth)
     //绘制头像
-    ctx.save()
-    ctx.beginPath()
-    ctx.arc(windowWidth / 2, 0.32 * windowWidth, 0.15 * windowWidth, 0, 2 * Math.PI);
-    ctx.clip()
-    ctx.drawImage(portraitPath, 0.7 * windowWidth / 2, 0.17 * windowWidth, 0.3 * windowWidth, 0.3 * windowWidth)
-    ctx.restore()
-    //绘制第一段文本
-    ctx.setFillStyle('#ffffff')
-    ctx.setFontSize(0.037 * windowWidth)
-    ctx.setTextAlign('center')
-    ctx.fillText(hostNickname, windowWidth / 2, 0.52 * windowWidth)
+    // ctx.save()
+    // ctx.beginPath()
+    // ctx.arc(windowWidth / 2, 0.32 * windowWidth, 0.15 * windowWidth, 0, 2 * Math.PI);
+    // ctx.clip()
+    // ctx.drawImage(portraitPath, 0.7 * windowWidth / 2, 0.17 * windowWidth, 0.3 * windowWidth, 0.3 * windowWidth)
+    // ctx.restore()
+    // //绘制第一段文本
+    // ctx.setFillStyle('#ffffff')
+    // ctx.setFontSize(0.037 * windowWidth)
+    // ctx.setTextAlign('center')
+    // ctx.fillText(hostNickname, windowWidth / 2, 0.52 * windowWidth)
     //绘制第二段文本
-    ctx.setFillStyle('#ffffff')
-    ctx.setFontSize(0.037 * windowWidth)
-    ctx.setTextAlign('center')
-    ctx.fillText('邀您一起来制定7天小目标', windowWidth / 2, 0.57 * windowWidth)
+    // ctx.setFillStyle('#ffffff')
+    // ctx.setFontSize(0.037 * windowWidth)
+    // ctx.setTextAlign('center')
+    // ctx.fillText('邀您一起来制定7天小目标', windowWidth / 2, 0.57 * windowWidth)
     //绘制二维码
     // ctx.drawImage(qrPath, 0.64 * windowWidth / 2, 0.65 * windowWidth, 0.36 * windowWidth, 0.36 * windowWidth)
     //绘制第三段文本
