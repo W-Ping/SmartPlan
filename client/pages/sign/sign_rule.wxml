@@ -1,7 +1,7 @@
 <form bindsubmit="submitClock">
   <scroll-view scroll-y class='sign-cbox'>
     <view class='sign-box'>
-      <view class='sb-desc pd-5'>工作打卡</view>
+      <view class='sb-desc pd-5'>工作日打卡</view>
       <view class='sb-opt'>
         <switch color="#00abff" name="wkActive" checked="{{!wkClockHidden}}"  bindchange="switchWkChange"></switch>
       </view>
@@ -70,7 +70,7 @@
       </view>
     </view>
     <view class='sign-box box-mg'>
-      <view class='sb-desc  pd-5'>工作加班打卡</view>
+      <view class='sb-desc  pd-5'>工作日加班打卡</view>
       <view class='sb-opt'>
         <switch color="#00abff" name="ovActive" checked="{{!ovClockHidden}}" bindchange="switchOvChange"></switch>
       </view>
