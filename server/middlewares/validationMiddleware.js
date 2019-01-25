@@ -11,7 +11,7 @@ module.exports = async function (ctx, next) {
         const {'x-wx-skey': skey} = ctx.req.headers
         if (skey !== null && skey !== undefined) {
             await  validation(ctx.req).then(async result => {
-                if (result.userinfo) {
+                if (result.userinfo && result.userinfo.openId) {
                     const open_id = result.userinfo.openId;
                     await getUserByOpenId(open_id).then(async res => {
                         if (res) {
@@ -19,13 +19,21 @@ module.exports = async function (ctx, next) {
                             result.userinfo['uid'] = res.uid;
                         }
                     })
+                    ctx.state.$sysInfo = result
+                    await next();
+                } else {
+                    console.log("login is invalid")
+                    let body = {}
+                    body.message = 'login is invalid'
+                    body.code = -2
+                    body.data = 0
+                    ctx.body = body;
                 }
-                ctx.state.$sysInfo = result
-
             })
+        } else {
+            await next();
         }
-        await next()
     } catch (e) {
-        throw new Error("validationMiddleware【" + `${e}`+"】")
+        throw new Error("validationMiddleware【" + `${e}` + "】")
     }
 }

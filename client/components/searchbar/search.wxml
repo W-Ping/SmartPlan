@@ -16,9 +16,10 @@
     </view>
     <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
   </view>
-  <view class="weui-cells searchbar-result search-box" wx:if="{{keyword.length > 0}}">
+  <view class="weui-cells searchbar-result search-box" wx:if="{{searchResult.length>0 && keyword.length > 0}}">
     <block wx:for="{{searchResult}}" wx:for-item="item" wx:for-index="index" wx:key="uid">
         <view bindtap='onSelected' data-selectedid='{{item.uid}}' class="weui-cell__bd">
+          <view class='weui-cell_image'><image class='avatar_image' src='{{item.avatarUrl}}'></image></view>
           <view>{{item.nickName}}{{item.realName?'('+item.realName+')':''}}</view>
         </view>
     </block>

@@ -38,10 +38,13 @@
 }
 
 .plan-count {
+  text-align: center;
+  line-height: 15rpx;
+  height: 15rpx;
   color: green;
   font-size: 14px;
   font-weight: 600;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 5rpx;
 }
 
 /* .addCount {

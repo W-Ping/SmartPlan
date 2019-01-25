@@ -3,6 +3,7 @@ const qcloud = require('../../vendor/wafer2-client-sdk/index')
 const config = require('../../config');
 const util = require('../../utils/util');
 const app = new getApp();
+const bk_image = ["https://lg-mpx16sx4-1256808148.cos.ap-shanghai.myqcloud.com/bd_0.jpg", "https://lg-mpx16sx4-1256808148.cos.ap-shanghai.myqcloud.com/share_0.jpg", "https://lg-mpx16sx4-1256808148.cos.ap-shanghai.myqcloud.com/bk_03.svg"]
 Page({
 
   /**
@@ -21,10 +22,9 @@ Page({
    */
   onLoad: function(options) {
     console.log("index page onLoad", this.data.logged)
+    var bkIndex = Math.floor(Math.random() * 3);
     this.setData({
-      imageUrl: "https://lg-mpx16sx4-1256808148.cos.ap-shanghai.myqcloud.com/bd_0.jpg",
-      // imageUrl: "https://lg-mpx16sx4-1256808148.cos.ap-shanghai.myqcloud.com/share_0.jpg",
-      // imageUrl: "https://lg-mpx16sx4-1256808148.cos.ap-shanghai.myqcloud.com/bk_03.svg"
+      imageUrl: bk_image[bkIndex],
     });
     // var url = "http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1";
     // var url = "https://cn.bing.com/HPImageArchive.aspx?format=js&idx=1&n=1&pid=hp"; 

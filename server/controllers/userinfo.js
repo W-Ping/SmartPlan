@@ -102,17 +102,37 @@ function updateWithLogin(userInfo) {
         });
 }
 
+/**
+ *  用户好友查询
+ * @param ctx
+ * @param next
+ * @returns {Promise<void>}
+ */
 async function getUserByKeyword(ctx, next) {
     let {keyword} = ctx.params;
+    let userInfo = ctx.state.$sysInfo.userinfo;
     await  mysql(CNF.DB_TABLE.user_info).select("uid", "nickName", "realName", "avatarUrl").where("status", 0).andWhere(function () {
         this.where("nickName", "like", "%" + keyword + "%").orWhere("realName", "like", "%" + keyword + "%")
+    }).whereExists(function () {
+        this.select('id').from(CNF.DB_TABLE.user_relation_info).whereRaw(CNF.DB_TABLE.user_relation_info + '.relation_uid = ' + CNF.DB_TABLE.user_info + '.uid').andWhere("uid", userInfo.uid)
     }).then(res => {
         SUCCESS(ctx, res);
+    }).catch((e) => {
+        debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
+        throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB}\n${e}`)
     })
 }
 
+/**
+ *
+ * @param open_id
+ * @returns {Promise<any> | Promise<T>}
+ */
 function getUserByOpenId(open_id) {
-    return mysql(CNF.DB_TABLE.user_info).select("*").where({open_id, status: 0}).first();
+    return mysql(CNF.DB_TABLE.user_info).select("*").where({open_id, status: 0}).first().catch(e => {
+        debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
+        throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB}\n${e}`)
+    });
 }
 
 /**
@@ -184,7 +204,6 @@ function saveOrUpdateBindUser(uid, relation_uid, updateInfo) {
                 }
                 userRelationInfoArr.push(userRelationInfo2)
                 return mysql(CNF.DB_TABLE.user_relation_info).insert(userRelationInfoArr).then(res => {
-                    console.log("insert userRelationInfo", res);
                     return Promise.resolve({code: 1, msg: '用户关系绑定成功'});
                 }).catch(e => {
                     debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_INSERT_TO_DB, e)
@@ -262,7 +281,7 @@ async function updateUserRelation(ctx, next) {
 
 async function getRelationUserDetail(ctx, next) {
     const {uid} = ctx.query;
-    await mysql(CNF.DB_TABLE.user_info).select(CNF.DB_TABLE.user_info + ".*", CNF.DB_TABLE.user_relation_info + ".relation_lable",CNF.DB_TABLE.user_relation_info + ".relation_phone",CNF.DB_TABLE.user_relation_info + ".relation_mail").innerJoin(CNF.DB_TABLE.user_relation_info, function () {
+    await mysql(CNF.DB_TABLE.user_info).select(CNF.DB_TABLE.user_info + ".*", CNF.DB_TABLE.user_relation_info + ".relation_lable", CNF.DB_TABLE.user_relation_info + ".relation_phone", CNF.DB_TABLE.user_relation_info + ".relation_mail").innerJoin(CNF.DB_TABLE.user_relation_info, function () {
         this.on(CNF.DB_TABLE.user_info + '.uid', '=', CNF.DB_TABLE.user_relation_info + '.relation_uid')
     }).andWhere(CNF.DB_TABLE.user_relation_info + ".relation_uid", uid).andWhere(CNF.DB_TABLE.user_relation_info + ".status", 0).first().then(res => {
         SUCCESS(ctx, res)

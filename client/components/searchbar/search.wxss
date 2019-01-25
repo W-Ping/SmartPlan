@@ -1,6 +1,26 @@
 /* components/searchbar/search.wxss */
 @import '../../weui.wxss';
 
+.weui-cells {
+  margin-top: 0px;
+}
+
 .search-box {
   z-index: 9999;
+  padding: 20rpx;
+  min-height: 50rpx;
+  background: rgba(247, 243, 243, 1);
+}
+
+.weui-cell__bd {
+  display: flex;
+  flex-direction: row;
+}
+.weui-cell_image{
+  margin-right:10rpx; 
+}
+.avatar_image{
+  width: 25px;
+  height: 25px;
+  border-radius:50%; 
 }

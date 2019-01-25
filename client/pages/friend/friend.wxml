@@ -13,11 +13,11 @@
       <view class='fd-userName'>
         <text>{{item.nickName}}{{item.realName?'('+item.realName+')':''}}</text>
       </view>
-      <view class='fd-userLabel'>
+      <!-- <view class='fd-userLabel'>
         <view>
           <text>{{item.relation_lable}}</text>
         </view>
-      </view>
+      </view> -->
     </view>
   </block>
   <view hidden='{{relationUserList && relationUserList.length>0}}' class="data-none-warn">

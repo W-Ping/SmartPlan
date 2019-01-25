@@ -372,7 +372,6 @@ async function getPlanInfo(ctx, next) {
         if (res) {
             await  mysql(CNF.DB_TABLE.plan_detail_info).select("*").where({plan_no: planNo}).orderByRaw("priority desc,status asc,create_time desc").then(list => {
                 result.planDetailInfoList = list
-                console.log("planDetailInfoList", list);
                 SUCCESS(ctx, result);
             })
         } else {
