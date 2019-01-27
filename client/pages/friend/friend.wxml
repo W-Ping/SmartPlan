@@ -6,7 +6,7 @@
 <search id="search" bindonSelected="onSelected" searchResult="{{searchResult}}" bindinputChange="inputChange" bindinputConfirm='inputConfirm'></search>
 <scroll-view class='fd-container' scroll-y>
   <block wx:for="{{relationUserList}}" wx:for-item="item" wx:for-index="index" wx:key="*this">
-    <view class='fd-box' data-uid='{{item.uid}}' bindtap='navigatorDetail'>
+    <view class='fd-box' data-refuid='{{item.relation_uid}}' bindtap='navigatorDetail'>
       <view class='fd-image'>
         <image class='fd-avatar' src='{{item.avatarUrl}}'></image>
       </view>

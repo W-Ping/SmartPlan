@@ -90,5 +90,5 @@ Page({
     wx.navigateTo({
       url: './plan_detail?pdNo=' + pdNo,
     })
-  }
+  },
 })

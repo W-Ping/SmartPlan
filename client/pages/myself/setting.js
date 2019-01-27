@@ -14,72 +14,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    if (!options.uid){
+      wx.hideToast();
+      wx.showModal({
+        title,
+        content: '获取用户信息失败',
+        showCancel: false
+      })
+    }
     request.getReq(config.service.getUserInfo, "uid=" + options.uid, res => {
       this.setData({
         userInfo: res.data
       })
     })
-
-    // this.setData({
-    //   userInfo: {
-    //     uid: 'UID00001',
-    //     realName: "邓仙",
-    //     gender: 0,
-    //     birthday: '1993-06-28',
-    //     mobilePhone: '138023133433',
-    //     email: '434398845@qq.com',
-    //     open: 0
-    //   }
-    // })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
   },
   changeGender: function(e) {
     var that = this;
@@ -112,7 +59,6 @@ Page({
     })
   },
   switchDistributionChange: function(e) {
-    console.log('switchDistributionChange 发生 change 事件，携带值为', e.detail.value);
     var openFlag = e.detail.value;
     var userinfo = this.data.userinfo;
     userinfo.distribution = openFlag == true ? 0 : 1;
@@ -122,7 +68,6 @@ Page({
     });
   },
   switchOpenChange: function(e) {
-    console.log('switchOpenChange 发生 change 事件，携带值为', e.detail.value);
     var openFlag = e.detail.value;
     var userinfo = this.data.userinfo;
     userinfo.open = openFlag == true ? 0 : 1;
@@ -132,7 +77,6 @@ Page({
     });
   },
   navigatorToEdit: function(e) {
-    console.log("编辑页面");
     var opt = e.currentTarget.dataset.opt;
     var value = e.currentTarget.dataset.value;
     var uid = e.currentTarget.dataset.uid;
@@ -149,7 +93,7 @@ Page({
   refreshUserInfo: function(e) {
     var uid = e.currentTarget.dataset.uid;
     wx.showLoading({
-      title: '更新中。。。',
+      title: '更新中...',
     })
     var that=this;
     wx.getUserInfo({

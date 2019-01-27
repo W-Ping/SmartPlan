@@ -13,7 +13,7 @@
     </view>
   </view>
   <view class='plan-desc'>
-    <!-- <text>人总要计划点什么</text> -->
+    <text>新建您最近七天的小目标</text>
     <!-- <text space='ensp'>{{userInfo.nickName}} 你好！</text> -->
   </view>
   <view class='plan-desc'>

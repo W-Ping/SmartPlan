@@ -266,14 +266,16 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `user_relation_info`;
 CREATE TABLE `user_relation_info` (
-  `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `uid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `relation_uid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `inviter_uid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `relation_lable` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `relation_phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `relation_uid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `inviter_uid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `relation_lable` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `relation_mail` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` int(11) NOT NULL DEFAULT '0' COMMENT '状态[0:正常;1:隐藏]',
+  `relation_phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `relation_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT '0' COMMENT '状态[0:正常;1:删除]',
+  `remark` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)

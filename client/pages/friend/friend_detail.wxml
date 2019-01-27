@@ -48,7 +48,7 @@
   </view>
   <view class='fi-plan'>
     <view class='fi-plan-desc'>
-      <text class='pd-5'>最近的任务</text>
+      <text class='pd-5'>最近的小目标</text>
     </view>
     <view class='line'></view>
     <block wx:for="{{planInfoList}}" wx:for-item="item" wx:for-index="index" wx:key="*this">
@@ -58,14 +58,14 @@
       <view class='p-line' wx:if="{{planInfoList.length-1!=index}}"></view>
     </block>
     <view class='line'></view>
-    <view class='fi-plan-more'>
+    <!-- <view class='fi-plan-more'>
       <view class='pd-5'>
         <text>更多</text>
       </view>
       <view class='gt'>
         <text>></text>
       </view>
-    </view>
+    </view> -->
   </view>
   <view class='fi-call'>
     <button type='primary' style='background:#00abff' data-mobilephone='{{friendInfo.mobilePhone}}' bindtap='callingMobilePhone'>拨打电话</button>

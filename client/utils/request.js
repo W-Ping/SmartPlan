@@ -125,7 +125,7 @@ const deleteReq = (url, params, callback, fail) => {
           },
           url: url,
           method: 'DELETE',
-          success(result) {
+          success(res) {
             if (res.data.code == -2) {
               console.log("登录失效")
               wx.showToast({
@@ -176,7 +176,7 @@ const deleteNoConfirmReq = (url, params, callback, fail) => {
     },
     url: url,
     method: 'DELETE',
-    success(result) {
+    success(res) {
       if (res.data.code == -2) {
         console.log("登录失效")
         wx.showToast({

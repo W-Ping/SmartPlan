@@ -111,7 +111,7 @@ Page({
     } else {
       wx.showToast({
         icon: 'none',
-        title: this.data.friendList.length <= 0 ? '您还没有好友~~~' : '请选择您的监督人~~~',
+        title: this.data.friendList.length <= 0 ? '您还没有好友~~~' : '请选择您的监督人',
       })
       return;
     }

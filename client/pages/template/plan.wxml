@@ -16,20 +16,7 @@
     </view>
   </view>
 </template>
-<template name="follow-plan">
-  <view class='follow-plan-box'>
-    <view class='follow-plan-content'>
-      <view class='follow-plan-title'>{{plan_detail_name}}</view>
-      <view class='follow-creator'>
-        <image class='follow-creator-avatar' src='{{avatarUrl}}'></image>
-        <text>{{creator_name}}</text>
-      </view>
-    </view>
-    <view class='follow-plan-remind'>
-      <text>提醒</text>
-    </view>
-  </view>
-</template>
+
 <!-- 进行中 -->
 <template name="doing-plan">
   <view class="doing-plan {{isTouchMove ? 'touch-move-active' : ''}}" bindtouchstart="doingTouchstart" bindtouchmove="doingTouchmove" bindtouchend="doingTouchend" data-index="{{index}}">
@@ -213,6 +200,21 @@
     <view class='plf-creator'>
       <image class='plf-avatar' src='{{avatarUrl}}'></image>
       <text>{{creator_name}}</text>
+    </view>
+  </view>
+</template>
+<!-- 好友未完成目标 -->
+<template name="follow-plan">
+  <view class='follow-plan-box'>
+    <view class='follow-plan-content' data-pdno='{{plan_detail_no}}' bindtap='navigatorToDetail'>
+      <view class='follow-plan-title'>{{plan_detail_name}}</view>
+      <view class='follow-creator'>
+        <image class='follow-creator-avatar' src='{{avatarUrl}}'></image>
+        <text>{{creator_name}}</text>
+      </view>
+    </view>
+    <view class='follow-plan-remind' bindtap='remindPlanToFriend'>
+      <text>提醒</text>
     </view>
   </view>
 </template>

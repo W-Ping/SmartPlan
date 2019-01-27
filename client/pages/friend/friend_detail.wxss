@@ -47,7 +47,7 @@ page {
 .fi-info {
   display: flex;
   flex-direction: column;
-  width: 55%;
+  width: 60%;
   padding-left:5px; 
 }
 
@@ -97,7 +97,7 @@ page {
   width: 100%;
 }
 .fim-phone-input{
-  width: 60%;
+  width: 55%;
 }
 
 .fi-plan-more {
