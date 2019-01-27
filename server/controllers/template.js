@@ -46,7 +46,7 @@ function request(url, post_data) {
         req.on('error', (e) => {
             console.error(e);
         });
-        req.write(post_data);   // 写入 post 请求的请求主体。
+        req.write(JSON.parse(post_data));   // 写入 post 请求的请求主体。
         req.end();
     }).catch(() => {
         return null;
@@ -54,23 +54,21 @@ function request(url, post_data) {
 }
 
 function assembleData(res, accessToken, formId) {
-
-    let _jsonData = {
-        "touser": res.open_id,
-        "template_id": MESSAGE_TEMP.notifyRemindTemplate,
-        "form_id": formId,
-        "page": "pages/discovery/discovery",
-        "data": {
-            "keyword1": {"value": "测试数据一"},
-            "keyword2": {"value": "测试数据二"},
-            "keyword3": {"value": "测试数据三"},
-            "keyword4": {"value": "测试数据四"},
-            "keyword5": {"value": "测试数据五"},
-        },
-        "emphasis_keyword": "keyword1.DATA"
-    }
+    let _jsonData = {};
+    _jsonData.touser = res.open_id;
+    _jsonData.template_id = MESSAGE_TEMP.notifyRemindTemplate;
+    _jsonData.form_id = formId;
+    _jsonData.page = "pages/discovery/discovery";
+    let data = {};
+    data.keyword1 = {"value": "测试数据一"};
+    data.keyword2 = {"value": "测试数据二"};
+    data.keyword3 = {"value": "测试数据三"};
+    data.keyword4 = {"value": "测试数据四"};
+    data.keyword5 = {"value": "测试数据五"};
+    _jsonData.data = data;
+    _jsonData.emphasis_keyword = "keyword1.DATA";
     console.log("assembleData", _jsonData)
-   return _jsonData;
+    return _jsonData;
 
 }
 
