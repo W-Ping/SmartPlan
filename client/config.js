@@ -67,6 +67,7 @@ var config = {
         getNoteInfoList: `${host}/weapp/note/query`,
         getRemindNoteCount: `${host}/weapp/note/remind/count`,
         getRemindNoteList: `${host}/weapp/note/remind/query`,
+        notifyRemindTemplate: `${host}/weapp/template/notify`,
     }
 };
 

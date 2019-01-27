@@ -12,7 +12,7 @@ Page({
    */
   data: {
     tabs: ["待办", "进行中", "完成"],
-    activeIndex: 0,
+    activeIndex: 1,
     sliderOffset: 0,
     sliderLeft: 0,
     planNo: -1,
@@ -308,9 +308,16 @@ Page({
   },
   remindPlanToFriend: function(e) {
     console.log("提醒好友目标")
-    wx.showToast({
-      title: '暂不支持',
-      icon:'none'
+    var pdNo = e.currentTarget.dataset.pdno;
+    var formId = e.detail.formId;
+    console.log("formId",formId);
+    request.postReq(config.service.notifyRemindTemplate, {
+      'pdNo': pdNo,
+      'formId': formId
+    }, res => {
+      if (res.code == 1) {
+        util.showSuccess("提醒成功！");
+      }
     })
   }
 })

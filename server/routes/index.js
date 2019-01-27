@@ -30,6 +30,8 @@ router.post('/tunnel', controllers.tunnel.post)
 router.get('/message', controllers.message.get)
 // POST 用来处理微信转发过来的客服消息
 router.post('/message', controllers.message.post)
+
+router.post('/template/notify', controllers.template.notifyRemindTemplate)
 //获取小程序二维码
 // router.get('/createwxaqrcode', controllers.wxcode.createwxaqrcode)
 //获取小程序码
@@ -80,6 +82,8 @@ router.get('/note/get', controllers.note.get)
 router.delete('/note/del', controllers.note.deleteNote)
 router.get('/note/remind/count', controllers.note.getRemindNoteCount)
 router.get('/note/remind/query', controllers.note.getRemindNoteList)
+
+
 
 
 module.exports = router

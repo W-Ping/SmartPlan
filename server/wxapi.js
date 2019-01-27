@@ -15,5 +15,14 @@ const WX_API = {
      * 获取 access_token
      */
     getAccessToken: "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential",
+    /**
+     * 获取用户 access_token
+     */
+    getSNSAccessToken: "https://api.weixin.qq.com/sns/userinfo",
+
+    sendTemplate: "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send",
 }
-module.exports = {WX_API}
+const MESSAGE_TEMP = {
+    notifyRemindTemplate: 'GFU24H1U4dpyxPtebi9dCQdxn1JPE6F8nymj8pZz0Wg'
+}
+module.exports = {WX_API, MESSAGE_TEMP}

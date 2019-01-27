@@ -218,10 +218,9 @@ function saveBindRelationUser(uid, relation_uid, updateInfo) {
  */
 async function getRelationUserList(ctx, next) {
     let params = ctx.request.body;//params 是查询好友参数
-    let status = params && params.status || 0;
     let userInfo = ctx.state.$sysInfo.userinfo;
-    let sql = mysql.raw("SELECT  usr.*,us.avatarUrl, us.nickName, us.realName FROM cauth.user_info AS us " +
-        "INNER JOIN (SELECT DISTINCT uid, relation_uid, status, inviter_uid, relation_lable, relation_mail, relation_name, relation_phone FROM cauth.user_relation_info where `status`=0) AS usr ON us.uid=usr.relation_uid ").wrap('(', ') tmp');
+    let sql = mysql.raw("SELECT usr.uid,usr.relation_uid,usr.relation_mail,usr.relation_phone,usr.relation_name,usr.relation_lable,us.avatarUrl, us.nickName, us.realName FROM user_info AS us " +
+        "INNER JOIN (SELECT DISTINCT uid, relation_uid, status, inviter_uid, relation_lable, relation_mail, relation_name, relation_phone FROM user_relation_info where `status`=0) AS usr ON us.uid=usr.relation_uid ").wrap('(', ') tmp');
     await mysql.select('*').from(sql).where('tmp.uid', userInfo.uid).andWhere(function () {
         if (params.refUid) {
             this.where('tmp.relation_uid', params.refUid)
@@ -292,6 +291,7 @@ async function getRelationUserDetail(ctx, next) {
     })
 }
 
+
 module.exports = {
     get,
     update,
@@ -302,5 +302,5 @@ module.exports = {
     getRelationUserList,
     getRelationUserDetail,
     updateUserRelation,
-    getUserByKeyword,
+    getUserByKeyword
 }

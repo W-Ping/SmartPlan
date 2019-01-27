@@ -213,8 +213,14 @@
         <text>{{creator_name}}</text>
       </view>
     </view>
-    <view class='follow-plan-remind' bindtap='remindPlanToFriend'>
-      <text>提醒</text>
-    </view>
+
+
+    <form bind:submit="remindPlanToFriend" data-pdno='{{plan_detail_no}}' report-submit>
+      <button style='width:100%;height: 250rpx;border-radius:0px; ' formType="submit">
+        <!-- <view class='follow-plan-remind'> -->
+          <text>提醒</text>
+           <!-- </view> -->
+      </button>
+    </form>
   </view>
 </template>

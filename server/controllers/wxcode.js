@@ -97,7 +97,6 @@ async function getAccessToken(callback) {
         global.access_token = Object.assign(accessTokenObj, {timestamp: +new Date()});
     }
     const access_token = global.access_token.access_token;
-    console.log("access_token", access_token);
     await callback(access_token)
 }
 
@@ -137,7 +136,6 @@ async function request(url, post_data, ctx) {
             });
         });
         req.on('error', (e) => {
-            console.log('获取微信小程序图片失败')
             console.error(e);
         });
         req.write(post_data);   // 写入 post 请求的请求主体。
@@ -154,4 +152,4 @@ async function request(url, post_data, ctx) {
     ctx.body = imgBuffer;
 }
 
-module.exports = {createwxaqrcode, getwxacodeunlimit, getwxacode}
+module.exports = {createwxaqrcode,request, getwxacodeunlimit,getAccessToken,getwxacode}
