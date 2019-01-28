@@ -20,7 +20,8 @@ const WX_API = {
      */
     getSNSAccessToken: "https://api.weixin.qq.com/sns/userinfo",
 
-    sendTemplate: "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send",
+    getMessageTemplate: "https://api.weixin.qq.com/cgi-bin/wxopen/template/list",
+    sendMessageTemplate: "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send",
 }
 const MESSAGE_TEMP = {
     notifyRemindTemplate: 'GFU24H1U4dpyxPtebi9dCQdxn1JPE6F8nymj8pZz0Wg'

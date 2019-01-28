@@ -614,10 +614,11 @@ async function getRelationPlanDetail(ctx, next) {
  * @param pdNo
  * @returns {Promise<any> | Promise<T>}
  */
-function getNotifyPlan(pdNo) {
+function getNotifyPlan(pdNo, status) {
+    if (!status) status = 0;
     return mysql(CNF.DB_TABLE.plan_detail_info).select("*").innerJoin(CNF.DB_TABLE.user_info, CNF.DB_TABLE.user_info + '.uid', '=', CNF.DB_TABLE.plan_detail_info + '.creator_uid').where({
         plan_detail_no: pdNo
-    }).andWhere(CNF.DB_TABLE.plan_detail_info + '.status', 0).first().catch(e => {
+    }).andWhere(CNF.DB_TABLE.plan_detail_info + '.status', status).first().catch(e => {
         debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
         throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB}\n${e}`)
     });

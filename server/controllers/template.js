@@ -4,6 +4,8 @@ const {WX_API, MESSAGE_TEMP} = require('../wxapi')
 const {SUCCESS, FAILED, CNF, ERRORS_BIZ} = require("./constants")
 const https = require('https');
 const url = require('url');
+const util = require('../tools/util')
+let request = require('request');
 
 /**
  *
@@ -12,59 +14,63 @@ const url = require('url');
  * @returns {Promise<void>}
  */
 async function notifyRemindTemplate(ctx, next) {
-    let {pdNo, formId} = ctx.request.body;
+    let {pdNo, formId, status} = ctx.request.body;
     let userInfo = ctx.state.$sysInfo.userinfo;
+    // console.log(userInfo)
     await wxcode.getAccessToken(async accessToken => {
-        await  plan.getNotifyPlan(pdNo).then(async res => {
-            await request(url.parse(WX_API.sendTemplate + "?access_token=" + accessToken), JSON.stringify(assembleData(res, accessToken, formId))).then(async res => {
-                console.log("resData", res);
-                SUCCESS(ctx, res);
+        await  http_request(url.parse(WX_API.getMessageTemplate + "?access_token=" + accessToken), {
+            "offset": 0,
+            "count": 5
+        }).then(async res => {
+            await  plan.getNotifyPlan(pdNo, status).then(async res => {
+                await http_request(url.parse(WX_API.sendMessageTemplate + "?access_token=" + accessToken), assembleData(res, formId, userInfo)).then(res => {
+                    if (!res.response.errcode || res.response.errcode == 0) {
+                        SUCCESS(ctx, res);
+                    } else {
+                        FAILED(ctx, res.response.errmsg);
+                    }
+                })
             })
         })
     })
 }
 
-function request(url, post_data) {
-    let options = Object.assign(url, {
+function http_request(url, post_data) {
+    let options = {
+        url: url,
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Content-Length': post_data.length,
-        }
-    });
+        // headers: {
+        //     'Content-Type': 'application/json',
+        //     'Content-Length': JSON.stringify(post_data).length,
+        // },
+        strictSSL: false,
+        timeout: 1500,
+        body: JSON.stringify(post_data)
+    };
     return new Promise((resolve, reject) => {
-        let req = https.request(options, (res) => {
-            let resData = '';
-            res.setEncoding("utf-8");
-            res.on('data', data => {
-                resData += data;
-            });
-            res.on('end', () => {
-                resolve(resData);
-            });
-        });
-        req.on('error', (e) => {
-            console.error(e);
-        });
-        req.write(JSON.parse(post_data));   // 写入 post 请求的请求主体。
-        req.end();
-    }).catch(() => {
-        return null;
+        request(options, (err, res, body) => {
+            console.log("err===>", err);
+            console.log("body", body);
+            resolve({response: body, error: err});
+        })
     });
 }
 
-function assembleData(res, accessToken, formId) {
+function assembleData(res, formId, userInfo) {
     let _jsonData = {};
-    _jsonData.touser = res.open_id;
+    _jsonData.touser = userInfo.openId;
     _jsonData.template_id = MESSAGE_TEMP.notifyRemindTemplate;
     _jsonData.form_id = formId;
     _jsonData.page = "pages/discovery/discovery";
+    let status = res.status == 0 ? '未开始' : res.status == 1 ? '执行中' : '完成';
+    let endTime = util.formatUnixTime(res.plan_end_time, 'Y年M月D日');
+    let title = userInfo.nickName + "不要忘记了你的目标哦~~"
     let data = {};
-    data.keyword1 = {"value": "测试数据一"};
-    data.keyword2 = {"value": "测试数据二"};
-    data.keyword3 = {"value": "测试数据三"};
-    data.keyword4 = {"value": "测试数据四"};
-    data.keyword5 = {"value": "测试数据五"};
+    data.keyword1 = {"value": res.plan_detail_name};
+    data.keyword2 = {"value": status};
+    data.keyword3 = {"value": endTime};
+    data.keyword4 = {"value": res.creator_name};
+    data.keyword5 = {"value": title};
     _jsonData.data = data;
     _jsonData.emphasis_keyword = "keyword1.DATA";
     console.log("assembleData", _jsonData)

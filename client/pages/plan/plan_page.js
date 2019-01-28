@@ -301,14 +301,18 @@ Page({
     },
     remindPlanToFriend: function (e) {
         var pdNo = e.currentTarget.dataset.pdno;
+        var status = e.currentTarget.dataset.status;
         var formId = e.detail.formId;
         console.log("formId", formId);
         request.postReq(config.service.notifyRemindTemplate, {
             'pdNo': pdNo,
-            'formId': formId
+            'formId': formId,
+            'status': status,
         }, res => {
             if (res.code == 1) {
                 util.showSuccess("提醒成功！");
+            } else {
+                util.showNone("提醒失败！");
             }
         })
     }

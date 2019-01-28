@@ -198,8 +198,8 @@
       </view>
     </view>
     <view class='follow-plan-remind'>
-      <form bind:submit="remindPlanToFriend" data-pdno='{{plan_detail_no}}' report-submit>
-        <button style='width:100%;height: 250rpx;border-radius:0px;border: 0px;background: #00abff; color:#fff;line-height:250rpx; ' formType="submit">
+      <form bind:submit="remindPlanToFriend" data-status='{{status}}' data-pdno='{{plan_detail_no}}' report-submit>
+        <button class='remindBtn' formType="submit">
           <text>提 醒</text>
         </button>
       </form>
@@ -220,9 +220,9 @@
       </view>
     </view>
     <view class='follow-plan-remind'>
-      <form bind:submit="remindPlanToFriend" data-pdno='{{plan_detail_no}}' report-submit>
-        <button style='width:100%;text-align: center;height: 250rpx;border-radius:0px;border: 0px;background: #00abff; color:#fff;line-height:250rpx;' formType="submit">
-       <text>提 醒</text>
+      <form bind:submit="remindPlanToFriend" data-status='{{status}}' data-pdno='{{plan_detail_no}}' report-submit>
+        <button class='remindBtn' formType="submit">
+          <text>提 醒</text>
         </button>
       </form>
     </view>
