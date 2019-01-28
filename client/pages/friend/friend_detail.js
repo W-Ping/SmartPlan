@@ -202,10 +202,10 @@ Page({
       console.log(this.data.friendInfo);
         wx.showModal({
           title:'确定删除？',
-          content: "将好友 '"+friendInfo.nickName+"' 删除",
+          content: "您要将好友 '"+friendInfo.nickName+"' 删除",
             success: function (res) {
                 if (res.confirm) {
-                  request.postReq(config.service.updateUserRelation, {relation_uid: refUid, status: 1}, res => {
+                  request.postReq(config.service.updateUserRelation, {relation_uid: refUid, status: -1}, res => {
                         if (res.code == 1) {
                             wx.navigateBack({
                                 delta: 1
