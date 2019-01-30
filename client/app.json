@@ -2,7 +2,6 @@
   "pages": [
     "pages/discovery/discovery",
     "pages/boot/boot",
-    "pages/today/today",
     "pages/plan/plan",
     "pages/plan/plan_detail",
     "pages/plan/plan_info",
