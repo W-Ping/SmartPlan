@@ -88,7 +88,7 @@ Page({
             if (selectYear == date.getFullYear() && selectMonth == date.getMonth() + 1) {
                 startDate = date.getDate();
             }
-            for (var i = startDate; i <= util.getMonthDays(selectYear + '-' + selectMonth + '-01'); i++) {
+            for (var i = startDate; i <= util.getMonthDays(selectYear + '-' + (selectMonth+1) + '-01'); i++) {
                 days.push(i)
             }
             changeItem.days = days;
