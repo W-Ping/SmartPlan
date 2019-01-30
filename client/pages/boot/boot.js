@@ -3,6 +3,7 @@ const qcloud = require('../../vendor/wafer2-client-sdk/index')
 const config = require('../../config');
 const util = require('../../utils/util');
 const app = new getApp();
+const request = require("../../utils/request")
 const bk_image = ["../../images/bk_0.jpg", "../../images/bk_1.jpg","../../images/bk_3.svg"]
 Page({
 
@@ -118,6 +119,14 @@ Page({
             userInfo: res,
             logged: true
           })
+          request.getReq(config.service.getRemindNoteCount, "stat=1", result => {
+            if (result.code == 1 && result.data.rmCount && result.data.rmCount > 0) {
+              wx.setTabBarBadge({
+                index: 2,
+                text: result.data.rmCount + ""
+              })
+            }
+          })
           wx.reLaunch({
             url: config.default_page,
           })
@@ -137,6 +146,14 @@ Page({
           this.setData({
             userInfo: res,
             logged: true
+          })
+          request.getReq(config.service.getRemindNoteCount, "stat=1", result => {
+            if (result.code == 1 && result.data.rmCount && result.data.rmCount > 0) {
+              wx.setTabBarBadge({
+                index: 2,
+                text: result.data.rmCount + ""
+              })
+            }
           })
           util.showSuccess('登录成功');
           wx.reLaunch({

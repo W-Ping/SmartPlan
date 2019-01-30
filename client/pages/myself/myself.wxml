@@ -14,53 +14,68 @@
     </view>
   </view>
   <view class='setting-box' bindtap='navigatorToSetting' data-uid='{{userinfo.uid}}'>
-    <text >编辑</text>
+    <text>编辑</text>
     <text space="nbsp"> ></text>
   </view>
 </view>
 <view class='menu-continar'>
   <view class='menu-box'>
     <view class='menu-item' bindtap='navigatorToFriend'>
-      <view class='menu-image'>
-        <image class='image' src='../../images/friend.png'></image>
+      <view class='menu-item-box'>
+        <view class='menu-image'>
+          <image class='image' src='../../images/friend.png'></image>
+        </view>
+        <view class='menu-text'>
+          <text>好友监督</text>
+        </view>
       </view>
-      <view class='menu-text'>
-        <text>好友监督</text>
-      </view>
+      <view class='menu-redpoint'></view>
     </view>
     <view class='menu-item' bindtap='navigatorToSign'>
-      <view class='menu-image'>
-        <image class='image' src='../../images/sign.png'></image>
+      <view class='menu-item-box'>
+        <view class='menu-image'>
+          <image class='image' src='../../images/sign.png'></image>
+        </view>
+        <view class='menu-text'>
+          <text>打 卡</text>
+        </view>
       </view>
-      <view class='menu-text'>
-        <text>打 卡</text>
-      </view>
+      <view class='menu-redpoint'></view>
     </view>
     <view class='menu-item' bindtap='navigatorToTimeMange'>
-      <view class='menu-image'>
-        <image class='image' src='../../images/overtime.png'></image>
+      <view class='menu-item-box'>
+        <view class='menu-image'>
+          <image class='image' src='../../images/overtime.png'></image>
+        </view>
+        <view class='menu-text'>
+          <text>时间管理</text>
+        </view>
       </view>
-      <view class='menu-text'>
-        <text>时间管理</text>
-      </view>
+      <view class='menu-redpoint'></view>
     </view>
   </view>
   <view class='menu-box'>
     <view class='menu-item' bindtap='navigatorToNotepad'>
-      <view class='menu-image'>
-        <image class='image' src='../../images/notepad.png'></image>
+      <view class='menu-item-box'>
+        <view class='menu-image'>
+          <image class='image' src='../../images/notepad.png'></image>
+        </view>
+        <view class='menu-text'>
+          <text>记事本</text>
+        </view>
       </view>
-      <view class='menu-text'>
-        <text>记事本</text>
-      </view>
+      <view class="menu-redpoint {{noteRemindCount>0?'menu-redpoint-active':''}}">{{noteRemindCount}}</view>
     </view>
     <view class='menu-item' bindtap='navigatorToStatistics'>
-      <view class='menu-image'>
-        <image class='image' src='../../images/statistics.png'></image>
+      <view class='menu-item-box'>
+        <view class='menu-image'>
+          <image class='image' src='../../images/statistics.png'></image>
+        </view>
+        <view class='menu-text'>
+          <text>统 计</text>
+        </view>
       </view>
-      <view class='menu-text'>
-        <text>统 计</text>
-      </view>
+      <view class='menu-redpoint'></view>
     </view>
     <view class='menu-item'>
       <!-- <view class='menu-image'>

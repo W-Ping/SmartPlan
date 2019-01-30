@@ -32,7 +32,9 @@ Page({
         value: [0, 0, 0],
         noteRemindHidden: true
     },
+    onShow:function(){
 
+    },
     submitNote: function (e) {
         var noteInfo = e.detail.value;
         if (!noteInfo.note_title) {
@@ -56,20 +58,6 @@ Page({
                 })
             }
         })
-        // var pages = getCurrentPages();
-        // var previousPage = pages[pages.length - 2];
-        // if (previousPage.route == "pages/notepad/notepad") {
-        //     previousPage.data.notpadList.unshift({
-        //         content: val.content,
-        //         title: val.title,
-        //         createDate: util.formatUnixTime(new Date(), 'Y年M月D日'),
-        //         id: Math.ceil(Math.random() * 100)
-        //     })
-        //     previousPage.setData({
-        //         notpadList: previousPage.data.notpadList
-        //     })
-        // }
-
     },
     switchRemindChange: function (e) {
         this.setData({
@@ -78,7 +66,6 @@ Page({
     },
     changeRemindTime: function (e) {
         var val = e.detail.value
-        console.log(val);
         var changeItem = {};
         var selectYear = this.data.years[val[0]];
         var selectMonth = this.data.months[val[1]];
@@ -112,7 +99,7 @@ Page({
             if (selectYear == date.getFullYear() && selectMonth == date.getMonth() + 1) {
                 startDate = date.getDate();
             }
-            for (var i = startDate; i <= util.getMonthDays(selectYear + '-' + selectMonth + '-01'); i++) {
+            for (var i = startDate; i <= util.getMonthDays(selectYear + '-' + (selectMonth+1) + '-01'); i++) {
                 days.push(i)
             }
             changeItem.days = days;

@@ -49,8 +49,8 @@ const formatUnixTime = (date, format) => {
         date = new Date(Date.parse(date.replace(/-/g, "/")));
     }
     format = format ? format : 'Y-M-D'
-    if (typeof date=='string' && date.constructor == String) {
-        date=new Date(date.replace(/-/g,"/"));
+    if (typeof date == 'string' && date.constructor == String) {
+        date = new Date(date.replace(/-/g, "/"));
     }
     var formatArr = ["Y", "M", "D", "h", "m", "s"];
     var returnArr = [];
@@ -100,10 +100,9 @@ function getMonthDays(date) {
     if (typeof date == 'string' && date.constructor == String) {
         date = new Date(Date.parse(date.replace(/-/g, "/")));
     }
-    date.setMonth(date.getMonth() + 1);
-    date.setDate(0);
-    var days = date.getDate();
-    return days;
+    date = new Date(date.getFullYear(), date.getMonth(), 0);
+    return date.getDate();
+
 }
 
 /**

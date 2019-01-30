@@ -6,6 +6,7 @@ App({
   onLaunch: function(options) {
     console.log("onLaunch options ", options);
     // var scene = decodeURIComponent(options.scene)
+
     var scene = options.scene;
     if (options && options.shareTicket) {
       wx.getShareInfo({
@@ -18,10 +19,7 @@ App({
         }
       })
     }
-    // wx.setTabBarBadge({
-    //   index: 2,
-    //   text: '1'
-    // })
+
     //设置登录路径
     qcloud.setLoginUrl(config.service.loginUrl);
     //获取手机信息
@@ -33,7 +31,14 @@ App({
         success: res => {
           this.globalData.userInfo = res;
           this.globalData.logged = true;
-          console.log("scene", scene)
+          request.getReq(config.service.getRemindNoteCount, "stat=1", result => {
+            if (result.code == 1 && result.data.rmCount && result.data.rmCount > 0) {
+              wx.setTabBarBadge({
+                index: 2,
+                text: result.data.rmCount+""
+              })
+            }
+          })
           if ("pages/friend/friend_bind" !== options.path) {
 
           }
@@ -51,6 +56,7 @@ App({
       }
     }
   },
+  onShow() {},
   globalData: {
     phoneInfo: {},
     userInfo: {},

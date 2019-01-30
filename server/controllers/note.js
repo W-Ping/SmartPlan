@@ -24,12 +24,18 @@ async function save(ctx, next) {
     })
 }
 
+/**
+ *  更新笔记
+ * @param ctx
+ * @param next
+ * @returns {Promise<void>}
+ */
 async function update(ctx, next) {
     let params = ctx.request.body;
     if (!params.id) throw new Error("id is null");
     let userInfo = ctx.state.$sysInfo.userinfo;
     let noteInfo = {};
-    await mysql(CNF.DB_TABLE.note_info).select("id").where({'id': params.id, 'uid': userInfo}).then(async res => {
+    await mysql(CNF.DB_TABLE.note_info).select("id").where({'id': params.id, 'uid': userInfo.uid}).then(async res => {
         if (res && res.length > 0) {
             if (params.status) {
                 noteInfo.status = params.status;
@@ -43,7 +49,7 @@ async function update(ctx, next) {
             if (params.note_content) {
                 noteInfo.note_content = params.note_content;
             }
-            noteInfo.update_time = nowTime;
+            noteInfo.update_time = util.nowTime();
             await mysql(CNF.DB_TABLE.note_info).update(noteInfo).where('id', params.id).then(res => {
                 SUCCESS(ctx, res);
             }).catch(e => {
@@ -83,6 +89,7 @@ async function query(ctx, next) {
     })
 }
 
+
 async function getRemindNoteList(ctx, next) {
     let userInfo = ctx.state.$sysInfo.userinfo;
     let nowDate = util.formatUnixTime(new Date(), 'Y-M-D');
@@ -100,17 +107,25 @@ async function getRemindNoteList(ctx, next) {
  * @returns {Promise<void>}
  */
 async function getRemindNoteCount(ctx, next) {
+    let {stat, dt} = ctx.query;
+    if (!stat) {
+        stat = 1;
+    }
     let userInfo = ctx.state.$sysInfo.userinfo;
-    await   mysql(CNF.DB_TABLE.note_info).count("id as rm_count").where({uid: userInfo.uid}).where({
+    if (!dt) {
+        dt = util.formatUnixTime(new Date(), 'Y-M-D') + " 23:59:59";
+    }
+    await   mysql(CNF.DB_TABLE.note_info).count("id as rmCount").where({
         uid: userInfo.uid,
-        status: 1
-    }).then(res => {
+        status: stat
+    }).andWhere('remind_time', '<=', dt).first().then(res => {
         SUCCESS(ctx, res);
     }).catch(e => {
         debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
         throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB}\n${e}`)
     })
 }
+
 
 /**
  *
