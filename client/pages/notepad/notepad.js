@@ -28,7 +28,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        util.showBusy("查询...")
+        // util.showBusy("查询...")
         request.postReq(config.service.getNoteInfoList, null, res => {
             if (res.code == 1) {
                 this.setData({
@@ -36,7 +36,7 @@ Page({
                 })
             }
         }, null, function () {
-            wx.hideToast();
+            // wx.hideToast();
         })
     },
 

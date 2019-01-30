@@ -3,7 +3,7 @@ const qcloud = require('../../vendor/wafer2-client-sdk/index')
 const config = require('../../config');
 const util = require('../../utils/util');
 const app = new getApp();
-const bk_image = ["https://lg-mpx16sx4-1256808148.cos.ap-shanghai.myqcloud.com/bd_0.jpg", "https://lg-mpx16sx4-1256808148.cos.ap-shanghai.myqcloud.com/share_0.jpg", "https://lg-mpx16sx4-1256808148.cos.ap-shanghai.myqcloud.com/bk_03.svg"]
+const bk_image = ["../../images/bk_0.jpg", "../../images/bk_1.jpg","../../images/bk_3.svg"]
 Page({
 
   /**
@@ -21,8 +21,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log("index page onLoad", this.data.logged)
-    var bkIndex = Math.floor(Math.random() * 3);
+    var bkIndex = Math.floor(Math.random() * bk_image.length);
     this.setData({
       imageUrl: bk_image[bkIndex],
     });
@@ -108,9 +107,8 @@ Page({
   },
   bindGetUserInfo: function() {
     if (this.data.logged) return;
-    util.showBusy('正在登录')
+    util.showBusy('进入...')
     const session = qcloud.Session.get()
-    console.log("登录信息【boot】", session)
     if (session) {
       qcloud.loginWithCode({
         success: res => {
@@ -120,7 +118,6 @@ Page({
             userInfo: res,
             logged: true
           })
-          util.showSuccess('登录成功');
           wx.reLaunch({
             url: config.default_page,
           })
@@ -168,7 +165,6 @@ Page({
       login: true,
       success(result) {
         util.showSuccess('请求成功完成')
-        console.log('request success', result)
         that.setData({
           requestResult: JSON.stringify(result.data)
         })

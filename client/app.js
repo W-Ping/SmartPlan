@@ -18,6 +18,10 @@ App({
         }
       })
     }
+    // wx.setTabBarBadge({
+    //   index: 2,
+    //   text: '1'
+    // })
     //设置登录路径
     qcloud.setLoginUrl(config.service.loginUrl);
     //获取手机信息

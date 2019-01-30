@@ -137,5 +137,5 @@ module.exports = {
     deleteNote,
     update,
     getRemindNoteCount,
-    getRemindNoteList
+    getRemindNoteList,
 }

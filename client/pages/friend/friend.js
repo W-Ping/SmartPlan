@@ -20,9 +20,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    wx.showShareMenu({
-      withShareTicket: true
-    })
     this.setData({
       userInfo: app.globalData.userInfo,
       windowHeight: app.globalData.phoneInfo.windowHeight
@@ -72,6 +69,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
+    console.log("onPullDownRefresh...")
     request.postReq(config.service.getRelationUserList, null, res => {
       console.log(res);
       if (res.code == 1) {
@@ -106,7 +104,7 @@ Page({
         // 转发成功
         console.log("转发成功", res);
         wx.showToast({
-          title: '分享成功',
+          title: '邀请成功',
         })
       },
       fail: function(res) {
