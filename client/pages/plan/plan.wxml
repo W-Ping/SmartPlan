@@ -7,13 +7,16 @@
       </view>
     </view> -->
     <view class='plan-box'>
-      <view class='circle-btn create' bindtap='navigatorToCreate'>
+      <!-- <view class='circle-btn create' bindtap='navigatorToCreate'>
         <text>新建</text>
+      </view> -->
+      <view class='circle-btn' bindtap='navigatorToCreate'>
+        <image class='add-image' src='../../images/add.png'></image>
       </view>
     </view>
   </view>
   <view class='plan-desc'>
-    <text>新建您最近七天的小目标</text>
+    <text>新建最近七天的小目标</text>
     <!-- <text space='ensp'>{{userInfo.nickName}} 你好！</text> -->
   </view>
   <view class='plan-desc'>
