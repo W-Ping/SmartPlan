@@ -72,7 +72,14 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    request.postReq(config.service.getRelationUserList, null, res => {
+      console.log(res);
+      if (res.code == 1) {
+        this.setData({
+          relationUserList: res.data,
+        })
+      }
+    })
   },
 
   /**

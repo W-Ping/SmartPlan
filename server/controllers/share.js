@@ -41,12 +41,10 @@ async function getShareInfoByUid(ctx, next) {
  * @returns {Promise<void>}
  */
 async function bindShareUser(ctx, next) {
-    let parmas = ctx.request.body;
+    let params = ctx.request.body;
     let userInfo = ctx.state.$sysInfo.userinfo;
-    console.log("绑定好友参数 ", parmas);
-    if (!parmas) throw new Error("bind user params is null");
-    console.log(parmas);
-    await userinfo.saveBindRelationUser(parmas.uid, parmas.relation_uid, userInfo).then(res => {
+    if (!params) throw new Error("bind user params is null");
+    await userinfo.saveBindRelationUser(params.uid, params.relation_uid, userInfo).then(res => {
         if (res && res.code == 1) {
             SUCCESS(ctx, res.msg);
         } else {

@@ -139,35 +139,31 @@ function getUserByOpenId(open_id) {
  * 保存或绑定好友信息
  * @param uid
  * @param relation_uid
- * @param updateInfo
+ * @param userInfo
  * @returns {*|Promise<any>|PromiseLike<T>|Promise<T>}
  */
-function saveBindRelationUser(uid, relation_uid, updateInfo) {
+function saveBindRelationUser(uid, relation_uid, userInfo) {
     let nowTime = util.nowTime();
-    return mysql(CNF.DB_TABLE.user_relation_info).select("id").where({
+    return mysql(CNF.DB_TABLE.user_relation_info).select('id', 'status').where({
         uid: uid,
         relation_uid: relation_uid
-    }).first().then(res => {
-        if (res && res.id) {
-            if (updateInfo) {
-                let up = {};
-                if (updateInfo.relation_lable) {
-                    up.relation_lable = updateInfo.relation_lable;
+    }).orWhere({'uid': relation_uid, 'relation_uid': uid}).then(res => {
+        if (res && res.length > 0) {
+            let idArr = [];
+            res.forEach(function (item, i) {
+                if (item.status == -1) {
+                    idArr.push(item.id);
                 }
-                if (updateInfo.relation_phone) {
-                    up.relation_phone = updateInfo.relation_lable;
-                }
-                up.status = 0
-                up.update_time = nowTime;
-                return mysql(CNF.DB_TABLE.user_relation_info).update(up).where('id', res.id).then(res => {
-                    return Promise.resolve({code: 1, msg: '用户关系更新成功'});
-                }).catch(e => {
-                    debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_UPDATE_TO_DB, e)
-                    throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_UPDATE_TO_DB}\n${e}`)
-                })
-            } else {
-                return Promise.resolve({code: 1, msg: '用户关系已经绑定'});
-            }
+            })
+            let up = {};
+            up.status = 0
+            up.update_time = nowTime;
+            return mysql(CNF.DB_TABLE.user_relation_info).update(up).whereIn('id', idArr).then(res => {
+                return Promise.resolve({code: 1, msg: '用户关系更新成功'});
+            }).catch(e => {
+                debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_UPDATE_TO_DB, e)
+                throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_UPDATE_TO_DB}\n${e}`)
+            })
         } else {
             return mysql(CNF.DB_TABLE.user_relation_info).select("id").first().where({
                 uid: relation_uid,
@@ -261,9 +257,21 @@ async function updateUserRelation(ctx, next) {
         updateInfo.status = params.status;
     }
     updateInfo.update_time = util.nowTime();
-    await mysql(CNF.DB_TABLE.user_relation_info).update(updateInfo).where({
-        uid: userInfo.uid,
-        relation_uid: relation_uid
+    await mysql(CNF.DB_TABLE.user_relation_info).update(updateInfo).where(function () {
+        if (updateInfo.status == -1) {
+            this.where({
+                uid: userInfo.uid,
+                relation_uid: relation_uid
+            }).orWhere({
+                relation_uid: userInfo.uid,
+                uid: relation_uid
+            })
+        } else {
+            this.where({
+                uid: userInfo.uid,
+                relation_uid: relation_uid
+            })
+        }
     }).then(res => {
         SUCCESS(ctx, res);
     }).catch(e => {

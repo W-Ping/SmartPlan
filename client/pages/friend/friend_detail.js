@@ -199,7 +199,6 @@ Page({
     deleteRealtionUser: function (e) {
       var friendInfo = this.data.friendInfo;
       var refUid = friendInfo.uid;
-      console.log(this.data.friendInfo);
         wx.showModal({
           title:'确定删除？',
           content: "您要将好友 '"+friendInfo.nickName+"' 删除",

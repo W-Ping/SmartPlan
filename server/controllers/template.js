@@ -64,7 +64,7 @@ function assembleData(res, formId, userInfo) {
     _jsonData.page = "pages/discovery/discovery";
     let status = res.status == 0 ? '未开始' : res.status == 1 ? '执行中' : '完成';
     let endTime = util.formatUnixTime(res.plan_end_time, 'Y年M月D日');
-    let title = userInfo.nickName + "不要忘记了你的目标哦~~"
+    let title = userInfo.nickName + " 不要忘记了你的目标哦~~"
     let data = {};
     data.keyword1 = {"value": res.plan_detail_name};
     data.keyword2 = {"value": status};
