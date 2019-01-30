@@ -27,6 +27,7 @@ App({
     const session = qcloud.Session.get();
     console.log("登录信息【onLaunch】session", session)
     if (session) {
+      this.globalData.userInfo = session.userinfo;
       qcloud.loginWithCode({
         success: res => {
           this.globalData.userInfo = res;

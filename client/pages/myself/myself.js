@@ -66,7 +66,11 @@ Page({
           item.end_time = util.formatUnixTime(item.end_time, "Y.M.D");
         })
         var result = {};
-        result['statPlanList'] = res.data;
+        var dd=[];
+        for(var i=0;i<10;i++){
+          dd.push(res.data);
+        }
+        result['statPlanList'] = dd;
         that.setData(result);
       }
     })

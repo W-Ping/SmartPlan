@@ -15,7 +15,7 @@ page {
   color: #fff;
   align-items: center;
   height: 80px;
-  z-index: 1;
+  position: fixed;
 }
 
 .avatar-box {
@@ -45,7 +45,7 @@ page {
   top: 80px;
   left: 0;
   right: 0;
-  padding: 2px;
+  /* padding: 2px; */
   font-size: 12px;
   font-weight: 500;
   margin: 0 auto;
@@ -54,6 +54,7 @@ page {
   align-items: center;
   justify-content: center;
   height: 160px;
+  position: fixed;
 }
 
 .menu-box {
@@ -115,4 +116,8 @@ page {
 
 .menu-redpoint-active {
   background: #f00;
+}
+
+.plan-contaner{
+  margin-top: 245px;
 }
