@@ -1,10 +1,11 @@
 <view class='step-today-box'>
+  <image class='containert-img' src='{{imageUrl}}' mode='aspectFill'></image>
   <view class='step-c' wx:if="{{authFlag}}">
     <view class='step-c-desc'>Today</view>
     <view class='step-c-item'>{{todayStepInfo.step}}</view>
   </view>
   <view wx:else>
-     <view class='step-auth' bindtap='openSetting'>点击授权</view>
+    <view class='step-auth' bindtap='openSetting'>点击授权</view>
   </view>
 </view>
 <scroll-view scroll-y class='step-history-box'>
@@ -12,6 +13,6 @@
     <view class='step-history-item'>
       <view>{{item.timestamp}}</view>
       <view>{{item.step}}</view>
-    </view> 
+    </view>
   </block>
 </scroll-view>
