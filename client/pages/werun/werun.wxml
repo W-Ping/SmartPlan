@@ -1,0 +1,17 @@
+<view class='step-today-box'>
+  <view class='step-c' wx:if="{{authFlag}}">
+    <view class='step-c-desc'>Today</view>
+    <view class='step-c-item'>{{todayStepInfo.step}}</view>
+  </view>
+  <view wx:else>
+     <view class='step-auth' bindtap='openSetting'>点击授权</view>
+  </view>
+</view>
+<scroll-view scroll-y class='step-history-box'>
+  <block wx:for="{{stepInfoList}}" wx:key="key">
+    <view class='step-history-item'>
+      <view>{{item.timestamp}}</view>
+      <view>{{item.step}}</view>
+    </view> 
+  </block>
+</scroll-view>

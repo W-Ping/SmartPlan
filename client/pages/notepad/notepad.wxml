@@ -1,6 +1,6 @@
 <!--client/pages/notepad/notepad.wxml-->
 <scroll-view scroll-y class='not-container'>
-  <block wx:for="{{notpadList}}" wx:for-index="index" wx:key="*this">
+  <block wx:for="{{notpadList}}" wx:for-index="index" wx:key="id">
     <view class='note-box' data-index='{{index}}' bindtap='openMsgModal'>
       <view class='note note-title'>
        <view>{{item.note_title}}</view>

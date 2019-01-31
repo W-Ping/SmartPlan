@@ -28,7 +28,8 @@
     "pages/timemange/timemange",
     "pages/timemange/timemange_edit",
     "pages/notepad/notepad_add",
-    "pages/plan/plan_info_list"
+    "pages/plan/plan_info_list",
+    "pages/werun/werun"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

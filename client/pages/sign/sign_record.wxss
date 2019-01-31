@@ -23,7 +23,7 @@
 }
 
 .clock-item-active {
-  font-weight: 700;
+  font-weight: 600;
   color: #fff;
   /* border-bottom:1px solid #fff;  */
 }

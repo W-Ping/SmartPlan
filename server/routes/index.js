@@ -84,6 +84,9 @@ router.get('/note/remind/count', controllers.note.getRemindNoteCount)
 router.get('/note/remind/query', controllers.note.getRemindNoteList)
 
 
+router.post('/werun/get', controllers.werun.getUserWeRunInfo)
+
+
 
 
 module.exports = router

@@ -7,9 +7,10 @@ const {SUCCESS, FAILED, CNF, ERRORS_BIZ} = require("./constants")
 
 function getShareInfo(ctx, next) {
     let {'x-wx-skey': skey} = ctx.req.headers
-    let condition = ctx.request.body;
-    let iv = condition.iv;
-    let encryptedData = condition.encryptedData;
+    let {iv, encryptedData} = ctx.request.body;
+    if ([iv, encryptedData, skey].every(v => !v)) {
+        throw new Error("参数错误")
+    }
     return AuthDbService.getUserInfoBySKey(skey).then(result => {
         if (result) {
             var pc = new WxCrypt(config.appId, result[0].session_key)

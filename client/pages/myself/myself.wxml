@@ -42,13 +42,13 @@
       </view>
       <view class='menu-redpoint'></view>
     </view>
-    <view class='menu-item' bindtap='navigatorToTimeMange'>
+    <view class='menu-item' bindtap='navigatorToWerun'>
       <view class='menu-item-box'>
         <view class='menu-image'>
           <image class='image' src='../../images/overtime.png'></image>
         </view>
         <view class='menu-text'>
-          <text>时间管理</text>
+          <text>运 动</text>
         </view>
       </view>
       <view class='menu-redpoint'></view>

@@ -155,4 +155,9 @@ Page({
       url: '../plan/plan_info_list?pNo=' + pno,
     })
   },
+  navigatorToWerun:function(e){
+    wx.navigateTo({
+      url: '../werun/werun'
+    })
+  },
 })
