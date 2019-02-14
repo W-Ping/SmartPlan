@@ -16,7 +16,7 @@ async function save(ctx, next) {
     noteInfo.note_content = params.note_content;
     noteInfo.remind_time = params.remind_time;
     noteInfo.status = params.status ? params.status : 0;
-    await mysql(CNF.DB_TABLE.note_info).insert(noteInfo).where('id', params.id).then(res => {
+    await mysql(CNF.DB_TABLE.note_record_info).insert(noteInfo).where('id', params.id).then(res => {
         SUCCESS(ctx, res);
     }).catch(e => {
         debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_INSERT_TO_DB, e)
@@ -35,7 +35,7 @@ async function update(ctx, next) {
     if (!params.id) throw new Error("id is null");
     let userInfo = ctx.state.$sysInfo.userinfo;
     let noteInfo = {};
-    await mysql(CNF.DB_TABLE.note_info).select("id").where({'id': params.id, 'uid': userInfo.uid}).then(async res => {
+    await mysql(CNF.DB_TABLE.note_record_info).select("id").where({'id': params.id, 'uid': userInfo.uid}).then(async res => {
         if (res && res.length > 0) {
             if (params.status) {
                 noteInfo.status = params.status;
@@ -50,7 +50,7 @@ async function update(ctx, next) {
                 noteInfo.note_content = params.note_content;
             }
             noteInfo.update_time = util.nowTime();
-            await mysql(CNF.DB_TABLE.note_info).update(noteInfo).where('id', params.id).then(res => {
+            await mysql(CNF.DB_TABLE.note_record_info).update(noteInfo).where('id', params.id).then(res => {
                 SUCCESS(ctx, res);
             }).catch(e => {
                 debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_UPDATE_TO_DB, e)
@@ -66,7 +66,7 @@ async function get(ctx, next) {
     let params = ctx.request.body;
     if (!params.id) throw new Error("id is null");
     let userInfo = ctx.state.$sysInfo.userinfo;
-    await  mysql(CNF.DB_TABLE.note_info).select("id").where({'id': params.id, 'uid': userInfo}).first().then(res => {
+    await  mysql(CNF.DB_TABLE.note_record_info).select("id").where({'id': params.id, 'uid': userInfo}).first().then(res => {
         SUCCESS(ctx, res);
     }).catch(e => {
         debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
@@ -81,7 +81,7 @@ async function query(ctx, next) {
     if (params && params.status) {
         condition.status = params.status;
     }
-    await   mysql(CNF.DB_TABLE.note_info).select("*").where(condition).orderByRaw("status desc,update_time desc").then(res => {
+    await   mysql(CNF.DB_TABLE.note_record_info).select("*").where(condition).orderByRaw("status desc,update_time desc").then(res => {
         SUCCESS(ctx, res);
     }).catch(e => {
         debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
@@ -94,7 +94,7 @@ async function getRemindNoteList(ctx, next) {
     let userInfo = ctx.state.$sysInfo.userinfo;
     let nowDate = util.formatUnixTime(new Date(), 'Y-M-D');
     let nextDate = util.nowDateAdd(1, nowDate);
-    await   mysql(CNF.DB_TABLE.note_info).select("*").where({uid: userInfo.uid}).whereBetween("remind_time", [nowDate, nextDate]).orderByRaw("update_time desc").then(res => {
+    await   mysql(CNF.DB_TABLE.note_record_info).select("*").where({uid: userInfo.uid}).whereBetween("remind_time", [nowDate, nextDate]).orderByRaw("update_time desc").then(res => {
         SUCCESS(ctx, res);
     }).catch(e => {
         debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
@@ -115,7 +115,7 @@ async function getRemindNoteCount(ctx, next) {
     if (!dt) {
         dt = util.formatUnixTime(new Date(), 'Y-M-D') + " 23:59:59";
     }
-    await   mysql(CNF.DB_TABLE.note_info).count("id as rmCount").where({
+    await   mysql(CNF.DB_TABLE.note_record_info).count("id as rmCount").where({
         uid: userInfo.uid,
         status: stat
     }).andWhere('remind_time', '<=', dt).first().then(res => {
@@ -137,7 +137,7 @@ async function deleteNote(ctx, nex) {
     let {id} = ctx.query;
     if (!id) throw new Error("id is null")
     let userInfo = ctx.state.$sysInfo.userinfo;
-    await mysql(CNF.DB_TABLE.note_info).del().where({id: id, uid: userInfo.uid}).then(res => {
+    await mysql(CNF.DB_TABLE.note_record_info).del().where({id: id, uid: userInfo.uid}).then(res => {
         SUCCESS(ctx, res);
     }).catch(e => {
         debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_DELETED_TO_DB, e)

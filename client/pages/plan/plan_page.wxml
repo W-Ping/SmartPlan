@@ -13,7 +13,7 @@
 <scroll-view scroll-y class='dis-content'>
   <view hidden="{{activeIndex != 0}}">
     <block wx:for="{{todoPlanInfoList}}" wx:for-item="item" wx:for-index="index" wx:key="key">
-      <template is="{{templateType==1?'follow-plan':'todo-plan'}}" data="{{...item,index}}" />
+      <template is="{{query_type==1?'follow-plan':'todo-plan'}}" data="{{...item,index}}" />
     </block>
     <view hidden='{{todoPlanInfoList && todoPlanInfoList.length>0}}' class="data-none-warn">
       <text>没有待办的目标~~~</text>
@@ -21,7 +21,7 @@
   </view>
   <view hidden="{{activeIndex != 1}}">
     <block wx:for="{{doingPlanInfoList}}" wx:for-item="item" wx:for-index="index" wx:key="key">
-      <template is="{{templateType==1?'follow-doing-plan':'doing-plan'}}" data="{{...item,index}}" />
+      <template is="{{query_type==1?'follow-doing-plan':'doing-plan'}}" data="{{...item,index}}" />
     </block>
     <view hidden='{{doingPlanInfoList && doingPlanInfoList.length>0}}' class="data-none-warn">
       <text>没有进行中的目标~~~</text>

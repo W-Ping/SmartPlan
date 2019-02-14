@@ -98,7 +98,7 @@ Page({
       var followUidList = [];
       selectedList.forEach(function(v, i) {
         followNames += (v.nickName + ",");
-        followUidList.push(v.uid);
+        followUidList.push(v.relation_uid);
       })
       var pages = getCurrentPages();
       var previousPage = pages[pages.length - 2];

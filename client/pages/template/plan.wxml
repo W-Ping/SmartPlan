@@ -119,7 +119,6 @@
         </view>
       </view>
     </picker>
-    <navigator></navigator>
     <view class='p-item' bindtap='navigatorToFollow'>
       <view class='p-desc'>好友监督</view>
       <view class="p-value {{followNames?'':'p-follow-desc'}}">{{followNames?followNames:'添加好友监督目标(最多3个)'}}</view>
@@ -197,7 +196,7 @@
         <text>{{creator_name}}</text>
       </view>
     </view>
-    <view class='follow-plan-remind'>
+    <view class='follow-plan-remind' hidden='{{!remindPermit}}'>
       <form bind:submit="remindPlanToFriend" data-status='{{status}}' data-pdno='{{plan_detail_no}}' report-submit>
         <button class='remindBtn' formType="submit">
           <text>提 醒</text>

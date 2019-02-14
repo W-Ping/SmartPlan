@@ -6,7 +6,6 @@ const {getUserByOpenId} = require('../controllers/userinfo')
  */
 module.exports = async function (ctx, next) {
     try {
-        console.log(ctx)
         // 调用下一个 middleware
         const {'x-wx-skey': skey} = ctx.req.headers
         if (skey !== null && skey !== undefined) {

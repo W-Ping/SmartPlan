@@ -15,11 +15,20 @@ async function query(ctx, next) {
     let auth_type = [0, 1];
     if (condition && condition.auth_type) {
         auth_type = condition.auth_type;
-        delete condition.auth_type;
     }
-    await mysql(CNF.DB_TABLE.plan_detail_info).select('*').whereIn('auth_type', auth_type).andWhere(function () {
-        if (condition) {
-            this.where(condition)
+    if (!condition.plan_no) {
+        throw new Error("condition plan_no is null");
+    }
+    if (condition.status === undefined || condition.status === '') {
+        throw new Error("condition status is null");
+    }
+    let userInfo = ctx.state.$sysInfo.userinfo;
+    await mysql(CNF.DB_TABLE.plan_detail_info).select('pdi.*', 'puf.id as remindPermit').joinRaw(" as pdi left join (select id,friend_uid,friend_name,plan_detail_no as pdno from " + CNF.DB_TABLE.plan_user_ref_info + " where status=0 and friend_uid='" + userInfo.uid + "') as puf on puf.pdno=pdi.plan_detail_no").whereIn('auth_type', auth_type).andWhere({
+        'pdi.status': condition.status,
+        'pdi.plan_no': condition.plan_no
+    }).andWhere(function () {
+        if (condition.query_type && condition.query_type != 1) {
+            this.where('creator_uid', userInfo.uid)
         }
     }).orderByRaw('priority desc').then(res => {
         SUCCESS(ctx, res);

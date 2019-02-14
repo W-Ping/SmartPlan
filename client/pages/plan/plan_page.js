@@ -21,7 +21,7 @@ Page({
         todoPlanInfoList: [],
         doingPlanInfoList: [],
         donePlanInfoList: [],
-        templateType: 0,
+        query_type: 0,//0：我的；1：好友
     },
 
     /**
@@ -29,7 +29,7 @@ Page({
      */
     onLoad: function (options) {
         var planNo = options.pNo;
-        var tp = options.tp;
+        var query_type = options.tp;
         var phoneInfo = app.globalData.phoneInfo;
         if (!phoneInfo) {
             wx.getSystemInfo({
@@ -39,20 +39,15 @@ Page({
                 }
             });
         }
-        let auth_type = [0, 1];
-        //好友查询
-        if (tp == 1) {
-            auth_type = [0];
-        }
-        this.queryPlanDetailInfo("doingPlanInfoList", planNo, 1, auth_type);
         this.setData({
-            templateType: tp,
+            query_type: query_type,
             planNo: planNo,
             sliderLeft: (phoneInfo.windowWidth / this.data.tabs.length - sliderWidth) / 2,
             sliderOffset: phoneInfo.windowWidth / this.data.tabs.length * this.data.activeIndex
         });
+        this.queryPlanDetailInfo("doingPlanInfoList", planNo, 1, query_type);
         wx.setNavigationBarTitle({
-            title: tp == 0 ? '我的小目标' : '好友的小目标',
+            title: query_type == 0 ? '我的小目标' : '好友的小目标',
         })
 
     },
@@ -104,24 +99,27 @@ Page({
             sliderOffset: e.currentTarget.offsetLeft,
             activeIndex: id
         });
-        let auth_type = [0, 1];
-        //好友查询
-        if (this.data.templateType == 1) {
-            auth_type = [0];
-        }
         if (id == 0) {
-            this.queryPlanDetailInfo("todoPlanInfoList", this.data.planNo, 0, auth_type)
+            this.queryPlanDetailInfo("todoPlanInfoList", this.data.planNo, 0, this.data.query_type)
         } else if (id == 1) {
-            this.queryPlanDetailInfo("doingPlanInfoList", this.data.planNo, 1, auth_type);
+            this.queryPlanDetailInfo("doingPlanInfoList", this.data.planNo, 1, this.data.query_type);
         } else if (id == 2) {
-            this.queryPlanDetailInfo("donePlanInfoList", this.data.planNo, 2, auth_type);
+            this.queryPlanDetailInfo("donePlanInfoList", this.data.planNo, 2, this.data.query_type);
         }
     },
-    queryPlanDetailInfo: function (queryType, plan_no, status, auth_type) {
+    queryPlanDetailInfo: function (queryType, plan_no, status, query_type, auth_type) {
+        if (!auth_type) {
+            if (query_type == 1) {
+                auth_type = [0];
+            } else {
+                auth_type = [0, 1];
+            }
+        }
         request.postReq(config.service.queryPlanDetailInfo, {
             status: status,
             plan_no: plan_no,
-            auth_type: auth_type
+            auth_type: auth_type,
+            query_type: query_type
         }, res => {
             if (res.code == 1 && res.data) {
                 res.data.forEach(function (item, i) {
@@ -129,7 +127,6 @@ Page({
                     item.plan_end_time = util.formatUnixTime(item.plan_end_time, "Y.M.D");
                     item.isTouchMove = false;
                 })
-                // return res.data;
                 var result = {};
                 result[queryType] = res.data;
                 this.data[queryType] = res.data;

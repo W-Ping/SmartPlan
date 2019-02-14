@@ -86,7 +86,7 @@ router.get('/note/remind/query', controllers.note.getRemindNoteList)
 
 router.post('/werun/get', controllers.werun.getUserWeRunInfo)
 
-
+router.post('/formid/collect', controllers.formid.saveOrUpdate)
 
 
 module.exports = router
