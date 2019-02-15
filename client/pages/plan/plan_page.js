@@ -308,9 +308,9 @@ Page({
       'status': status,
     }, res => {
       if (res.code == 1) {
-        util.showSuccess("提醒成功！");
+        util.showSuccess(res.data);
       } else {
-        util.showNone("提醒失败！");
+        util.showNone(res.data);
       }
     })
   }

@@ -14,6 +14,7 @@ CNF = {
         'clock_record_info': 'clock_record_info',
         'note_record_info': 'note_record_info',
         'user_formid_info': 'user_formid_info',
+        'notify_record_info': 'notify_record_info',
     },
     OPT_STATE: {
         SUCCESS_CODE: 1,

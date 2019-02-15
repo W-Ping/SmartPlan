@@ -1,6 +1,7 @@
-const wxcode = require('./wxcode')
-const plan = require('./plan')
-const formId = require('./formid')
+const WXCode = require('./wxcode')
+const Plan = require('./plan')
+const FormId = require('./formid')
+const Notify = require('./notify')
 const {WX_API, MESSAGE_TEMP} = require('../wxapi')
 const {SUCCESS, FAILED, CNF, ERRORS_BIZ} = require("./constants")
 const https = require('https');
@@ -20,27 +21,42 @@ async function notifyRemindTemplate(ctx, next) {
         throw new Error("notify params is error")
     }
     let userInfo = ctx.state.$sysInfo.userinfo;
-    await formId.getFormIdByUid(uid).then(async formIdInfo => {
-        console.log("formIdInfo", formIdInfo)
-        if (formIdInfo && formIdInfo.formId && formIdInfo.openId) {
-            await wxcode.getAccessToken(async accessToken => {
-                await  http_request(url.parse(WX_API.getMessageTemplate + "?access_token=" + accessToken), {
-                    "offset": 0,
-                    "count": 5
-                }).then(async res => {
-                    await  plan.getNotifyPlan(pdNo, status).then(async res => {
-                        await http_request(url.parse(WX_API.sendMessageTemplate + "?access_token=" + accessToken), assembleRemindTemplateData(res, formIdInfo, userInfo)).then(res => {
-                            if (!res.response.errcode || res.response.errcode == 0) {
-                                SUCCESS(ctx, res);
-                            } else {
-                                FAILED(ctx, res.response.errmsg);
-                            }
+    await Notify.getNotifyRecordCountByUid(uid, pdNo).then(async notify => {
+        console.log("notify", notify)
+        if (notify.count == 0) {
+            await  FormId.getFormIdByUid(uid).then(async formIdInfo => {
+                if (formIdInfo && formIdInfo.formId && formIdInfo.openId) {
+                    await WXCode.getAccessToken(async accessToken => {
+                        await  http_request(url.parse(WX_API.getMessageTemplate + "?access_token=" + accessToken), {
+                            "offset": 0,
+                            "count": 5
+                        }).then(async res => {
+                            await  Plan.getNotifyPlan(pdNo, status).then(async res => {
+                                await http_request(url.parse(WX_API.sendMessageTemplate + "?access_token=" + accessToken), assembleRemindTemplateData(res, formIdInfo, userInfo)).then(async res => {
+                                    if (!res.response.errcode || res.response.errcode == 0) {
+                                        await FormId.delFormIdByFromId(formIdInfo)
+                                        await  Notify.saveNotifyRecord({
+                                            bizNo: pdNo,
+                                            bizType: 0,
+                                            openId: formIdInfo.openId,
+                                            uid: formIdInfo.uid,
+                                            creator_uid: userInfo.uid,
+                                            notify_type: 0,
+                                        });
+                                        SUCCESS(ctx, "提醒成功");
+                                    } else {
+                                        FAILED(ctx, "提醒失败");
+                                    }
+                                })
+                            })
                         })
                     })
-                })
+                } else {
+                    FAILED(ctx, "提醒不可用");
+                }
             })
         } else {
-            FAILED(ctx, "user formId is empty");
+            FAILED(ctx, "已经提醒过了");
         }
     })
 }
@@ -57,6 +73,7 @@ async function notifyUserTemplate(ctx, next) {
                 await http_request(url.parse(WX_API.sendMessageTemplate + "?access_token=" + accessToken), assembleRemindTemplateData(res, formId, userInfo)).then(res => {
                     if (!res.response.errcode || res.response.errcode == 0) {
                         SUCCESS(ctx, res);
+
                     } else {
                         FAILED(ctx, res.response.errmsg);
                     }
@@ -80,8 +97,6 @@ function http_request(url, post_data) {
     };
     return new Promise((resolve, reject) => {
         request(options, (err, res, body) => {
-            console.log("err===>", err);
-            console.log("body", body);
             resolve({response: body, error: err});
         })
     });
@@ -95,7 +110,7 @@ function assembleRemindTemplateData(res, formIdInfo, userInfo) {
     _jsonData.page = "pages/discovery/discovery";
     let status = res.status == 0 ? '未开始' : res.status == 1 ? '执行中' : '完成';
     let endTime = util.formatUnixTime(res.plan_end_time, 'Y年M月D日');
-    let title = userInfo.nickName + " 提醒您不要忘记了您的小目标哦~~"
+    let title = userInfo.nickName + "提醒您不要忘记了您的小目标哦~~"
     let data = {};
     data.keyword1 = {"value": res.plan_detail_name};
     data.keyword2 = {"value": status};
@@ -104,7 +119,6 @@ function assembleRemindTemplateData(res, formIdInfo, userInfo) {
     data.keyword5 = {"value": title};
     _jsonData.data = data;
     _jsonData.emphasis_keyword = "keyword1.DATA";
-    console.log("assembleData", _jsonData)
     return _jsonData;
 
 }

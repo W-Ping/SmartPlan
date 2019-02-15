@@ -62,4 +62,24 @@ function getFormIdByUid(uid) {
     })
 }
 
-module.exports = {saveOrUpdate, getFormIdByUid}
+/**
+ *
+ * @param formIdInfo
+ * @returns {Promise<any>}
+ */
+function delFormIdByFromId(formIdInfo) {
+    if (!formIdInfo || !formIdInfo.formId || !formIdInfo.openId) {
+        throw new Error("delete formId is error");
+    }
+    return mysql(CNF.DB_TABLE.user_formid_info).del().where({
+        'formId': formIdInfo.formId,
+        'openId': formIdInfo.openId
+    }).then(res => {
+        return Promise.resolve(1);
+    }).catch(e => {
+        debug('%s: %O', ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB, e)
+        throw new Error(`${ERRORS_BIZ.DBERR.BIZ_ERR_WHEN_SELECT_TO_DB}\n${e}`)
+    })
+}
+
+module.exports = {saveOrUpdate, getFormIdByUid, delFormIdByFromId}
