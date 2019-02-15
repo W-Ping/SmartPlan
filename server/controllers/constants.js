@@ -24,6 +24,7 @@ CNF = {
     UID_PREFIX: "U",
     PLAN_PREFIX: "P",
     PLAN_DETAIL_PREFIX: "PD",
+    REMIND_MAX_COUNT: 6,
 
 },
     ERRORS_BIZ = {

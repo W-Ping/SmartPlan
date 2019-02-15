@@ -97,7 +97,10 @@ Page({
         planDetailInfo.followUidList = this.data.followUidList;
         request.postReq(config.service.savePlanDetailInfo, planDetailInfo, res => {
             if (res.code == 1) {
-                request.postReq(config.service.collectFromid, {formId}, res => {
+                request.postReq(config.service.collectFromid, {
+                    formId: formId,
+                    last_refresh_time: util.nowTime()
+                }, res => {
                     if (res.code !== 1) {
                         console.error("记录用户formId失败");
                     }
