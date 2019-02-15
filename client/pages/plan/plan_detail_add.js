@@ -92,9 +92,16 @@ Page({
             util.showNone("请输入目标内容");
             return
         }
+        var formId = e.detail.formId;
+        console.log("formId", formId);
         planDetailInfo.followUidList = this.data.followUidList;
         request.postReq(config.service.savePlanDetailInfo, planDetailInfo, res => {
             if (res.code == 1) {
+                request.postReq(config.service.collectFromid, {formId}, res => {
+                    if (res.code !== 1) {
+                        console.error("记录用户formId失败");
+                    }
+                })
                 wx.navigateTo({
                     url: 'plan_info?pNo=' + res.data.plan_no,
                 })

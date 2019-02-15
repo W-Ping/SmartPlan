@@ -87,12 +87,19 @@ Page({
     submitEditPlanInfo: function (e) {
         var planDetailInfo = e.detail.value;
         if (!planDetailInfo.plan_detail_name) {
-          util.showNone("请输入目标内容");
+            util.showNone("请输入目标内容");
             return
         }
+        var formId = e.detail.formId;
+        console.log("formId", formId);
         planDetailInfo.followUidList = this.data.followUidList;
         request.postReq(config.service.savePlanDetailInfo, planDetailInfo, res => {
             if (res.code == 1) {
+                request.postReq(config.service.collectFromid, {formId}, res => {
+                    if (res.code !== 1) {
+                        console.error("记录用户formId失败");
+                    }
+                })
                 var pages = getCurrentPages();
                 var prevPage = pages[pages.length - 2];
                 if (this.data.index != -1 && "pages/plan/plan_page" == prevPage.__route__) {

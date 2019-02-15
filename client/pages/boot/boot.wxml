@@ -1,12 +1,14 @@
 <view class='container'>
   <image class='containert-img' src='{{imageUrl}}' mode='aspectFill'></image>
   <view wx:if="{{authUserFlag}}">
-    <button open-type="getUserInfo" class='opt-btn' lang="zh_CN" bindgetuserinfo="loginGotUserInfo">
-      <text class='journey'>进入小程序</text>
-    </button>
+    <form bindsubmit="loginGotUserInfo" report-submit>
+      <button open-type="getUserInfo" class='opt-btn' form-type='submit' lang="zh_CN">
+        <text class='journey'>进入小程序</text>
+      </button>
+    </form>
   </view>
   <view wx:else>
-    <button class='opt-btn un'  bindtap="openSetting">
+    <button class='opt-btn un' bindtap="openSetting">
       <text class='journey'>授权登录</text>
     </button>
   </view>

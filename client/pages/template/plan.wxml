@@ -197,7 +197,7 @@
       </view>
     </view>
     <view class='follow-plan-remind' hidden='{{!remindPermit}}'>
-      <form bind:submit="remindPlanToFriend" data-status='{{status}}' data-pdno='{{plan_detail_no}}' report-submit>
+      <form bind:submit="remindPlanToFriend" data-status='{{status}}' data-pdno='{{plan_detail_no}}' data-uid='{{creator_uid}}' report-submit>
         <button class='remindBtn' formType="submit">
           <text>提 醒</text>
         </button>
@@ -219,7 +219,7 @@
       </view>
     </view>
     <view class='follow-plan-remind'>
-      <form bind:submit="remindPlanToFriend" data-status='{{status}}' data-pdno='{{plan_detail_no}}' report-submit>
+      <form bind:submit="remindPlanToFriend" data-status='{{status}}' data-pdno='{{plan_detail_no}}' data-uid='{{creator_uid}}' report-submit>
         <button class='remindBtn' formType="submit">
           <text>提 醒</text>
         </button>

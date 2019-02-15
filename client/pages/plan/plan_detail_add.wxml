@@ -1,5 +1,5 @@
 <!--新增目标-->
-<form bindsubmit="submitPlanInfo">
+<form bindsubmit="submitPlanInfo" report-submit>
   <import src="../template/plan.wxml" />
   <template is="plan-edit" data="{{...planDetailInfo,followNames,roleOpen,roleItems,planStartTime,planEndTime,minTime,maxTime}}" />
   <view class='save-task-btn'>
