@@ -13,7 +13,7 @@ async function getUserWeRunInfo(ctx, next) {
         if (result) {
             var pc = new WxCrypt(config.appId, result[0].session_key)
             var data = pc.decryptData(encryptedData, iv)
-            console.log('解密后 data: ', data)
+            // console.log('解密后 data: ', data)
             SUCCESS(ctx, data);
         }
 
