@@ -10,7 +10,8 @@ Page({
     authFlag: true,
     todayStepInfo: {},
     stepInfoList: [],
-    imageUrl:'../../images/sun.png'
+    imageUrl:''
+    // imageUrl:'../../images/sun.png'
   },
 
   /**

@@ -57,6 +57,12 @@
         "text": "目标"
       },
       {
+        "pagePath": "pages/sign/sign",
+        "iconPath": "images/sign_logo.png",
+        "selectedIconPath": "images/sign_logo_bk.png",
+        "text": "打卡"
+      },
+      {
         "pagePath": "pages/myself/myself",
         "iconPath": "images/my.png",
         "selectedIconPath": "images/my_bk.png",

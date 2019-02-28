@@ -208,10 +208,10 @@
 <!-- 好友进行中目标 -->
 <template name="follow-doing-plan">
   <view class='follow-plan-box'>
-    <view class='follow-plan-progress'>
+    <view class='follow-plan-progress' data-pdno='{{plan_detail_no}}' bindtap='navigatorToDetail'>
       <text>{{progress}}%</text>
     </view>
-    <view class='follow-plan-content'>
+    <view class='follow-plan-content' data-pdno='{{plan_detail_no}}' bindtap='navigatorToDetail'>
       <view class='follow-plan-title'>{{plan_detail_name}}</view>
       <view class='follow-creator'>
         <image class='follow-creator-avatar' src='{{avatarUrl}}'></image>

@@ -4,18 +4,18 @@
     <image bindtap='previewImage' class="my-avatar" src="{{userInfo.avatarUrl?userInfo.avatarUrl:'../../images/default_avatar.png'}}" mode="cover"></image>
   </view>
   <view class='info-box'>
-    <navigator url="../index/index">
+    <!-- <navigator url="../index/index"> -->
       <view>
         <text>{{userInfo.nickName}}</text>
       </view>
-    </navigator>
+    <!-- </navigator> -->
     <view>
       <text style='font-size:13px;color:#fff;'>编号：{{userInfo.uid}}</text>
     </view>
   </view>
-  <view class='setting-box' bindtap='navigatorToSetting' data-uid='{{userinfo.uid}}'>
-    <text>编辑</text>
-    <text space="nbsp"> ></text>
+  <view class='setting-box'>
+    <!-- <text>编辑</text>
+    <text space="nbsp"> ></text> -->
   </view>
 </view>
 <view class='menu-continar'>
@@ -26,12 +26,12 @@
           <image class='image' src='../../images/friend.png'></image>
         </view>
         <view class='menu-text'>
-          <text>好友监督</text>
+          <text>好 友</text>
         </view>
       </view>
       <view class='menu-redpoint'></view>
     </view>
-    <view class='menu-item' bindtap='navigatorToSign'>
+    <!-- <view class='menu-item' bindtap='navigatorToSign'>
       <view class='menu-item-box'>
         <view class='menu-image'>
           <image class='image' src='../../images/sign.png'></image>
@@ -41,6 +41,17 @@
         </view>
       </view>
       <view class='menu-redpoint'></view>
+    </view> -->
+    <view class='menu-item' bindtap='navigatorToNotepad'>
+      <view class='menu-item-box'>
+        <view class='menu-image'>
+          <image class='image' src='../../images/notepad.png'></image>
+        </view>
+        <view class='menu-text'>
+          <text>记事本</text>
+        </view>
+      </view>
+      <view class="menu-redpoint {{noteRemindCount>0?'menu-redpoint-active':''}}">{{noteRemindCount}}</view>
     </view>
     <view class='menu-item' bindtap='navigatorToWerun'>
       <view class='menu-item-box'>
@@ -55,17 +66,6 @@
     </view>
   </view>
   <view class='menu-box'>
-    <view class='menu-item' bindtap='navigatorToNotepad'>
-      <view class='menu-item-box'>
-        <view class='menu-image'>
-          <image class='image' src='../../images/notepad.png'></image>
-        </view>
-        <view class='menu-text'>
-          <text>记事本</text>
-        </view>
-      </view>
-      <view class="menu-redpoint {{noteRemindCount>0?'menu-redpoint-active':''}}">{{noteRemindCount}}</view>
-    </view>
     <view class='menu-item' bindtap='navigatorToStatistics'>
       <view class='menu-item-box'>
         <view class='menu-image'>
@@ -76,6 +76,17 @@
         </view>
       </view>
       <view class='menu-redpoint'></view>
+    </view>
+    <view class='menu-item' bindtap='navigatorToSetting' data-uid='{{userinfo.uid}}'>
+      <view class='menu-item-box'>
+        <view class='menu-image'>
+          <image class='image' src='../../images/setting_logo.png'></image>
+        </view>
+        <view class='menu-text'>
+          <text>设 置</text>
+        </view>
+      </view>
+      <view class="menu-redpoint {{noteRemindCount>0?'menu-redpoint-active':''}}">{{noteRemindCount}}</view>
     </view>
     <view class='menu-item'>
       <!-- <view class='menu-image'>
