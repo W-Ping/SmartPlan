@@ -52,11 +52,11 @@ const CONF = {
 
   serverHost: "https://taflgi5t.qcloud.la",
   tunnelServerUrl: "https://taflgi5t.qcloud.la",
-  tunnelSignatureKey: "27fb7d1c161b7ca52d73cce0f1d833f9f5b5ec89",
+  // tunnelSignatureKey: "27fb7d1c161b7ca52d73cce0f1d833f9f5b5ec89",
   // 腾讯云相关配置可以查看云 API 秘钥控制台：https://console.cloud.tencent.com/capi
-  qcloudAppId: "1256808148",
-  qcloudSecretId: "AKIDLrGkTUPHkSo4EIGymRxRp38T2TlsqZAb",
-  qcloudSecretKey: "ymRvMenkWxKXZRDpJbmphRzN5c1GKDvS",
+  // qcloudAppId: "1256808148",
+  // qcloudSecretId: "AKIDLrGkTUPHkSo4EIGymRxRp38T2TlsqZAb",
+  // qcloudSecretKey: "ymRvMenkWxKXZRDpJbmphRzN5c1GKDvS",
   // 微信登录态有效期
   wxLoginExpires: 7200,
   wxMessageToken: 'abcdefgh'
