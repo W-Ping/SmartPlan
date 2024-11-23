@@ -1,5 +1,3 @@
-# 腾讯云小程序解决方案 Demo - Node.js
-
 Node.js 版本 Wafer SDK 的服务端 Demo
 
 ## 下载源码
